@@ -4,6 +4,9 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 import { Button } from "@jordiorriols/ui";
 import AppLayout from "./components/AppLayout";
+import { EntryGate } from "./components/EntryGate";
+import { PasswordResetDialog } from "./components/PasswordResetDialog";
+import { DataProvider } from "./data/DataProvider";
 import { SECTIONS } from "./sections";
 import SectionPage from "./pages/SectionPage";
 
@@ -22,18 +25,23 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 export default function App() {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <Routes>
-        <Route element={<AppLayout />}>
-          {SECTIONS.map((section) => (
-            <Route
-              key={section.id}
-              path={section.path}
-              element={<SectionPage section={section} />}
-            />
-          ))}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Route>
-      </Routes>
+      <DataProvider>
+        <PasswordResetDialog />
+        <EntryGate>
+          <Routes>
+            <Route element={<AppLayout />}>
+              {SECTIONS.map((section) => (
+                <Route
+                  key={section.id}
+                  path={section.path}
+                  element={<SectionPage section={section} />}
+                />
+              ))}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Route>
+          </Routes>
+        </EntryGate>
+      </DataProvider>
     </ErrorBoundary>
   );
 }

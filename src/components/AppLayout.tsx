@@ -10,12 +10,16 @@ import {
   LanguageSelector,
   PROJECTS,
 } from "@jordiorriols/ui";
+import { useAsyncAction } from "@jordiorriols/ui/hooks";
+import { useData } from "@/data/DataProvider";
 import { SECTIONS } from "@/sections";
 
 const AppIcon = PROJECTS.find((project) => project.id === "pulse")!.icon;
 
 export default function AppLayout() {
   const { t, i18n } = useTranslation();
+  const { signOut, user } = useData();
+  const action = useAsyncAction();
 
   return (
     <AppPage>
@@ -33,6 +37,13 @@ export default function AppLayout() {
             onValueChange={(language) => void i18n.changeLanguage(language)}
           />
         }
+        accountAction={{
+          type: "signOut",
+          label: t("auth.signOut"),
+          title: user?.email ?? "",
+          disabled: action.busy,
+          onClick: () => void action.run(signOut),
+        }}
         navigation={
           <AppNavigation label={t("app.pages")}>
             {SECTIONS.map(({ id, path, icon: Icon }) => (
@@ -47,6 +58,11 @@ export default function AppLayout() {
         }
       />
       <AppMain>
+        {action.error && (
+          <p role="alert" className="text-destructive">
+            {action.error}
+          </p>
+        )}
         <Outlet />
       </AppMain>
     </AppPage>

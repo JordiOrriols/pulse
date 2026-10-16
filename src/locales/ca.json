@@ -10,7 +10,8 @@
     },
     "actions": {
       "tryAgain": "Torna-ho a provar"
-    }
+    },
+    "loading": "Carregant Pulse"
   },
   "sections": {
     "overview": {
@@ -39,6 +40,40 @@
     }
   },
   "auth": {
-    "notConfigured": "L'inici de sessió no està configurat en aquesta versió."
+    "signIn": "Iniciar sessió",
+    "signUp": "Crear compte",
+    "signOut": "Tancar sessió",
+    "signInTitle": "Iniciar sessió",
+    "signUpTitle": "Crear un compte",
+    "description": "Fes servir el mateix compte que a Planner i Ladders per veure els espais de treball del teu equip.",
+    "email": "Email",
+    "password": "Contrasenya",
+    "continueWithGitHub": "Continuar amb GitHub",
+    "forgotPassword": "Heu oblidat la contrasenya?",
+    "forgotPasswordTitle": "Restablir la contrasenya",
+    "forgotPasswordDescription": "Introduïu el vostre email i us enviarem un enllaç segur per restablir-la.",
+    "sendResetEmail": "Enviar email de recuperació",
+    "passwordResetSent": "Reviseu el vostre email per continuar amb el canvi de contrasenya.",
+    "backToSignIn": "Tornar a iniciar sessió",
+    "resetPasswordTitle": "Establir una contrasenya nova",
+    "resetPasswordDescription": "Trieu una contrasenya nova de com a mínim 8 caràcters.",
+    "newPassword": "Contrasenya nova",
+    "confirmPassword": "Confirmar contrasenya",
+    "updatePassword": "Actualitzar contrasenya",
+    "passwordTooShort": "La contrasenya ha de tenir com a mínim 8 caràcters.",
+    "passwordsDoNotMatch": "Les contrasenyes no coincideixen.",
+    "checkEmail": "Reviseu el vostre email per confirmar el compte.",
+    "switchToSignUp": "No teniu compte? Creeu-ne un",
+    "switchToSignIn": "Ja teniu compte? Inicieu sessió",
+    "notConfigured": "L'inici de sessió no està configurat en aquesta versió.",
+    "cancel": "Cancel·la"
+  },
+  "welcome": {
+    "title": "Pren el pols al teu equip.",
+    "description": "Llança enquestes ràpides de salut i retrospectives, i segueix les accions que en surten.",
+    "surveys": "Enquestes recurrents a l'equip",
+    "retros": "Retrospectives col·laboratives",
+    "actions": "Accions seguides fins al final",
+    "authUnavailable": "Configura VITE_SUPABASE_URL i VITE_SUPABASE_PUBLISHABLE_KEY per iniciar sessió. Pulse no desa dades localment."
   }
 }

@@ -10,9 +10,18 @@ React 18, Vite, Tailwind 4, i18next (en, es, ca, fr, de, it) and the shared
 
 ## Status
 
-Scaffold only. The four sections (Overview, Team Pulse, Retrospectives,
-Actions) are empty placeholders. Sign-in, shared workspaces and the data model
-come in later steps.
+The four sections (Overview, Team Pulse, Retrospectives, Actions) are still
+empty placeholders; the data model comes in later steps.
+
+## Sign-in
+
+Pulse uses the same Supabase project and accounts as Planner and Ladders.
+Signed-out visitors see the shared `WelcomeScreen`; sign in, sign up, GitHub,
+password reset and sign out come from `@jordiorriols/ui` (`useSupabaseAuth`,
+`LoginDialog`, `PasswordResetDialog`). Auth emails return to Pulse through the
+`auth_app=pulse` redirect. Copy `.env.example` to `.env` with the Supabase URL
+and publishable key; without them the welcome page explains that sign-in is not
+configured.
 
 ## Development
 
@@ -24,7 +33,7 @@ npm run compile && npm run lint && npm run format:check
 ```
 
 All visible text lives in `src/locales/*.json`, grouped by area (`app`,
-`sections.<page>`). `src/__tests__/locales.test.ts` keeps the six languages in
+`auth`, `welcome`, `sections.<page>`). `src/__tests__/locales.test.ts` keeps the six languages in
 sync and `no-inline-copy.test.ts` rejects hard-coded UI text.
 
 ## Deployment
@@ -32,4 +41,5 @@ sync and `no-inline-copy.test.ts` rejects hard-coded UI text.
 `.github/workflows/build.yml` type-checks, lints, tests and builds on every
 push to `main`, then deploys `dist` to GitHub Pages at
 https://pulse.jordiorriols.cat/. The repository needs the `UI_READ_TOKEN`
-secret to install `@jordiorriols/ui`.
+secret to install `@jordiorriols/ui`, plus the `VITE_SUPABASE_URL` variable and
+the `VITE_SUPABASE_PUBLISHABLE_KEY` secret for sign-in.

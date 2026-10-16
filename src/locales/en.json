@@ -10,7 +10,8 @@
     },
     "actions": {
       "tryAgain": "Try again"
-    }
+    },
+    "loading": "Loading Pulse"
   },
   "sections": {
     "overview": {
@@ -39,6 +40,40 @@
     }
   },
   "auth": {
-    "notConfigured": "Sign-in is not configured for this build."
+    "signIn": "Sign in",
+    "signUp": "Create account",
+    "signOut": "Sign out",
+    "signInTitle": "Sign in",
+    "signUpTitle": "Create an account",
+    "description": "Use the same account as Planner and Ladders to see your team's workspaces.",
+    "email": "Email",
+    "password": "Password",
+    "continueWithGitHub": "Continue with GitHub",
+    "forgotPassword": "Forgot password?",
+    "forgotPasswordTitle": "Reset your password",
+    "forgotPasswordDescription": "Enter your email address and we'll send you a secure reset link.",
+    "sendResetEmail": "Send reset email",
+    "passwordResetSent": "Check your email for password reset instructions.",
+    "backToSignIn": "Back to sign in",
+    "resetPasswordTitle": "Set a new password",
+    "resetPasswordDescription": "Choose a new password with at least 8 characters.",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "updatePassword": "Update password",
+    "passwordTooShort": "Password must be at least 8 characters.",
+    "passwordsDoNotMatch": "Passwords do not match.",
+    "checkEmail": "Check your email to confirm your account.",
+    "switchToSignUp": "No account? Create one",
+    "switchToSignIn": "Already have an account? Sign in",
+    "notConfigured": "Sign-in is not configured for this build.",
+    "cancel": "Cancel"
+  },
+  "welcome": {
+    "title": "Keep a finger on the team's pulse.",
+    "description": "Run quick health surveys and retrospectives, and follow the actions that come out of them.",
+    "surveys": "Recurring team surveys",
+    "retros": "Collaborative retrospectives",
+    "actions": "Actions followed to done",
+    "authUnavailable": "Configure VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY to sign in. Pulse does not save data locally."
   }
 }

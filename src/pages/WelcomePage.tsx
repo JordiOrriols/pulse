@@ -1,0 +1,45 @@
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { PROJECTS, WelcomeScreen } from "@jordiorriols/ui";
+import { HeartPulse, ListChecks, MessagesSquare } from "@jordiorriols/ui/icons";
+import { LoginDialog } from "@/components/LoginDialog";
+import { useData } from "@/data/DataProvider";
+
+const AppIcon = PROJECTS.find((project) => project.id === "pulse")!.icon;
+
+export function WelcomePage() {
+  const { t } = useTranslation();
+  const { authEnabled, authError } = useData();
+  const [mode, setMode] = useState<"signIn" | "signUp">("signIn");
+  const [open, setOpen] = useState(false);
+  const openDialog = (next: "signIn" | "signUp") => {
+    setMode(next);
+    setOpen(true);
+  };
+  return (
+    <WelcomeScreen
+      brand={t("app.name")}
+      icon={<AppIcon />}
+      title={t("welcome.title")}
+      description={t("welcome.description")}
+      features={[
+        { icon: <HeartPulse />, label: t("welcome.surveys") },
+        { icon: <MessagesSquare />, label: t("welcome.retros") },
+        { icon: <ListChecks />, label: t("welcome.actions") },
+      ]}
+      signInLabel={t("auth.signIn")}
+      signUpLabel={t("auth.signUp")}
+      disabled={!authEnabled}
+      onSignIn={() => openDialog("signIn")}
+      onSignUp={() => openDialog("signUp")}
+      notice={
+        <>
+          {authError && <p role="alert">{authError}</p>}
+          {!authEnabled && <p role="alert">{t("welcome.authUnavailable")}</p>}
+        </>
+      }
+    >
+      <LoginDialog isOpen={open} initialMode={mode} onClose={() => setOpen(false)} />
+    </WelcomeScreen>
+  );
+}

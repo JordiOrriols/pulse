@@ -10,7 +10,8 @@
     },
     "actions": {
       "tryAgain": "Riprova"
-    }
+    },
+    "loading": "Caricamento di Pulse"
   },
   "sections": {
     "overview": {
@@ -39,6 +40,40 @@
     }
   },
   "auth": {
-    "notConfigured": "L'accesso non è configurato per questa versione."
+    "signIn": "Accedi",
+    "signUp": "Crea account",
+    "signOut": "Esci",
+    "signInTitle": "Accedi",
+    "signUpTitle": "Crea un account",
+    "description": "Usa lo stesso account di Planner e Ladders per vedere gli spazi di lavoro del tuo team.",
+    "email": "Email",
+    "password": "Password",
+    "continueWithGitHub": "Continua con GitHub",
+    "forgotPassword": "Password dimenticata?",
+    "forgotPasswordTitle": "Reimposta la password",
+    "forgotPasswordDescription": "Inserisci il tuo indirizzo email e ti invieremo un link sicuro per reimpostarla.",
+    "sendResetEmail": "Invia email di reset",
+    "passwordResetSent": "Controlla la tua email per le istruzioni di reset della password.",
+    "backToSignIn": "Torna all'accesso",
+    "resetPasswordTitle": "Imposta una nuova password",
+    "resetPasswordDescription": "Scegli una nuova password di almeno 8 caratteri.",
+    "newPassword": "Nuova password",
+    "confirmPassword": "Conferma password",
+    "updatePassword": "Aggiorna password",
+    "passwordTooShort": "La password deve contenere almeno 8 caratteri.",
+    "passwordsDoNotMatch": "Le password non corrispondono.",
+    "checkEmail": "Controlla la tua email per confermare l'account.",
+    "switchToSignUp": "Non hai un account? Creane uno",
+    "switchToSignIn": "Hai già un account? Accedi",
+    "notConfigured": "L'accesso non è configurato per questa versione.",
+    "cancel": "Annulla"
+  },
+  "welcome": {
+    "title": "Tieni il polso del tuo team.",
+    "description": "Lancia sondaggi rapidi e retrospettive, e segui le azioni che ne derivano.",
+    "surveys": "Sondaggi ricorrenti del team",
+    "retros": "Retrospettive collaborative",
+    "actions": "Azioni seguite fino in fondo",
+    "authUnavailable": "Configura VITE_SUPABASE_URL e VITE_SUPABASE_PUBLISHABLE_KEY per accedere. Pulse non salva dati in locale."
   }
 }

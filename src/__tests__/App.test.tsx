@@ -1,10 +1,38 @@
 import React from "react";
-import { render, screen, within } from "@testing-library/react";
+import { act, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import i18n from "@/i18n";
 import App from "@/App";
+
+const { client, auth } = vi.hoisted(() => {
+  const auth = {
+    session: null as { user: { id: string; email: string } } | null,
+    listener: undefined as ((event: string, session: unknown) => void) | undefined,
+  };
+  const client = {
+    current: {
+      auth: {
+        getSession: vi.fn(async () => ({ data: { session: auth.session }, error: null })),
+        onAuthStateChange: vi.fn((listener: typeof auth.listener) => {
+          auth.listener = listener;
+          return { data: { subscription: { unsubscribe: vi.fn() } } };
+        }),
+        signInWithPassword: vi.fn(async () => ({ error: null })),
+        signOut: vi.fn(async () => ({ error: null })),
+        updateUser: vi.fn(async () => ({ data: { user: null }, error: null })),
+      },
+    } as unknown,
+  };
+  return { client, auth };
+});
+vi.mock("@/data/supabaseClient", () => ({
+  get supabase() {
+    return client.current;
+  },
+}));
+const supabaseAuth = (client.current as { auth: Record<string, ReturnType<typeof vi.fn>> }).auth;
 
 const renderAt = (path: string) =>
   render(
@@ -14,18 +42,21 @@ const renderAt = (path: string) =>
   );
 
 describe("Pulse shell", () => {
-  beforeEach(() => i18n.changeLanguage("en"));
+  beforeEach(async () => {
+    await i18n.changeLanguage("en");
+    auth.session = { user: { id: "user-1", email: "ada@example.com" } };
+  });
 
   it("shows the shared header with Pulse as the current project", async () => {
     renderAt("/");
-    expect(screen.getByTestId("header-title")).toHaveTextContent("Pulse");
+    expect(await screen.findByTestId("header-title")).toHaveTextContent("Pulse");
     await userEvent.click(screen.getByRole("button", { name: "Switch project" }));
     expect(screen.getByRole("menuitem", { name: "Pulse" })).toHaveAttribute("aria-current", "page");
   });
 
   it("navigates between the four sections from the shared tab bar", async () => {
     renderAt("/");
-    const tabs = screen.getByRole("navigation", { name: "Pulse pages" });
+    const tabs = await screen.findByRole("navigation", { name: "Pulse pages" });
     expect(
       within(tabs)
         .getAllByRole("link")
@@ -40,8 +71,84 @@ describe("Pulse shell", () => {
     }
   });
 
-  it("sends unknown routes to the overview", () => {
+  it("sends unknown routes to the overview", async () => {
     renderAt("/missing");
-    expect(screen.getByRole("heading", { level: 1, name: "Overview" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 1, name: "Overview" })).toBeInTheDocument();
+  });
+
+  it("signs out from the shared header", async () => {
+    renderAt("/");
+    const signOut = await screen.findByRole("button", { name: "Sign out" });
+    expect(signOut).toHaveAttribute("title", "ada@example.com");
+    await userEvent.click(signOut);
+    expect(supabaseAuth["signOut"]).toHaveBeenCalled();
+    await act(async () => auth.listener?.("SIGNED_OUT", null));
+    expect(
+      await screen.findByRole("heading", { name: "Keep a finger on the team's pulse." })
+    ).toBeInTheDocument();
+  });
+});
+
+describe("Pulse sign-in", () => {
+  beforeEach(async () => {
+    await i18n.changeLanguage("en");
+    auth.session = null;
+  });
+
+  it("welcomes signed-out visitors instead of showing any section", async () => {
+    renderAt("/retrospectives");
+    expect(
+      await screen.findByRole("heading", { name: "Keep a finger on the team's pulse." })
+    ).toBeInTheDocument();
+    expect(screen.queryByRole("navigation", { name: "Pulse pages" })).not.toBeInTheDocument();
+    expect(screen.getByText("Collaborative retrospectives")).toBeInTheDocument();
+  });
+
+  it("signs in with the shared account and opens the app", async () => {
+    renderAt("/");
+    await userEvent.click(await screen.findByRole("button", { name: "Sign in" }));
+    const dialog = await screen.findByRole("alertdialog", { name: "Sign in" });
+    await userEvent.type(within(dialog).getByLabelText("Email"), "ada@example.com");
+    await userEvent.type(within(dialog).getByLabelText("Password"), "a-long-password");
+    await userEvent.click(within(dialog).getByRole("button", { name: "Sign in" }));
+    expect(supabaseAuth["signInWithPassword"]).toHaveBeenCalledWith({
+      email: "ada@example.com",
+      password: "a-long-password",
+    });
+    await act(async () =>
+      auth.listener?.("SIGNED_IN", { user: { id: "user-1", email: "ada@example.com" } })
+    );
+    expect(await screen.findByRole("navigation", { name: "Pulse pages" })).toBeInTheDocument();
+  });
+
+  it("offers account creation from the welcome page", async () => {
+    renderAt("/");
+    await userEvent.click(await screen.findByRole("button", { name: "Create account" }));
+    expect(
+      await screen.findByRole("alertdialog", { name: "Create an account" })
+    ).toBeInTheDocument();
+  });
+
+  it("asks for a new password after a recovery link", async () => {
+    renderAt("/");
+    await screen.findByRole("button", { name: "Sign in" });
+    await act(async () =>
+      auth.listener?.("PASSWORD_RECOVERY", { user: { id: "user-1", email: "ada@example.com" } })
+    );
+    expect(
+      await screen.findByRole("alertdialog", { name: "Set a new password" })
+    ).toBeInTheDocument();
+  });
+
+  it("explains that sign-in needs Supabase config when the build has none", async () => {
+    const configured = client.current;
+    client.current = null;
+    try {
+      renderAt("/");
+      expect(await screen.findByText(/Configure VITE_SUPABASE_URL/)).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Sign in" })).toBeDisabled();
+    } finally {
+      client.current = configured;
+    }
   });
 });
