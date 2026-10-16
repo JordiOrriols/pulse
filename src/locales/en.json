@@ -37,5 +37,8 @@
       "title": "Nothing here yet",
       "description": "This section is on its way."
     }
+  },
+  "auth": {
+    "notConfigured": "Sign-in is not configured for this build."
   }
 }

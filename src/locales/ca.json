@@ -37,5 +37,8 @@
       "title": "Encara no hi ha res",
       "description": "Aquesta secció és en camí."
     }
+  },
+  "auth": {
+    "notConfigured": "L'inici de sessió no està configurat en aquesta versió."
   }
 }

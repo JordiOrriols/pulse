@@ -37,5 +37,8 @@
       "title": "Todavía no hay nada",
       "description": "Esta sección está en camino."
     }
+  },
+  "auth": {
+    "notConfigured": "El inicio de sesión no está configurado en esta versión."
   }
 }

@@ -37,5 +37,8 @@
       "title": "Rien pour l'instant",
       "description": "Cette section arrive bientôt."
     }
+  },
+  "auth": {
+    "notConfigured": "La connexion n'est pas configurée pour cette version."
   }
 }

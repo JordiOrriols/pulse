@@ -37,5 +37,8 @@
       "title": "Ancora niente qui",
       "description": "Questa sezione è in arrivo."
     }
+  },
+  "auth": {
+    "notConfigured": "L'accesso non è configurato per questa versione."
   }
 }

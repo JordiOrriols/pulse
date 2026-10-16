@@ -37,5 +37,8 @@
       "title": "Noch nichts hier",
       "description": "Dieser Bereich ist in Arbeit."
     }
+  },
+  "auth": {
+    "notConfigured": "Die Anmeldung ist für diesen Build nicht konfiguriert."
   }
 }
