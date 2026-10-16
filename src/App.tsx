@@ -9,6 +9,7 @@ import { PasswordResetDialog } from "./components/PasswordResetDialog";
 import { DataProvider } from "./data/DataProvider";
 import { WorkspaceProvider } from "./data/WorkspaceProvider";
 import { SECTIONS } from "./sections";
+import ActionsPage from "./pages/ActionsPage";
 import SectionPage from "./pages/SectionPage";
 import RetrospectivesPage from "./pages/RetrospectivesPage";
 import TeamPulsePage from "./pages/TeamPulsePage";
@@ -43,6 +44,8 @@ export default function App() {
                         <TeamPulsePage />
                       ) : section.id === "retrospectives" ? (
                         <RetrospectivesPage />
+                      ) : section.id === "actions" ? (
+                        <ActionsPage />
                       ) : (
                         <SectionPage section={section} />
                       )

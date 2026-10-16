@@ -356,7 +356,7 @@ const { client, auth, pulse, retros, actions } = vi.hoisted(() => {
         const status = String(args["new_status"]);
         Object.assign(find(), {
           status,
-          completed_at: status === "done" ? retros.stamp() : null,
+          completed_at: status === "done" ? new Date().toISOString() : null,
         });
         actions.log(find().id, "status", { status });
         return null;
@@ -526,12 +526,13 @@ describe("Pulse shell", () => {
     expect(
       await screen.findByRole("heading", { level: 1, name: "Retrospectives" })
     ).toBeInTheDocument();
-    for (const name of ["Actions"]) {
-      await userEvent.click(within(tabs).getByRole("link", { name }));
-      expect(within(tabs).getByRole("link", { name })).toHaveAttribute("aria-current", "page");
-      expect(screen.getByRole("heading", { level: 1, name })).toBeInTheDocument();
-      expect(screen.getByText("Nothing here yet")).toBeInTheDocument();
-    }
+    await userEvent.click(within(tabs).getByRole("link", { name: "Actions" }));
+    expect(within(tabs).getByRole("link", { name: "Actions" })).toHaveAttribute(
+      "aria-current",
+      "page"
+    );
+    expect(screen.getByRole("heading", { level: 1, name: "Actions" })).toBeInTheDocument();
+    expect(await screen.findByText("No improvement actions yet")).toBeInTheDocument();
   });
 
   it("sends unknown routes to the overview", async () => {
@@ -999,6 +1000,194 @@ describe("Retrospectives", () => {
         stage: "prepare",
         created_at: "2026-10-01T08:00:00Z",
         closed_at: null,
+      },
+    ];
+  }
+});
+
+describe("Improvement actions", () => {
+  beforeEach(async () => {
+    await i18n.changeLanguage("en");
+    auth.session = { user: { id: "user-1", email: "ada@example.com" } };
+    auth.workspaces = [{ id: "ws-1", name: "Platform", owner_id: "user-1", access_level: "owner" }];
+    localStorage.clear();
+    retros.reset();
+    actions.reset();
+  });
+
+  const row = (id: string, title: string, extra: Record<string, unknown> = {}) => ({
+    id,
+    title,
+    retro_id: null,
+    group_id: null,
+    description: null,
+    owner_id: "user-1",
+    owner_email: "ada@example.com",
+    collaborators: [],
+    due_on: null,
+    priority: "medium",
+    status: "open",
+    success_criteria: null,
+    outcome: null,
+    helped: null,
+    follow_up: null,
+    created_at: "2026-09-01T09:00:00Z",
+    completed_at: null,
+    ...extra,
+  });
+  const titles = () =>
+    screen.getAllByRole("article").map((article) => article.getAttribute("aria-label"));
+
+  it("invites managers to add the first action", async () => {
+    renderAt("/actions");
+    expect(await screen.findByText("No improvement actions yet")).toBeInTheDocument();
+    expect(
+      screen.getByText("Agree on actions at the end of a retrospective, or add one here.")
+    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "New action" })).toBeInTheDocument();
+  });
+
+  it("follows an action from creation to a recorded outcome", async () => {
+    renderAt("/actions");
+    await userEvent.click(await screen.findByRole("button", { name: "New action" }));
+    const dialog = await screen.findByRole("dialog", { name: "New action" });
+    await userEvent.type(within(dialog).getByLabelText("Action"), "Automate release notes");
+    await userEvent.selectOptions(within(dialog).getByLabelText("Owner"), "ada@example.com");
+    await userEvent.selectOptions(within(dialog).getByLabelText("Priority"), "High");
+    await userEvent.type(within(dialog).getByLabelText("Success criteria"), "No manual notes");
+    await userEvent.click(within(dialog).getByRole("button", { name: "Create action" }));
+
+    const findCard = () => screen.findByRole("article", { name: "Automate release notes" });
+    let card = await findCard();
+    expect(actions.rows[0]).toMatchObject({ retro_id: null, priority: "high", owner_id: "user-1" });
+    expect(card).toHaveTextContent("High priority");
+    expect(card).toHaveTextContent("No manual notes");
+    expect(screen.getByText("Open", { selector: "dt" }).nextElementSibling).toHaveTextContent("1");
+
+    await userEvent.selectOptions(
+      within(card).getByLabelText("Status of “Automate release notes”"),
+      "In progress"
+    );
+    expect(
+      await screen.findByRole("heading", { level: 2, name: /^In progress/ })
+    ).toBeInTheDocument();
+    card = await findCard();
+
+    await userEvent.click(within(card).getByRole("button", { name: "History" }));
+    const history = await within(card).findByRole("region", {
+      name: "History of “Automate release notes”",
+    });
+    expect(
+      await within(history).findByText(/ada@example.com created the action/)
+    ).toBeInTheDocument();
+    expect(within(history).getByText(/moved it to In progress/)).toBeInTheDocument();
+    await userEvent.type(
+      within(history).getByLabelText("Add a note to “Automate release notes”"),
+      "Draft script ready"
+    );
+    await userEvent.click(within(history).getByRole("button", { name: "Add note" }));
+    expect(await within(history).findByText("Draft script ready")).toBeInTheDocument();
+
+    await userEvent.selectOptions(screen.getByLabelText("Status"), "all");
+    await userEvent.selectOptions(
+      within(card).getByLabelText("Status of “Automate release notes”"),
+      "Done"
+    );
+    await screen.findByRole("heading", { level: 2, name: /^Done/ });
+    card = await findCard();
+    await userEvent.click(await within(card).findByRole("button", { name: "Record outcome" }));
+    await userEvent.type(within(card).getByLabelText("Outcome"), "Notes write themselves");
+    await userEvent.click(within(card).getByLabelText("It helped"));
+    await userEvent.click(within(card).getByRole("button", { name: "Save outcome" }));
+    expect(await within(card).findByText("Notes write themselves")).toBeInTheDocument();
+    expect(within(card).getByText("Helped")).toBeInTheDocument();
+    expect(actions.rows[0]).toMatchObject({ status: "done", helped: true });
+    expect(screen.getByText("Done in the last 14 days").nextElementSibling).toHaveTextContent("1");
+  });
+
+  it("filters, groups and edits actions", async () => {
+    retroRpcSeedWithHistory();
+    actions.rows = [
+      row("a1", "Fix flaky tests", { due_on: "2020-01-01", retro_id: "retro-1" }),
+      row("a2", "Pair on releases", {
+        owner_id: "user-2",
+        owner_email: "grace@example.com",
+        status: "in_progress",
+      }),
+      row("a3", "Old idea", { status: "cancelled" }),
+    ];
+    renderAt("/actions");
+    expect(await screen.findByRole("article", { name: "Fix flaky tests" })).toHaveTextContent(
+      "Overdue"
+    );
+    expect(titles()).toEqual(["Fix flaky tests", "Pair on releases"]);
+    expect(screen.getByText("Overdue", { selector: "dt" }).nextElementSibling).toHaveTextContent(
+      "1"
+    );
+
+    await userEvent.selectOptions(screen.getByLabelText("Owner"), "grace@example.com");
+    expect(titles()).toEqual(["Pair on releases"]);
+    await userEvent.selectOptions(screen.getByLabelText("Due"), "overdue");
+    expect(screen.getByText("No actions match these filters.")).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: "Clear filters" }));
+    await userEvent.selectOptions(screen.getByLabelText("Status"), "all");
+    expect(titles()).toHaveLength(3);
+
+    await userEvent.selectOptions(screen.getByLabelText("Group by"), "retro");
+    expect(
+      screen.getAllByRole("heading", { level: 2 }).map((heading) => heading.textContent)
+    ).toEqual(["Sprint 11", "Not from a retrospective2"]);
+
+    await userEvent.click(screen.getByRole("button", { name: "Edit “Pair on releases”" }));
+    const dialog = await screen.findByRole("dialog", { name: "Edit action" });
+    const title = within(dialog).getByLabelText("Action");
+    await userEvent.clear(title);
+    await userEvent.type(title, "Pair on every release");
+    await userEvent.click(within(dialog).getByRole("button", { name: "Save action" }));
+    expect(
+      await screen.findByRole("article", { name: "Pair on every release" })
+    ).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Delete “Old idea”" }));
+    await userEvent.click(await screen.findByRole("button", { name: "Delete action" }));
+    await screen.findByText("Pair on every release");
+    expect(screen.queryByRole("article", { name: "Old idea" })).not.toBeInTheDocument();
+  });
+
+  it("lets viewers update only the actions they own", async () => {
+    auth.workspaces = [
+      { id: "ws-1", name: "Platform", owner_id: "user-2", access_level: "viewer" },
+    ];
+    actions.canManage = false;
+    actions.rows = [
+      row("a1", "My action"),
+      row("a2", "Someone else's", { owner_id: "user-2", owner_email: "grace@example.com" }),
+    ];
+    renderAt("/actions");
+    const mine = await screen.findByRole("article", { name: "My action" });
+    const theirs = screen.getByRole("article", { name: "Someone else's" });
+    expect(within(mine).getByLabelText("Status of “My action”")).toBeInTheDocument();
+    expect(within(theirs).queryByRole("combobox")).not.toBeInTheDocument();
+    expect(within(theirs).getByText("Open")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "New action" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /^Edit “/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /^Delete “/ })).not.toBeInTheDocument();
+  });
+
+  function retroRpcSeedWithHistory() {
+    retros.rows = [
+      {
+        id: "retro-1",
+        title: "Sprint 1",
+        held_on: "2026-09-01",
+        period: null,
+        goal: null,
+        template: "open",
+        anonymous: true,
+        votes_per_person: 3,
+        stage: "closed",
+        created_at: "2026-09-01T08:00:00Z",
+        closed_at: "2026-09-01T10:00:00Z",
       },
     ];
   }
