@@ -1,0 +1,41 @@
+{
+  "app": {
+    "name": "Pulse",
+    "subtitle": "Salut de l'equip i millora contínua",
+    "pages": "Pàgines de Pulse",
+    "switchProject": "Canvia de projecte",
+    "language": "Idioma",
+    "errors": {
+      "title": "Alguna cosa ha anat malament"
+    },
+    "actions": {
+      "tryAgain": "Torna-ho a provar"
+    }
+  },
+  "sections": {
+    "overview": {
+      "tab": "Resum",
+      "title": "Resum",
+      "description": "Com està l'equip, la propera retrospectiva i les accions obertes."
+    },
+    "teamPulse": {
+      "tab": "Pols de l'equip",
+      "title": "Pols de l'equip",
+      "description": "Enquestes breus i periòdiques i l'evolució de la salut de l'equip."
+    },
+    "retrospectives": {
+      "tab": "Retrospectives",
+      "title": "Retrospectives",
+      "description": "Recull temes, agrupa'ls, vota i acordeu accions."
+    },
+    "actions": {
+      "tab": "Accions",
+      "title": "Accions",
+      "description": "Fes el seguiment de les accions de millora fins que estiguin fetes."
+    },
+    "empty": {
+      "title": "Encara no hi ha res",
+      "description": "Aquesta secció és en camí."
+    }
+  }
+}

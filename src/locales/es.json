@@ -1,0 +1,41 @@
+{
+  "app": {
+    "name": "Pulse",
+    "subtitle": "Salud del equipo y mejora continua",
+    "pages": "Páginas de Pulse",
+    "switchProject": "Cambiar de proyecto",
+    "language": "Idioma",
+    "errors": {
+      "title": "Algo ha ido mal"
+    },
+    "actions": {
+      "tryAgain": "Reintentar"
+    }
+  },
+  "sections": {
+    "overview": {
+      "tab": "Resumen",
+      "title": "Resumen",
+      "description": "Cómo está el equipo, la próxima retrospectiva y las acciones abiertas."
+    },
+    "teamPulse": {
+      "tab": "Pulso del equipo",
+      "title": "Pulso del equipo",
+      "description": "Encuestas breves y periódicas y la evolución de la salud del equipo."
+    },
+    "retrospectives": {
+      "tab": "Retrospectivas",
+      "title": "Retrospectivas",
+      "description": "Recoge temas, agrúpalos, vota y acordad acciones."
+    },
+    "actions": {
+      "tab": "Acciones",
+      "title": "Acciones",
+      "description": "Haz el seguimiento de las acciones de mejora hasta completarlas."
+    },
+    "empty": {
+      "title": "Todavía no hay nada",
+      "description": "Esta sección está en camino."
+    }
+  }
+}

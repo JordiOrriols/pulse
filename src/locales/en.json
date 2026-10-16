@@ -1,0 +1,41 @@
+{
+  "app": {
+    "name": "Pulse",
+    "subtitle": "Team health & continuous improvement",
+    "pages": "Pulse pages",
+    "switchProject": "Switch project",
+    "language": "Language",
+    "errors": {
+      "title": "Something went wrong"
+    },
+    "actions": {
+      "tryAgain": "Try again"
+    }
+  },
+  "sections": {
+    "overview": {
+      "tab": "Overview",
+      "title": "Overview",
+      "description": "How the team is doing, the next retrospective and open actions."
+    },
+    "teamPulse": {
+      "tab": "Team Pulse",
+      "title": "Team Pulse",
+      "description": "Short recurring surveys and how team health evolves."
+    },
+    "retrospectives": {
+      "tab": "Retrospectives",
+      "title": "Retrospectives",
+      "description": "Collect topics, group them, vote and agree on actions."
+    },
+    "actions": {
+      "tab": "Actions",
+      "title": "Actions",
+      "description": "Follow improvement actions until they are done."
+    },
+    "empty": {
+      "title": "Nothing here yet",
+      "description": "This section is on its way."
+    }
+  }
+}

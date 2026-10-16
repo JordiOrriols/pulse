@@ -1,0 +1,41 @@
+{
+  "app": {
+    "name": "Pulse",
+    "subtitle": "Teamgesundheit und kontinuierliche Verbesserung",
+    "pages": "Pulse-Seiten",
+    "switchProject": "Projekt wechseln",
+    "language": "Sprache",
+    "errors": {
+      "title": "Etwas ist schiefgelaufen"
+    },
+    "actions": {
+      "tryAgain": "Erneut versuchen"
+    }
+  },
+  "sections": {
+    "overview": {
+      "tab": "Übersicht",
+      "title": "Übersicht",
+      "description": "Wie es dem Team geht, die nächste Retrospektive und offene Maßnahmen."
+    },
+    "teamPulse": {
+      "tab": "Team-Puls",
+      "title": "Team-Puls",
+      "description": "Kurze regelmäßige Umfragen und die Entwicklung der Teamgesundheit."
+    },
+    "retrospectives": {
+      "tab": "Retrospektiven",
+      "title": "Retrospektiven",
+      "description": "Themen sammeln, gruppieren, abstimmen und Maßnahmen vereinbaren."
+    },
+    "actions": {
+      "tab": "Maßnahmen",
+      "title": "Maßnahmen",
+      "description": "Verbesserungsmaßnahmen verfolgen, bis sie erledigt sind."
+    },
+    "empty": {
+      "title": "Noch nichts hier",
+      "description": "Dieser Bereich ist in Arbeit."
+    }
+  }
+}

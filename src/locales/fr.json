@@ -1,0 +1,41 @@
+{
+  "app": {
+    "name": "Pulse",
+    "subtitle": "Santé de l'équipe et amélioration continue",
+    "pages": "Pages de Pulse",
+    "switchProject": "Changer de projet",
+    "language": "Langue",
+    "errors": {
+      "title": "Une erreur s'est produite"
+    },
+    "actions": {
+      "tryAgain": "Réessayer"
+    }
+  },
+  "sections": {
+    "overview": {
+      "tab": "Vue d'ensemble",
+      "title": "Vue d'ensemble",
+      "description": "L'état de l'équipe, la prochaine rétrospective et les actions ouvertes."
+    },
+    "teamPulse": {
+      "tab": "Pouls de l'équipe",
+      "title": "Pouls de l'équipe",
+      "description": "Des sondages courts et réguliers et l'évolution de la santé de l'équipe."
+    },
+    "retrospectives": {
+      "tab": "Rétrospectives",
+      "title": "Rétrospectives",
+      "description": "Recueillez des sujets, regroupez-les, votez et convenez d'actions."
+    },
+    "actions": {
+      "tab": "Actions",
+      "title": "Actions",
+      "description": "Suivez les actions d'amélioration jusqu'à leur réalisation."
+    },
+    "empty": {
+      "title": "Rien pour l'instant",
+      "description": "Cette section arrive bientôt."
+    }
+  }
+}
