@@ -4,6 +4,8 @@ import { closedRetros, type RetroHistory } from "@/lib/overview";
 import type { Retro, RetroBoard } from "@/lib/retros";
 
 export const POLL_INTERVAL = 5000;
+/** Shared so that callers memoising on the list do not see a new array while loading. */
+const NO_RETROS: Retro[] = [];
 
 function message(err: unknown) {
   return err instanceof Error ? err.message : String(err);
@@ -33,7 +35,7 @@ export function useRetros(api: RetroApi | null, workspaceId: string | null) {
     void reload();
   }, [reload]);
 
-  return { retros: retros ?? [], loading: retros === null && !error, error, reload };
+  return { retros: retros ?? NO_RETROS, loading: retros === null && !error, error, reload };
 }
 
 /** The board of one retrospective as the signed-in account may see it. */
