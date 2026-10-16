@@ -502,7 +502,6 @@
       "hint": "Check where each action stands and whether finished ones had the intended effect. Starting a retrospective never closes them."
     },
     "retro": {
-      "intro": "Turn the groups the team chose to act on into a few clear actions, each with an owner and a due date.",
       "add": "Add action",
       "addFor": "Add an action for {{name}}",
       "none": "No actions yet.",

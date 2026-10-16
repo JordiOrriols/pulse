@@ -109,9 +109,8 @@ export function ActionsStage({
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <p className="max-w-prose text-sm text-muted-foreground">{t("actions.retro.intro")}</p>
-        {board.canFacilitate && (
+      {board.canFacilitate && (
+        <div className="flex justify-end">
           <Button
             variant="outline"
             size="sm"
@@ -121,8 +120,8 @@ export function ActionsStage({
             <Plus className="size-4" />
             {t("actions.retro.add")}
           </Button>
-        )}
-      </div>
+        </div>
+      )}
       {loose.length > 0 && <ActionList actions={loose} showOrigin={false} {...props} />}
       <ol className="space-y-3">
         {ordered.map((entry) => (

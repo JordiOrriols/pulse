@@ -505,7 +505,6 @@
       "hint": "Reviseu en quin punt és cada acció i si les acabades van tenir l'efecte esperat. Començar una retrospectiva mai no les tanca."
     },
     "retro": {
-      "intro": "Converteix els grups en què l'equip va decidir actuar en poques accions clares, cadascuna amb responsable i data límit.",
       "add": "Afegeix una acció",
       "addFor": "Afegeix una acció per a {{name}}",
       "none": "Encara no hi ha accions.",

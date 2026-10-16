@@ -502,7 +502,6 @@
       "hint": "Prüft, wo jede Maßnahme steht und ob erledigte die gewünschte Wirkung hatten. Eine neue Retrospektive schließt sie nie automatisch."
     },
     "retro": {
-      "intro": "Macht aus den Gruppen, bei denen das Team handeln will, wenige klare Maßnahmen, jeweils mit verantwortlicher Person und Fälligkeit.",
       "add": "Maßnahme hinzufügen",
       "addFor": "Maßnahme für {{name}} hinzufügen",
       "none": "Noch keine Maßnahmen.",

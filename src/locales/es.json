@@ -505,7 +505,6 @@
       "hint": "Revisad en qué punto está cada acción y si las terminadas tuvieron el efecto esperado. Empezar una retrospectiva nunca las cierra."
     },
     "retro": {
-      "intro": "Convierte los grupos en los que el equipo decidió actuar en pocas acciones claras, cada una con responsable y fecha límite.",
       "add": "Añadir acción",
       "addFor": "Añadir una acción para {{name}}",
       "none": "Todavía no hay acciones.",

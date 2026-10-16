@@ -289,7 +289,7 @@ export default function ActionsPage() {
                     {group.actions.length}
                   </span>
                 </h2>
-                <ul className="grid gap-3 xl:grid-cols-2">
+                <ul className="max-w-4xl space-y-3">
                   {group.actions.map((item) => (
                     <li key={item.id}>
                       <ActionCard
