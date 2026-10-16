@@ -269,9 +269,14 @@
         "facilitator": "Geh die Gruppen nach Stimmen durch und halte fest, worauf sich das Team einigt.",
         "participant": "Die Moderation schreibt mit, während das Team die wichtigsten Gruppen bespricht."
       },
+      "actions": {
+        "name": "Maßnahmen",
+        "facilitator": "Vereinbart wenige klare Maßnahmen, jeweils mit verantwortlicher Person und Fälligkeit.",
+        "participant": "Die Moderation hält die vereinbarten Maßnahmen fest."
+      },
       "closed": {
         "name": "Abgeschlossen",
-        "facilitator": "Diese Retrospektive ist abgeschlossen. Du kannst zur Diskussion zurückkehren, um Notizen zu ändern.",
+        "facilitator": "Diese Retrospektive ist abgeschlossen. Du kannst zurückgehen, um Maßnahmen oder Notizen zu ändern.",
         "participant": "Diese Retrospektive ist abgeschlossen. Das hat das Team vereinbart."
       }
     },
@@ -357,6 +362,153 @@
       "noVotes": "In dieser Retrospektive hat niemand abgestimmt.",
       "discussed": "Diskussion",
       "noNotes": "Es wurden keine Notizen gemacht."
+    }
+  },
+  "actions": {
+    "loading": "Maßnahmen werden geladen…",
+    "empty": {
+      "title": "Noch keine Verbesserungsmaßnahmen",
+      "manager": "Vereinbart Maßnahmen am Ende einer Retrospektive oder füge hier eine hinzu.",
+      "member": "In Retrospektiven vereinbarte Maßnahmen erscheinen hier."
+    },
+    "noMatches": "Keine Maßnahme passt zu diesen Filtern.",
+    "counts": {
+      "label": "Übersicht der Maßnahmen",
+      "open": "Offen",
+      "inProgress": "In Arbeit",
+      "overdue": "Überfällig",
+      "doneRecently": "In den letzten 14 Tagen erledigt"
+    },
+    "statuses": {
+      "open": "Offen",
+      "in_progress": "In Arbeit",
+      "done": "Erledigt",
+      "cancelled": "Abgebrochen"
+    },
+    "priorities": {
+      "high": "Hoch",
+      "medium": "Mittel",
+      "low": "Niedrig"
+    },
+    "filters": {
+      "label": "Maßnahmen filtern",
+      "status": "Status",
+      "owner": "Verantwortlich",
+      "retro": "Retrospektive",
+      "due": "Fällig",
+      "groupBy": "Gruppieren nach",
+      "clear": "Filter zurücksetzen",
+      "statusOptions": {
+        "unresolved": "Offen und in Arbeit",
+        "all": "Alle Status"
+      },
+      "ownerOptions": {
+        "all": "Alle",
+        "none": "Ohne Verantwortliche"
+      },
+      "retroOptions": {
+        "all": "Alle Retrospektiven",
+        "none": "Nicht aus einer Retrospektive"
+      },
+      "dueOptions": {
+        "all": "Beliebiges Datum",
+        "overdue": "Überfällig",
+        "week": "In den nächsten 7 Tagen fällig",
+        "none": "Ohne Fälligkeit"
+      },
+      "groupings": {
+        "status": "Status",
+        "retro": "Retrospektive",
+        "owner": "Verantwortlich"
+      }
+    },
+    "groups": {
+      "noRetro": "Nicht aus einer Retrospektive",
+      "noOwner": "Ohne Verantwortliche"
+    },
+    "card": {
+      "noOwner": "Ohne Verantwortliche",
+      "due": "Fällig am {{date}}",
+      "noDue": "Ohne Fälligkeit",
+      "overdue": "Überfällig",
+      "from": "Aus {{retro}}",
+      "with": "Mit {{people}}",
+      "criteria": "Erfolgskriterium",
+      "status": "Status von „{{title}}“",
+      "edit": "„{{title}}“ bearbeiten",
+      "delete": "„{{title}}“ löschen",
+      "history": "Verlauf",
+      "hideHistory": "Verlauf ausblenden",
+      "outcome": "Ergebnis festhalten",
+      "editOutcome": "Ergebnis bearbeiten",
+      "priority": "Priorität {{priority}}"
+    },
+    "form": {
+      "create": "Neue Maßnahme",
+      "edit": "Maßnahme bearbeiten",
+      "description": "Eine klare Zusage mit einer verantwortlichen Person pro Problem wirkt besser als viele vage.",
+      "title": "Maßnahme",
+      "titlePlaceholder": "Einen Freigabeschritt für Änderungen am Umfang einführen",
+      "details": "Beschreibung",
+      "owner": "Verantwortlich",
+      "chooseOwner": "Verantwortliche Person wählen",
+      "collaborators": "Mitwirkende",
+      "due": "Fälligkeitsdatum",
+      "priority": "Priorität",
+      "criteria": "Erfolgskriterium",
+      "criteriaPlaceholder": "Woran erkennt das Team, dass es gewirkt hat?",
+      "from": "Für {{topic}}",
+      "submit": "Maßnahme anlegen",
+      "save": "Maßnahme speichern",
+      "cancel": "Abbrechen"
+    },
+    "history": {
+      "label": "Verlauf von „{{title}}“",
+      "loading": "Verlauf wird geladen…",
+      "someone": "Jemand",
+      "created": "{{author}} hat die Maßnahme angelegt",
+      "edited": "{{author}} hat die Maßnahme bearbeitet",
+      "status": "{{author}} hat sie auf {{status}} gesetzt",
+      "note": "{{author}} hat eine Notiz hinzugefügt",
+      "outcome": "{{author}} hat das Ergebnis festgehalten",
+      "noteLabel": "Notiz zu „{{title}}“ hinzufügen",
+      "notePlaceholder": "Fortschritt, Hindernisse, Entscheidungen…",
+      "addNote": "Notiz hinzufügen"
+    },
+    "outcome": {
+      "title": "Wie ist es gelaufen?",
+      "outcome": "Ergebnis",
+      "helped": "Hat es geholfen?",
+      "yes": "Es hat geholfen",
+      "no": "Es hat nicht geholfen",
+      "unsure": "Noch unklar",
+      "followUp": "Nächste Schritte",
+      "save": "Ergebnis speichern",
+      "cancel": "Abbrechen",
+      "helpedBadge": "Hat geholfen",
+      "notHelpedBadge": "Hat nicht geholfen"
+    },
+    "delete": {
+      "title": "Maßnahme löschen?",
+      "description": "„{{title}}“ und ihr Verlauf werden gelöscht.",
+      "confirm": "Maßnahme löschen",
+      "cancel": "Abbrechen"
+    },
+    "review": {
+      "title": "Maßnahmen zur Durchsicht",
+      "outstanding": "Noch offen",
+      "completed": "Seit der letzten Retrospektive erledigt",
+      "none": "Aus früheren Retrospektiven gibt es nichts durchzusehen.",
+      "hint": "Prüft, wo jede Maßnahme steht und ob erledigte die gewünschte Wirkung hatten. Eine neue Retrospektive schließt sie nie automatisch."
+    },
+    "retro": {
+      "intro": "Macht aus den Gruppen, bei denen das Team handeln will, wenige klare Maßnahmen, jeweils mit verantwortlicher Person und Fälligkeit.",
+      "add": "Maßnahme hinzufügen",
+      "addFor": "Maßnahme für {{name}} hinzufügen",
+      "none": "Noch keine Maßnahmen.",
+      "agreed": "Vereinbarte Maßnahmen",
+      "noneAgreed": "Es wurden keine Maßnahmen vereinbart.",
+      "carried": "Übernommen"
     }
   }
 }

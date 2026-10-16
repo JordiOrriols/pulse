@@ -269,9 +269,14 @@
         "facilitator": "Scorri i gruppi per voti e annota ciò che il team concorda.",
         "participant": "Chi facilita prende appunti mentre il team discute i gruppi più votati."
       },
+      "actions": {
+        "name": "Azioni",
+        "facilitator": "Concordate poche azioni chiare, ognuna con un responsabile e una scadenza.",
+        "participant": "Chi facilita registra le azioni concordate dal team."
+      },
       "closed": {
         "name": "Chiusa",
-        "facilitator": "Questa retrospettiva è chiusa. Puoi tornare alla discussione per correggere gli appunti.",
+        "facilitator": "Questa retrospettiva è chiusa. Puoi tornare indietro per correggere azioni o note.",
         "participant": "Questa retrospettiva è chiusa. Ecco cosa ha concordato il team."
       }
     },
@@ -360,6 +365,153 @@
       "noVotes": "Nessuno ha votato in questa retrospettiva.",
       "discussed": "Discussione",
       "noNotes": "Non sono stati presi appunti."
+    }
+  },
+  "actions": {
+    "loading": "Caricamento delle azioni…",
+    "empty": {
+      "title": "Ancora nessuna azione di miglioramento",
+      "manager": "Concordate le azioni alla fine di una retrospettiva o aggiungine una qui.",
+      "member": "Le azioni concordate nelle retrospettive appariranno qui."
+    },
+    "noMatches": "Nessuna azione corrisponde a questi filtri.",
+    "counts": {
+      "label": "Riepilogo delle azioni",
+      "open": "Aperte",
+      "inProgress": "In corso",
+      "overdue": "Scadute",
+      "doneRecently": "Completate negli ultimi 14 giorni"
+    },
+    "statuses": {
+      "open": "Aperta",
+      "in_progress": "In corso",
+      "done": "Completata",
+      "cancelled": "Annullata"
+    },
+    "priorities": {
+      "high": "Alta",
+      "medium": "Media",
+      "low": "Bassa"
+    },
+    "filters": {
+      "label": "Filtra le azioni",
+      "status": "Stato",
+      "owner": "Responsabile",
+      "retro": "Retrospettiva",
+      "due": "Scadenza",
+      "groupBy": "Raggruppa per",
+      "clear": "Cancella i filtri",
+      "statusOptions": {
+        "unresolved": "Aperte e in corso",
+        "all": "Tutti gli stati"
+      },
+      "ownerOptions": {
+        "all": "Tutti",
+        "none": "Senza responsabile"
+      },
+      "retroOptions": {
+        "all": "Tutte le retrospettive",
+        "none": "Fuori da una retrospettiva"
+      },
+      "dueOptions": {
+        "all": "Qualsiasi data",
+        "overdue": "Scadute",
+        "week": "In scadenza nei prossimi 7 giorni",
+        "none": "Senza scadenza"
+      },
+      "groupings": {
+        "status": "Stato",
+        "retro": "Retrospettiva",
+        "owner": "Responsabile"
+      }
+    },
+    "groups": {
+      "noRetro": "Fuori da una retrospettiva",
+      "noOwner": "Senza responsabile"
+    },
+    "card": {
+      "noOwner": "Senza responsabile",
+      "due": "Scade il {{date}}",
+      "noDue": "Senza scadenza",
+      "overdue": "Scaduta",
+      "from": "Da {{retro}}",
+      "with": "Con {{people}}",
+      "criteria": "Criterio di successo",
+      "status": "Stato di «{{title}}»",
+      "edit": "Modifica «{{title}}»",
+      "delete": "Elimina «{{title}}»",
+      "history": "Cronologia",
+      "hideHistory": "Nascondi la cronologia",
+      "outcome": "Registra il risultato",
+      "editOutcome": "Modifica il risultato",
+      "priority": "Priorità {{priority}}"
+    },
+    "form": {
+      "create": "Nuova azione",
+      "edit": "Modifica l'azione",
+      "description": "Un impegno chiaro e con un responsabile per problema funziona meglio di tante azioni vaghe.",
+      "title": "Azione",
+      "titlePlaceholder": "Introdurre un passaggio di approvazione per i cambi di perimetro",
+      "details": "Descrizione",
+      "owner": "Responsabile",
+      "chooseOwner": "Scegli un responsabile",
+      "collaborators": "Collaboratori",
+      "due": "Scadenza",
+      "priority": "Priorità",
+      "criteria": "Criterio di successo",
+      "criteriaPlaceholder": "Come capirà il team che ha funzionato?",
+      "from": "Per {{topic}}",
+      "submit": "Crea azione",
+      "save": "Salva azione",
+      "cancel": "Annulla"
+    },
+    "history": {
+      "label": "Cronologia di «{{title}}»",
+      "loading": "Caricamento della cronologia…",
+      "someone": "Qualcuno",
+      "created": "{{author}} ha creato l'azione",
+      "edited": "{{author}} ha modificato l'azione",
+      "status": "{{author}} l'ha spostata in {{status}}",
+      "note": "{{author}} ha aggiunto una nota",
+      "outcome": "{{author}} ha registrato il risultato",
+      "noteLabel": "Aggiungi una nota a «{{title}}»",
+      "notePlaceholder": "Progressi, ostacoli, decisioni…",
+      "addNote": "Aggiungi nota"
+    },
+    "outcome": {
+      "title": "Com'è andata?",
+      "outcome": "Risultato",
+      "helped": "È stata utile?",
+      "yes": "È stata utile",
+      "no": "Non è stata utile",
+      "unsure": "Non ancora chiaro",
+      "followUp": "Seguito",
+      "save": "Salva il risultato",
+      "cancel": "Annulla",
+      "helpedBadge": "Utile",
+      "notHelpedBadge": "Non utile"
+    },
+    "delete": {
+      "title": "Eliminare l'azione?",
+      "description": "«{{title}}» e la sua cronologia saranno eliminati.",
+      "confirm": "Elimina azione",
+      "cancel": "Annulla"
+    },
+    "review": {
+      "title": "Azioni da rivedere",
+      "outstanding": "Ancora aperte",
+      "completed": "Completate dall'ultima retrospettiva",
+      "none": "Niente da rivedere delle retrospettive precedenti.",
+      "hint": "Verificate a che punto è ogni azione e se quelle completate hanno avuto l'effetto voluto. Iniziare una retrospettiva non le chiude mai."
+    },
+    "retro": {
+      "intro": "Trasforma i gruppi su cui il team ha scelto di agire in poche azioni chiare, ognuna con un responsabile e una scadenza.",
+      "add": "Aggiungi azione",
+      "addFor": "Aggiungi un'azione per {{name}}",
+      "none": "Ancora nessuna azione.",
+      "agreed": "Azioni concordate",
+      "noneAgreed": "Non è stata concordata nessuna azione.",
+      "carried": "Riportate"
     }
   }
 }

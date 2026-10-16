@@ -269,9 +269,14 @@
         "facilitator": "Go through the groups by votes and record what the team agrees on.",
         "participant": "The facilitator takes notes while the team talks through the top groups."
       },
+      "actions": {
+        "name": "Actions",
+        "facilitator": "Agree on a few clear actions, each with an owner and a due date.",
+        "participant": "The facilitator records the actions the team agrees on."
+      },
       "closed": {
         "name": "Closed",
-        "facilitator": "This retrospective is closed. You can go back to discussion to amend notes.",
+        "facilitator": "This retrospective is closed. You can step back to amend actions or notes.",
         "participant": "This retrospective is closed. Here is what the team agreed."
       }
     },
@@ -357,6 +362,153 @@
       "noVotes": "Nobody voted in this retrospective.",
       "discussed": "Discussion",
       "noNotes": "No notes were taken."
+    }
+  },
+  "actions": {
+    "loading": "Loading actions…",
+    "empty": {
+      "title": "No improvement actions yet",
+      "manager": "Agree on actions at the end of a retrospective, or add one here.",
+      "member": "Actions agreed in retrospectives will show up here."
+    },
+    "noMatches": "No actions match these filters.",
+    "counts": {
+      "label": "Action summary",
+      "open": "Open",
+      "inProgress": "In progress",
+      "overdue": "Overdue",
+      "doneRecently": "Done in the last 14 days"
+    },
+    "statuses": {
+      "open": "Open",
+      "in_progress": "In progress",
+      "done": "Done",
+      "cancelled": "Cancelled"
+    },
+    "priorities": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "filters": {
+      "label": "Filter actions",
+      "status": "Status",
+      "owner": "Owner",
+      "retro": "Retrospective",
+      "due": "Due",
+      "groupBy": "Group by",
+      "clear": "Clear filters",
+      "statusOptions": {
+        "unresolved": "Open and in progress",
+        "all": "All statuses"
+      },
+      "ownerOptions": {
+        "all": "Everyone",
+        "none": "No owner"
+      },
+      "retroOptions": {
+        "all": "All retrospectives",
+        "none": "Not from a retrospective"
+      },
+      "dueOptions": {
+        "all": "Any date",
+        "overdue": "Overdue",
+        "week": "Due in the next 7 days",
+        "none": "No due date"
+      },
+      "groupings": {
+        "status": "Status",
+        "retro": "Retrospective",
+        "owner": "Owner"
+      }
+    },
+    "groups": {
+      "noRetro": "Not from a retrospective",
+      "noOwner": "No owner"
+    },
+    "card": {
+      "noOwner": "No owner",
+      "due": "Due {{date}}",
+      "noDue": "No due date",
+      "overdue": "Overdue",
+      "from": "From {{retro}}",
+      "with": "With {{people}}",
+      "criteria": "Success criteria",
+      "status": "Status of “{{title}}”",
+      "edit": "Edit “{{title}}”",
+      "delete": "Delete “{{title}}”",
+      "history": "History",
+      "hideHistory": "Hide history",
+      "outcome": "Record outcome",
+      "editOutcome": "Edit outcome",
+      "priority": "{{priority}} priority"
+    },
+    "form": {
+      "create": "New action",
+      "edit": "Edit action",
+      "description": "One clear, owned commitment per problem works better than many vague ones.",
+      "title": "Action",
+      "titlePlaceholder": "Introduce an approval step for scope changes",
+      "details": "Description",
+      "owner": "Owner",
+      "chooseOwner": "Choose an owner",
+      "collaborators": "Collaborators",
+      "due": "Due date",
+      "priority": "Priority",
+      "criteria": "Success criteria",
+      "criteriaPlaceholder": "How will the team know it worked?",
+      "from": "For {{topic}}",
+      "submit": "Create action",
+      "save": "Save action",
+      "cancel": "Cancel"
+    },
+    "history": {
+      "label": "History of “{{title}}”",
+      "loading": "Loading history…",
+      "someone": "Someone",
+      "created": "{{author}} created the action",
+      "edited": "{{author}} edited the action",
+      "status": "{{author}} moved it to {{status}}",
+      "note": "{{author}} added a note",
+      "outcome": "{{author}} recorded the outcome",
+      "noteLabel": "Add a note to “{{title}}”",
+      "notePlaceholder": "Progress, blockers, decisions…",
+      "addNote": "Add note"
+    },
+    "outcome": {
+      "title": "How did it go?",
+      "outcome": "Outcome",
+      "helped": "Did it help?",
+      "yes": "It helped",
+      "no": "It did not help",
+      "unsure": "Not sure yet",
+      "followUp": "Follow-up",
+      "save": "Save outcome",
+      "cancel": "Cancel",
+      "helpedBadge": "Helped",
+      "notHelpedBadge": "Did not help"
+    },
+    "delete": {
+      "title": "Delete action?",
+      "description": "“{{title}}” and its history will be deleted.",
+      "confirm": "Delete action",
+      "cancel": "Cancel"
+    },
+    "review": {
+      "title": "Actions to review",
+      "outstanding": "Still open",
+      "completed": "Done since the last retrospective",
+      "none": "Nothing to review from earlier retrospectives.",
+      "hint": "Check where each action stands and whether finished ones had the intended effect. Starting a retrospective never closes them."
+    },
+    "retro": {
+      "intro": "Turn the groups the team chose to act on into a few clear actions, each with an owner and a due date.",
+      "add": "Add action",
+      "addFor": "Add an action for {{name}}",
+      "none": "No actions yet.",
+      "agreed": "Agreed actions",
+      "noneAgreed": "No actions were agreed.",
+      "carried": "Carried over"
     }
   }
 }

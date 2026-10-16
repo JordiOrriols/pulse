@@ -269,9 +269,14 @@
         "facilitator": "Parcourez les groupes par nombre de votes et notez ce que l'équipe décide.",
         "participant": "La personne qui anime prend des notes pendant que l'équipe discute des groupes les plus votés."
       },
+      "actions": {
+        "name": "Actions",
+        "facilitator": "Convenez de quelques actions claires, chacune avec un responsable et une échéance.",
+        "participant": "L'animateur note les actions convenues par l'équipe."
+      },
       "closed": {
         "name": "Clôturée",
-        "facilitator": "Cette rétrospective est clôturée. Vous pouvez revenir à la discussion pour corriger les notes.",
+        "facilitator": "Cette rétrospective est close. Vous pouvez revenir en arrière pour corriger les actions ou les notes.",
         "participant": "Cette rétrospective est clôturée. Voici ce que l'équipe a décidé."
       }
     },
@@ -360,6 +365,153 @@
       "noVotes": "Personne n'a voté dans cette rétrospective.",
       "discussed": "Discussion",
       "noNotes": "Aucune note n'a été prise."
+    }
+  },
+  "actions": {
+    "loading": "Chargement des actions…",
+    "empty": {
+      "title": "Aucune action d'amélioration pour l'instant",
+      "manager": "Convenez d'actions à la fin d'une rétrospective ou ajoutez-en une ici.",
+      "member": "Les actions convenues en rétrospective apparaîtront ici."
+    },
+    "noMatches": "Aucune action ne correspond à ces filtres.",
+    "counts": {
+      "label": "Résumé des actions",
+      "open": "Ouvertes",
+      "inProgress": "En cours",
+      "overdue": "En retard",
+      "doneRecently": "Terminées ces 14 derniers jours"
+    },
+    "statuses": {
+      "open": "Ouverte",
+      "in_progress": "En cours",
+      "done": "Terminée",
+      "cancelled": "Annulée"
+    },
+    "priorities": {
+      "high": "Haute",
+      "medium": "Moyenne",
+      "low": "Basse"
+    },
+    "filters": {
+      "label": "Filtrer les actions",
+      "status": "Statut",
+      "owner": "Responsable",
+      "retro": "Rétrospective",
+      "due": "Échéance",
+      "groupBy": "Regrouper par",
+      "clear": "Effacer les filtres",
+      "statusOptions": {
+        "unresolved": "Ouvertes et en cours",
+        "all": "Tous les statuts"
+      },
+      "ownerOptions": {
+        "all": "Tout le monde",
+        "none": "Sans responsable"
+      },
+      "retroOptions": {
+        "all": "Toutes les rétrospectives",
+        "none": "Hors rétrospective"
+      },
+      "dueOptions": {
+        "all": "Toute date",
+        "overdue": "En retard",
+        "week": "Échéance dans les 7 prochains jours",
+        "none": "Sans échéance"
+      },
+      "groupings": {
+        "status": "Statut",
+        "retro": "Rétrospective",
+        "owner": "Responsable"
+      }
+    },
+    "groups": {
+      "noRetro": "Hors rétrospective",
+      "noOwner": "Sans responsable"
+    },
+    "card": {
+      "noOwner": "Sans responsable",
+      "due": "Échéance le {{date}}",
+      "noDue": "Sans échéance",
+      "overdue": "En retard",
+      "from": "De {{retro}}",
+      "with": "Avec {{people}}",
+      "criteria": "Critère de réussite",
+      "status": "Statut de « {{title}} »",
+      "edit": "Modifier « {{title}} »",
+      "delete": "Supprimer « {{title}} »",
+      "history": "Historique",
+      "hideHistory": "Masquer l'historique",
+      "outcome": "Noter le résultat",
+      "editOutcome": "Modifier le résultat",
+      "priority": "Priorité {{priority}}"
+    },
+    "form": {
+      "create": "Nouvelle action",
+      "edit": "Modifier l'action",
+      "description": "Un engagement clair, avec un responsable, par problème vaut mieux que plusieurs actions vagues.",
+      "title": "Action",
+      "titlePlaceholder": "Ajouter une étape d'approbation pour les changements de périmètre",
+      "details": "Description",
+      "owner": "Responsable",
+      "chooseOwner": "Choisir un responsable",
+      "collaborators": "Collaborateurs",
+      "due": "Échéance",
+      "priority": "Priorité",
+      "criteria": "Critère de réussite",
+      "criteriaPlaceholder": "Comment l'équipe saura-t-elle que cela a fonctionné ?",
+      "from": "Pour {{topic}}",
+      "submit": "Créer l'action",
+      "save": "Enregistrer l'action",
+      "cancel": "Annuler"
+    },
+    "history": {
+      "label": "Historique de « {{title}} »",
+      "loading": "Chargement de l'historique…",
+      "someone": "Quelqu'un",
+      "created": "{{author}} a créé l'action",
+      "edited": "{{author}} a modifié l'action",
+      "status": "{{author}} l'a passée à {{status}}",
+      "note": "{{author}} a ajouté une note",
+      "outcome": "{{author}} a noté le résultat",
+      "noteLabel": "Ajouter une note à « {{title}} »",
+      "notePlaceholder": "Avancées, blocages, décisions…",
+      "addNote": "Ajouter la note"
+    },
+    "outcome": {
+      "title": "Comment cela s'est-il passé ?",
+      "outcome": "Résultat",
+      "helped": "Cela a-t-il aidé ?",
+      "yes": "Cela a aidé",
+      "no": "Cela n'a pas aidé",
+      "unsure": "Pas encore sûr",
+      "followUp": "Suite à donner",
+      "save": "Enregistrer le résultat",
+      "cancel": "Annuler",
+      "helpedBadge": "A aidé",
+      "notHelpedBadge": "N'a pas aidé"
+    },
+    "delete": {
+      "title": "Supprimer l'action ?",
+      "description": "« {{title}} » et son historique seront supprimés.",
+      "confirm": "Supprimer l'action",
+      "cancel": "Annuler"
+    },
+    "review": {
+      "title": "Actions à passer en revue",
+      "outstanding": "Toujours ouvertes",
+      "completed": "Terminées depuis la dernière rétrospective",
+      "none": "Rien à passer en revue des rétrospectives précédentes.",
+      "hint": "Voyez où en est chaque action et si celles terminées ont eu l'effet voulu. Démarrer une rétrospective ne les clôt jamais."
+    },
+    "retro": {
+      "intro": "Transformez les groupes sur lesquels l'équipe a choisi d'agir en quelques actions claires, chacune avec un responsable et une échéance.",
+      "add": "Ajouter une action",
+      "addFor": "Ajouter une action pour {{name}}",
+      "none": "Aucune action pour l'instant.",
+      "agreed": "Actions convenues",
+      "noneAgreed": "Aucune action n'a été convenue.",
+      "carried": "Reportées"
     }
   }
 }

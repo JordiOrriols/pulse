@@ -269,9 +269,14 @@
         "facilitator": "Recorre els grups per vots i anota el que acordi l'equip.",
         "participant": "La persona facilitadora pren notes mentre l'equip parla dels grups més votats."
       },
+      "actions": {
+        "name": "Accions",
+        "facilitator": "Acordeu poques accions clares, cadascuna amb responsable i data límit.",
+        "participant": "La persona facilitadora registra les accions que acorda l'equip."
+      },
       "closed": {
         "name": "Tancada",
-        "facilitator": "Aquesta retrospectiva està tancada. Pots tornar a la discussió per corregir notes.",
+        "facilitator": "Aquesta retrospectiva està tancada. Pots tornar enrere per corregir accions o notes.",
         "participant": "Aquesta retrospectiva està tancada. Això és el que va acordar l'equip."
       }
     },
@@ -360,6 +365,153 @@
       "noVotes": "Ningú no va votar en aquesta retrospectiva.",
       "discussed": "Discussió",
       "noNotes": "No es van prendre notes."
+    }
+  },
+  "actions": {
+    "loading": "Carregant accions…",
+    "empty": {
+      "title": "Encara no hi ha accions de millora",
+      "manager": "Acordeu accions al final d'una retrospectiva o afegeix-ne una aquí.",
+      "member": "Les accions acordades a les retrospectives apareixeran aquí."
+    },
+    "noMatches": "Cap acció no coincideix amb aquests filtres.",
+    "counts": {
+      "label": "Resum d'accions",
+      "open": "Obertes",
+      "inProgress": "En curs",
+      "overdue": "Vençudes",
+      "doneRecently": "Fetes els últims 14 dies"
+    },
+    "statuses": {
+      "open": "Oberta",
+      "in_progress": "En curs",
+      "done": "Feta",
+      "cancelled": "Cancel·lada"
+    },
+    "priorities": {
+      "high": "Alta",
+      "medium": "Mitjana",
+      "low": "Baixa"
+    },
+    "filters": {
+      "label": "Filtra les accions",
+      "status": "Estat",
+      "owner": "Responsable",
+      "retro": "Retrospectiva",
+      "due": "Venciment",
+      "groupBy": "Agrupa per",
+      "clear": "Treu els filtres",
+      "statusOptions": {
+        "unresolved": "Obertes i en curs",
+        "all": "Tots els estats"
+      },
+      "ownerOptions": {
+        "all": "Tothom",
+        "none": "Sense responsable"
+      },
+      "retroOptions": {
+        "all": "Totes les retrospectives",
+        "none": "Fora d'una retrospectiva"
+      },
+      "dueOptions": {
+        "all": "Qualsevol data",
+        "overdue": "Vençudes",
+        "week": "Vencen els pròxims 7 dies",
+        "none": "Sense data límit"
+      },
+      "groupings": {
+        "status": "Estat",
+        "retro": "Retrospectiva",
+        "owner": "Responsable"
+      }
+    },
+    "groups": {
+      "noRetro": "Fora d'una retrospectiva",
+      "noOwner": "Sense responsable"
+    },
+    "card": {
+      "noOwner": "Sense responsable",
+      "due": "Venç el {{date}}",
+      "noDue": "Sense data límit",
+      "overdue": "Vençuda",
+      "from": "De {{retro}}",
+      "with": "Amb {{people}}",
+      "criteria": "Criteri d'èxit",
+      "status": "Estat de «{{title}}»",
+      "edit": "Edita «{{title}}»",
+      "delete": "Elimina «{{title}}»",
+      "history": "Historial",
+      "hideHistory": "Amaga l'historial",
+      "outcome": "Registra el resultat",
+      "editOutcome": "Edita el resultat",
+      "priority": "Prioritat {{priority}}"
+    },
+    "form": {
+      "create": "Nova acció",
+      "edit": "Edita l'acció",
+      "description": "Un compromís clar i amb responsable per problema funciona millor que molts de vagues.",
+      "title": "Acció",
+      "titlePlaceholder": "Introduir un pas d'aprovació per als canvis d'abast",
+      "details": "Descripció",
+      "owner": "Responsable",
+      "chooseOwner": "Tria un responsable",
+      "collaborators": "Col·laboradors",
+      "due": "Data límit",
+      "priority": "Prioritat",
+      "criteria": "Criteri d'èxit",
+      "criteriaPlaceholder": "Com sabrà l'equip que ha funcionat?",
+      "from": "Per a {{topic}}",
+      "submit": "Crea l'acció",
+      "save": "Desa l'acció",
+      "cancel": "Cancel·la"
+    },
+    "history": {
+      "label": "Historial de «{{title}}»",
+      "loading": "Carregant l'historial…",
+      "someone": "Algú",
+      "created": "{{author}} va crear l'acció",
+      "edited": "{{author}} va editar l'acció",
+      "status": "{{author}} la va passar a {{status}}",
+      "note": "{{author}} va afegir una nota",
+      "outcome": "{{author}} va registrar el resultat",
+      "noteLabel": "Afegeix una nota a «{{title}}»",
+      "notePlaceholder": "Avenços, bloquejos, decisions…",
+      "addNote": "Afegeix la nota"
+    },
+    "outcome": {
+      "title": "Com ha anat?",
+      "outcome": "Resultat",
+      "helped": "Ha ajudat?",
+      "yes": "Ha ajudat",
+      "no": "No ha ajudat",
+      "unsure": "Encara no ho sabem",
+      "followUp": "Seguiment",
+      "save": "Desa el resultat",
+      "cancel": "Cancel·la",
+      "helpedBadge": "Ha ajudat",
+      "notHelpedBadge": "No ha ajudat"
+    },
+    "delete": {
+      "title": "Vols eliminar l'acció?",
+      "description": "S'eliminaran «{{title}}» i el seu historial.",
+      "confirm": "Elimina l'acció",
+      "cancel": "Cancel·la"
+    },
+    "review": {
+      "title": "Accions per revisar",
+      "outstanding": "Encara obertes",
+      "completed": "Fetes des de l'última retrospectiva",
+      "none": "No hi ha res per revisar de retrospectives anteriors.",
+      "hint": "Reviseu en quin punt és cada acció i si les acabades van tenir l'efecte esperat. Començar una retrospectiva mai no les tanca."
+    },
+    "retro": {
+      "intro": "Converteix els grups en què l'equip va decidir actuar en poques accions clares, cadascuna amb responsable i data límit.",
+      "add": "Afegeix una acció",
+      "addFor": "Afegeix una acció per a {{name}}",
+      "none": "Encara no hi ha accions.",
+      "agreed": "Accions acordades",
+      "noneAgreed": "No es va acordar cap acció.",
+      "carried": "Pendents d'abans"
     }
   }
 }

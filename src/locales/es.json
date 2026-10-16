@@ -269,9 +269,14 @@
         "facilitator": "Recorre los grupos por votos y anota lo que acuerde el equipo.",
         "participant": "La persona facilitadora toma notas mientras el equipo habla de los grupos más votados."
       },
+      "actions": {
+        "name": "Acciones",
+        "facilitator": "Acordad pocas acciones claras, cada una con responsable y fecha límite.",
+        "participant": "La persona facilitadora registra las acciones que acuerda el equipo."
+      },
       "closed": {
         "name": "Cerrada",
-        "facilitator": "Esta retrospectiva está cerrada. Puedes volver a la discusión para corregir notas.",
+        "facilitator": "Esta retrospectiva está cerrada. Puedes volver atrás para corregir acciones o notas.",
         "participant": "Esta retrospectiva está cerrada. Esto es lo que acordó el equipo."
       }
     },
@@ -360,6 +365,153 @@
       "noVotes": "Nadie votó en esta retrospectiva.",
       "discussed": "Discusión",
       "noNotes": "No se tomaron notas."
+    }
+  },
+  "actions": {
+    "loading": "Cargando acciones…",
+    "empty": {
+      "title": "Todavía no hay acciones de mejora",
+      "manager": "Acordad acciones al final de una retrospectiva o añade una aquí.",
+      "member": "Las acciones acordadas en las retrospectivas aparecerán aquí."
+    },
+    "noMatches": "Ninguna acción coincide con estos filtros.",
+    "counts": {
+      "label": "Resumen de acciones",
+      "open": "Abiertas",
+      "inProgress": "En curso",
+      "overdue": "Vencidas",
+      "doneRecently": "Hechas en los últimos 14 días"
+    },
+    "statuses": {
+      "open": "Abierta",
+      "in_progress": "En curso",
+      "done": "Hecha",
+      "cancelled": "Cancelada"
+    },
+    "priorities": {
+      "high": "Alta",
+      "medium": "Media",
+      "low": "Baja"
+    },
+    "filters": {
+      "label": "Filtrar acciones",
+      "status": "Estado",
+      "owner": "Responsable",
+      "retro": "Retrospectiva",
+      "due": "Vencimiento",
+      "groupBy": "Agrupar por",
+      "clear": "Quitar filtros",
+      "statusOptions": {
+        "unresolved": "Abiertas y en curso",
+        "all": "Todos los estados"
+      },
+      "ownerOptions": {
+        "all": "Todo el mundo",
+        "none": "Sin responsable"
+      },
+      "retroOptions": {
+        "all": "Todas las retrospectivas",
+        "none": "Fuera de una retrospectiva"
+      },
+      "dueOptions": {
+        "all": "Cualquier fecha",
+        "overdue": "Vencidas",
+        "week": "Vencen en los próximos 7 días",
+        "none": "Sin fecha límite"
+      },
+      "groupings": {
+        "status": "Estado",
+        "retro": "Retrospectiva",
+        "owner": "Responsable"
+      }
+    },
+    "groups": {
+      "noRetro": "Fuera de una retrospectiva",
+      "noOwner": "Sin responsable"
+    },
+    "card": {
+      "noOwner": "Sin responsable",
+      "due": "Vence el {{date}}",
+      "noDue": "Sin fecha límite",
+      "overdue": "Vencida",
+      "from": "De {{retro}}",
+      "with": "Con {{people}}",
+      "criteria": "Criterio de éxito",
+      "status": "Estado de «{{title}}»",
+      "edit": "Editar «{{title}}»",
+      "delete": "Eliminar «{{title}}»",
+      "history": "Historial",
+      "hideHistory": "Ocultar historial",
+      "outcome": "Registrar resultado",
+      "editOutcome": "Editar resultado",
+      "priority": "Prioridad {{priority}}"
+    },
+    "form": {
+      "create": "Nueva acción",
+      "edit": "Editar acción",
+      "description": "Un compromiso claro y con responsable por problema funciona mejor que muchos vagos.",
+      "title": "Acción",
+      "titlePlaceholder": "Introducir un paso de aprobación para cambios de alcance",
+      "details": "Descripción",
+      "owner": "Responsable",
+      "chooseOwner": "Elige un responsable",
+      "collaborators": "Colaboradores",
+      "due": "Fecha límite",
+      "priority": "Prioridad",
+      "criteria": "Criterio de éxito",
+      "criteriaPlaceholder": "¿Cómo sabrá el equipo que ha funcionado?",
+      "from": "Para {{topic}}",
+      "submit": "Crear acción",
+      "save": "Guardar acción",
+      "cancel": "Cancelar"
+    },
+    "history": {
+      "label": "Historial de «{{title}}»",
+      "loading": "Cargando historial…",
+      "someone": "Alguien",
+      "created": "{{author}} creó la acción",
+      "edited": "{{author}} editó la acción",
+      "status": "{{author}} la pasó a {{status}}",
+      "note": "{{author}} añadió una nota",
+      "outcome": "{{author}} registró el resultado",
+      "noteLabel": "Añadir una nota a «{{title}}»",
+      "notePlaceholder": "Avances, bloqueos, decisiones…",
+      "addNote": "Añadir nota"
+    },
+    "outcome": {
+      "title": "¿Cómo ha ido?",
+      "outcome": "Resultado",
+      "helped": "¿Ha ayudado?",
+      "yes": "Ha ayudado",
+      "no": "No ha ayudado",
+      "unsure": "Aún no lo sabemos",
+      "followUp": "Seguimiento",
+      "save": "Guardar resultado",
+      "cancel": "Cancelar",
+      "helpedBadge": "Ha ayudado",
+      "notHelpedBadge": "No ha ayudado"
+    },
+    "delete": {
+      "title": "¿Eliminar la acción?",
+      "description": "Se eliminarán «{{title}}» y su historial.",
+      "confirm": "Eliminar acción",
+      "cancel": "Cancelar"
+    },
+    "review": {
+      "title": "Acciones para revisar",
+      "outstanding": "Siguen abiertas",
+      "completed": "Hechas desde la última retrospectiva",
+      "none": "No hay nada que revisar de retrospectivas anteriores.",
+      "hint": "Revisad en qué punto está cada acción y si las terminadas tuvieron el efecto esperado. Empezar una retrospectiva nunca las cierra."
+    },
+    "retro": {
+      "intro": "Convierte los grupos en los que el equipo decidió actuar en pocas acciones claras, cada una con responsable y fecha límite.",
+      "add": "Añadir acción",
+      "addFor": "Añadir una acción para {{name}}",
+      "none": "Todavía no hay acciones.",
+      "agreed": "Acciones acordadas",
+      "noneAgreed": "No se acordó ninguna acción.",
+      "carried": "Pendientes de antes"
     }
   }
 }
