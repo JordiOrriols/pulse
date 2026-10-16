@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { RetroApi } from "@/data/retros";
+import { closedRetros, type RetroHistory } from "@/lib/overview";
 import type { Retro, RetroBoard } from "@/lib/retros";
 
 export const POLL_INTERVAL = 5000;
@@ -75,4 +76,36 @@ export function usePolling(refresh: () => void, active: boolean, interval = POLL
     }, interval);
     return () => window.clearInterval(timer);
   }, [active, interval]);
+}
+
+/** Boards of the latest closed retrospectives, latest first. */
+export function useRetroHistory(api: RetroApi | null, retros: Retro[]) {
+  const recent = useMemo(() => closedRetros(retros), [retros]);
+  const key = recent.map((retro) => retro.id).join(",");
+  const [history, setHistory] = useState<{ key: string; items: RetroHistory[] } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!api) return;
+    let live = true;
+    const items = recent;
+    Promise.all(items.map((retro) => api.loadBoard(retro.id)))
+      .then((boards) => {
+        if (!live) return;
+        setHistory({ key, items: items.map((retro, index) => ({ retro, board: boards[index]! })) });
+        setError(null);
+      })
+      .catch((err: unknown) => {
+        if (live) setError(message(err));
+      });
+    return () => {
+      live = false;
+    };
+  }, [api, key, recent]);
+
+  return {
+    history: history?.key === key ? history.items : [],
+    loading: history?.key !== key && !error,
+    error,
+  };
 }

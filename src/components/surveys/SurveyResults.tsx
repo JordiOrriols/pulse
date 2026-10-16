@@ -8,7 +8,7 @@ import { RATING_TONES, formatChange, formatScore, questionText } from "./scale";
 const TREND_WIDTH = 56;
 const TREND_HEIGHT = 18;
 
-function Trend({ values, label }: { values: number[]; label: string }) {
+export function Trend({ values, label }: { values: number[]; label: string }) {
   if (values.length < 2) return <span className="w-14" aria-hidden />;
   const step = TREND_WIDTH / (values.length - 1);
   const coordinates = values.map((value, index) => ({

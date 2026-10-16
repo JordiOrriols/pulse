@@ -33,10 +33,6 @@
       "tab": "Actions",
       "title": "Actions",
       "description": "Suivez les actions d'amélioration jusqu'à leur réalisation."
-    },
-    "empty": {
-      "title": "Rien pour l'instant",
-      "description": "Cette section arrive bientôt."
     }
   },
   "auth": {
@@ -511,6 +507,60 @@
       "agreed": "Actions convenues",
       "noneAgreed": "Aucune action n'a été convenue.",
       "carried": "Reportées"
+    }
+  },
+  "overview": {
+    "loading": "Chargement de l'aperçu…",
+    "health": {
+      "title": "Santé de l'équipe",
+      "results": "Voir les résultats",
+      "open": "« {{survey}} » est ouverte.",
+      "answered": "Vous avez répondu à « {{survey}} ». Les résultats s'affichent à la clôture.",
+      "answer": "Répondre",
+      "empty": "Pas encore de résultats. Les scores s'affichent quand une enquête est clôturée avec assez de réponses.",
+      "start": "Aller à Team Pulse",
+      "from": "De « {{survey}} », {{date}}",
+      "scores": "Derniers scores",
+      "concerns": "À discuter",
+      "noConcerns": "Aucune question sous 3 ni en baisse d'un demi-point.",
+      "low": "Moyenne sous 3",
+      "drop": "{{change}} depuis l'enquête précédente"
+    },
+    "retro": {
+      "title": "Rétrospective en cours",
+      "none": "Aucune rétrospective n'est prévue ni en cours.",
+      "plan": "Planifier une rétrospective",
+      "progress": "Étape {{number}} sur {{total}} : {{stage}}",
+      "open": "Ouvrir",
+      "resume": "Reprendre"
+    },
+    "actions": {
+      "title": "Actions d'amélioration",
+      "all": "Toutes les actions",
+      "open": "Ouvertes",
+      "overdue": "En retard",
+      "done": "Terminées",
+      "doneSince": "Terminées depuis « {{retro}} »",
+      "doneList": "Terminées récemment",
+      "due": "Échéance le {{date}}",
+      "helped": "A aidé",
+      "didNotHelp": "N'a pas aidé",
+      "noOutcome": "Pas encore de résultat"
+    },
+    "history": {
+      "title": "Amélioration continue",
+      "retros": "Rétrospectives récentes",
+      "noRetros": "Les rétrospectives clôturées s'affichent ici.",
+      "retroStats": "Sujets {{topics}} · Décisions {{decisions}} · Actions {{actions}}",
+      "top": "Le plus voté : {{group}}",
+      "recurring": "Sujets récurrents",
+      "noRecurring": "Aucun sujet n'est revenu dans plus d'une rétrospective.",
+      "recurringIn": "Dans {{retros}}",
+      "stuck": "Actions qui restent ouvertes",
+      "noStuck": "Aucune action n'est restée ouverte sur deux rétrospectives.",
+      "stuckFor": "Ouverte depuis {{retros}} rétrospectives",
+      "trends": "Santé dans le temps",
+      "noTrends": "Les tendances apparaissent après deux enquêtes avec résultats."
     }
   }
 }

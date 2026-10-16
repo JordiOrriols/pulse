@@ -33,10 +33,6 @@
       "tab": "Actions",
       "title": "Actions",
       "description": "Follow improvement actions until they are done."
-    },
-    "empty": {
-      "title": "Nothing here yet",
-      "description": "This section is on its way."
     }
   },
   "auth": {
@@ -508,6 +504,60 @@
       "agreed": "Agreed actions",
       "noneAgreed": "No actions were agreed.",
       "carried": "Carried over"
+    }
+  },
+  "overview": {
+    "loading": "Loading the overview…",
+    "health": {
+      "title": "Team health",
+      "results": "See results",
+      "open": "“{{survey}}” is open for answers.",
+      "answered": "You answered “{{survey}}”. Results show when it closes.",
+      "answer": "Answer now",
+      "empty": "No survey results yet. Scores show here once a survey closes with enough answers.",
+      "start": "Go to Team Pulse",
+      "from": "From “{{survey}}”, {{date}}",
+      "scores": "Latest scores",
+      "concerns": "Worth discussing",
+      "noConcerns": "No question scores below 3 or dropped by half a point.",
+      "low": "Average below 3",
+      "drop": "{{change}} since the previous survey"
+    },
+    "retro": {
+      "title": "Current retrospective",
+      "none": "No retrospective is planned or under way.",
+      "plan": "Plan a retrospective",
+      "progress": "Stage {{number}} of {{total}}: {{stage}}",
+      "open": "Open",
+      "resume": "Resume"
+    },
+    "actions": {
+      "title": "Improvement actions",
+      "all": "All actions",
+      "open": "Open",
+      "overdue": "Overdue",
+      "done": "Done",
+      "doneSince": "Done since “{{retro}}”",
+      "doneList": "Recently done",
+      "due": "Due {{date}}",
+      "helped": "Helped",
+      "didNotHelp": "Did not help",
+      "noOutcome": "No outcome yet"
+    },
+    "history": {
+      "title": "Continuous improvement",
+      "retros": "Recent retrospectives",
+      "noRetros": "Closed retrospectives show up here.",
+      "retroStats": "Topics {{topics}} · Decisions {{decisions}} · Actions {{actions}}",
+      "top": "Most voted: {{group}}",
+      "recurring": "Recurring topics",
+      "noRecurring": "No topic has come up in more than one retrospective.",
+      "recurringIn": "In {{retros}}",
+      "stuck": "Actions that stay open",
+      "noStuck": "No action has stayed open through two retrospectives.",
+      "stuckFor": "Open through {{retros}} retrospectives",
+      "trends": "Health over time",
+      "noTrends": "Trends appear after two surveys with results."
     }
   }
 }

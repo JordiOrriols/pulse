@@ -33,10 +33,6 @@
       "tab": "Accions",
       "title": "Accions",
       "description": "Fes el seguiment de les accions de millora fins que estiguin fetes."
-    },
-    "empty": {
-      "title": "Encara no hi ha res",
-      "description": "Aquesta secció és en camí."
     }
   },
   "auth": {
@@ -511,6 +507,60 @@
       "agreed": "Accions acordades",
       "noneAgreed": "No es va acordar cap acció.",
       "carried": "Pendents d'abans"
+    }
+  },
+  "overview": {
+    "loading": "Carregant el resum…",
+    "health": {
+      "title": "Salut de l'equip",
+      "results": "Veure resultats",
+      "open": "«{{survey}}» està oberta.",
+      "answered": "Has respost «{{survey}}». Els resultats apareixen quan es tanca.",
+      "answer": "Respondre",
+      "empty": "Encara no hi ha resultats. Les puntuacions apareixen quan una enquesta es tanca amb prou respostes.",
+      "start": "Anar a Team Pulse",
+      "from": "De «{{survey}}», {{date}}",
+      "scores": "Últimes puntuacions",
+      "concerns": "Per comentar",
+      "noConcerns": "Cap pregunta és per sota de 3 ni ha baixat mig punt.",
+      "low": "Mitjana per sota de 3",
+      "drop": "{{change}} respecte a l'enquesta anterior"
+    },
+    "retro": {
+      "title": "Retrospectiva actual",
+      "none": "No hi ha cap retrospectiva planificada ni en curs.",
+      "plan": "Planificar una retrospectiva",
+      "progress": "Etapa {{number}} de {{total}}: {{stage}}",
+      "open": "Obrir",
+      "resume": "Continuar"
+    },
+    "actions": {
+      "title": "Accions de millora",
+      "all": "Totes les accions",
+      "open": "Obertes",
+      "overdue": "Vençudes",
+      "done": "Fetes",
+      "doneSince": "Fetes des de «{{retro}}»",
+      "doneList": "Fetes recentment",
+      "due": "Venç el {{date}}",
+      "helped": "Va ajudar",
+      "didNotHelp": "No va ajudar",
+      "noOutcome": "Encara sense resultat"
+    },
+    "history": {
+      "title": "Millora contínua",
+      "retros": "Retrospectives recents",
+      "noRetros": "Aquí apareixen les retrospectives tancades.",
+      "retroStats": "Temes {{topics}} · Decisions {{decisions}} · Accions {{actions}}",
+      "top": "Més votat: {{group}}",
+      "recurring": "Temes recurrents",
+      "noRecurring": "Cap tema ha sortit en més d'una retrospectiva.",
+      "recurringIn": "A {{retros}}",
+      "stuck": "Accions que segueixen obertes",
+      "noStuck": "Cap acció ha seguit oberta durant dues retrospectives.",
+      "stuckFor": "Oberta durant {{retros}} retrospectives",
+      "trends": "Salut al llarg del temps",
+      "noTrends": "Les tendències apareixen després de dues enquestes amb resultats."
     }
   }
 }

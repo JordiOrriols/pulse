@@ -1224,3 +1224,198 @@ describe("Improvement actions", () => {
     ];
   }
 });
+
+describe("Team overview", () => {
+  beforeEach(async () => {
+    await i18n.changeLanguage("en");
+    auth.session = { user: { id: "user-1", email: "ada@example.com" } };
+    auth.workspaces = [{ id: "ws-1", name: "Platform", owner_id: "user-1", access_level: "owner" }];
+    localStorage.clear();
+    pulse.reset();
+    retros.reset();
+    actions.reset();
+  });
+
+  const region = (name: string) => screen.getByRole("region", { name });
+
+  it("points to each part of Pulse while the workspace is empty", async () => {
+    renderAt("/");
+    expect(
+      await screen.findByText(/No survey results yet/, undefined, { timeout: 3000 })
+    ).toBeInTheDocument();
+    expect(
+      within(region("Current retrospective")).getByRole("link", { name: "Plan a retrospective" })
+    ).toHaveAttribute("href", "/retrospectives");
+    expect(screen.getByText("Closed retrospectives show up here.")).toBeInTheDocument();
+    expect(
+      screen.getByText("No topic has come up in more than one retrospective.")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("No action has stayed open through two retrospectives.")
+    ).toBeInTheDocument();
+    expect(screen.getByText("Trends appear after two surveys with results.")).toBeInTheDocument();
+  });
+
+  it("summarises health, the current retrospective, actions and recurring problems", async () => {
+    const survey = (id: string, title: string, created: string) => ({
+      id,
+      title,
+      asks_comment: false,
+      min_responses: 1,
+      status: "closed",
+      created_at: created,
+      closed_at: created,
+      pulse_questions: [
+        {
+          id: `${id}-health`,
+          position: 0,
+          key: "health",
+          prompt: null,
+          low_label: null,
+          high_label: null,
+        },
+        {
+          id: `${id}-workload`,
+          position: 1,
+          key: "workload",
+          prompt: null,
+          low_label: null,
+          high_label: null,
+        },
+      ],
+    });
+    pulse.surveys = [
+      survey("survey-2", "October pulse", "2026-10-02T09:00:00Z"),
+      survey("survey-1", "September pulse", "2026-09-02T09:00:00Z"),
+    ];
+    pulse.ratings = { "survey-1": [[4, 3]], "survey-2": [[4, 2]] };
+
+    const retro = (id: string, title: string, held: string, stage = "closed") => ({
+      id,
+      title,
+      held_on: held,
+      period: null,
+      goal: stage === "closed" ? null : "Calmer releases",
+      template: "well_improve",
+      anonymous: true,
+      votes_per_person: 3,
+      stage,
+      created_at: `${held}T08:00:00Z`,
+      closed_at: stage === "closed" ? `${held}T10:00:00Z` : null,
+    });
+    retros.rows = [
+      retro("retro-d", "Sprint D", "2026-10-14", "vote"),
+      retro("retro-c", "Sprint C", "2026-10-01"),
+      retro("retro-b", "Sprint B", "2026-09-15"),
+      retro("retro-a", "Sprint A", "2026-09-01"),
+    ];
+    const topic = (id: string, group: string, title: string) => ({
+      id,
+      column: "to_improve",
+      title,
+      description: null,
+      group_id: group,
+      created_at: "2026-09-01T09:00:00Z",
+      author: "ada@example.com",
+    });
+    retros.topics = {
+      "retro-a": [topic("t-a", "g-a", "Slow reviews")],
+      "retro-b": [topic("t-b", "g-b", "Flaky tests")],
+      "retro-c": [topic("t-c", "g-c", "slow reviews!"), topic("t-c2", "g-c2", "Deploys")],
+    };
+    retros.groups = ["a", "b", "c", "c2"].map((key) => ({
+      id: `g-${key}`,
+      retro: `retro-${key.charAt(0)}`,
+      title: null,
+      created_at: "2026-09-01T09:00:00Z",
+      summary: null,
+      impact: null,
+      root_causes: null,
+      context: null,
+      decision: key === "c" ? "action" : null,
+    }));
+    retros.votes = { "g-c": 2 };
+
+    const action = (id: string, title: string, extra: Record<string, unknown>) => ({
+      id,
+      title,
+      retro_id: null,
+      group_id: null,
+      description: null,
+      owner_id: "user-1",
+      owner_email: "ada@example.com",
+      collaborators: [],
+      due_on: null,
+      priority: "medium",
+      status: "open",
+      success_criteria: null,
+      outcome: null,
+      helped: null,
+      follow_up: null,
+      created_at: "2026-10-10T09:00:00Z",
+      completed_at: null,
+      ...extra,
+    });
+    actions.rows = [
+      action("action-1", "Write a review guide", { retro_id: "retro-a" }),
+      action("action-2", "Fix the flaky suite", { due_on: "2020-01-01" }),
+      action("action-3", "Pair on releases", {
+        retro_id: "retro-c",
+        status: "done",
+        helped: true,
+        completed_at: "2026-10-05T09:00:00Z",
+      }),
+    ];
+
+    renderAt("/");
+    const health = await screen.findByRole("region", { name: "Team health" }, { timeout: 3000 });
+    expect(within(health).getByText(/From “October pulse”/)).toBeInTheDocument();
+    const scores = within(health).getByRole("list", { name: "Latest scores" });
+    expect(within(scores).getAllByRole("listitem")).toHaveLength(2);
+    const concerns = within(health).getByRole("list", { name: "Worth discussing" });
+    expect(concerns).toHaveTextContent(i18n.t("surveys.questions.workload.prompt"));
+    expect(concerns).toHaveTextContent(/1\.0 since the previous survey/);
+    expect(concerns).not.toHaveTextContent(i18n.t("surveys.questions.health.prompt"));
+    expect(within(health).getByRole("link", { name: /See results/ })).toHaveAttribute(
+      "href",
+      "/team-pulse?survey=survey-2"
+    );
+
+    const current = region("Current retrospective");
+    expect(current).toHaveTextContent("Sprint D");
+    expect(within(current).getByRole("img", { name: "Stage 4 of 7: Vote" })).toBeInTheDocument();
+
+    const tracked = region("Improvement actions");
+    expect(within(tracked).getByText("Overdue", { selector: "dt" }).nextSibling).toHaveTextContent(
+      "1"
+    );
+    expect(within(tracked).getByRole("list", { name: "Overdue" })).toHaveTextContent(
+      "Fix the flaky suite"
+    );
+    expect(within(tracked).getByText("Done since “Sprint C”").nextSibling).toHaveTextContent("1");
+    expect(within(tracked).getByRole("list", { name: "Recently done" })).toHaveTextContent(
+      "Pair on releasesHelped"
+    );
+
+    const recent = await screen.findByRole("region", { name: "Recent retrospectives" });
+    expect(
+      within(recent)
+        .getAllByRole("link")
+        .map((link) => link.textContent)
+    ).toEqual(["Sprint C", "Sprint B", "Sprint A"]);
+    expect(recent).toHaveTextContent("Topics 2 · Decisions 1 · Actions 1");
+    expect(recent).toHaveTextContent("Most voted: slow reviews!");
+    expect(region("Recurring topics")).toHaveTextContent("slow reviews!In Sprint C, Sprint A");
+    expect(region("Actions that stay open")).toHaveTextContent(
+      "Write a review guideOpen through 2 retrospectives"
+    );
+    expect(
+      within(region("Health over time")).getAllByRole("img", {
+        name: /Trend over the last 2 surveys/,
+      })
+    ).toHaveLength(2);
+
+    await userEvent.click(within(current).getByRole("link", { name: "Resume" }));
+    expect(await screen.findByRole("heading", { level: 2, name: "Sprint D" })).toBeInTheDocument();
+  });
+});

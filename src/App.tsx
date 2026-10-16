@@ -10,7 +10,7 @@ import { DataProvider } from "./data/DataProvider";
 import { WorkspaceProvider } from "./data/WorkspaceProvider";
 import { SECTIONS } from "./sections";
 import ActionsPage from "./pages/ActionsPage";
-import SectionPage from "./pages/SectionPage";
+import OverviewPage from "./pages/OverviewPage";
 import RetrospectivesPage from "./pages/RetrospectivesPage";
 import TeamPulsePage from "./pages/TeamPulsePage";
 
@@ -40,14 +40,14 @@ export default function App() {
                     key={section.id}
                     path={section.path}
                     element={
-                      section.id === "teamPulse" ? (
+                      section.id === "overview" ? (
+                        <OverviewPage />
+                      ) : section.id === "teamPulse" ? (
                         <TeamPulsePage />
                       ) : section.id === "retrospectives" ? (
                         <RetrospectivesPage />
-                      ) : section.id === "actions" ? (
-                        <ActionsPage />
                       ) : (
-                        <SectionPage section={section} />
+                        <ActionsPage />
                       )
                     }
                   />

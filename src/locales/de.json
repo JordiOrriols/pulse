@@ -33,10 +33,6 @@
       "tab": "Maßnahmen",
       "title": "Maßnahmen",
       "description": "Verbesserungsmaßnahmen verfolgen, bis sie erledigt sind."
-    },
-    "empty": {
-      "title": "Noch nichts hier",
-      "description": "Dieser Bereich ist in Arbeit."
     }
   },
   "auth": {
@@ -508,6 +504,60 @@
       "agreed": "Vereinbarte Maßnahmen",
       "noneAgreed": "Es wurden keine Maßnahmen vereinbart.",
       "carried": "Übernommen"
+    }
+  },
+  "overview": {
+    "loading": "Übersicht wird geladen…",
+    "health": {
+      "title": "Teamgesundheit",
+      "results": "Ergebnisse ansehen",
+      "open": "„{{survey}}“ ist offen.",
+      "answered": "Du hast „{{survey}}“ beantwortet. Die Ergebnisse erscheinen nach dem Schließen.",
+      "answer": "Jetzt antworten",
+      "empty": "Noch keine Ergebnisse. Werte erscheinen, sobald eine Umfrage mit genug Antworten geschlossen ist.",
+      "start": "Zu Team Pulse",
+      "from": "Aus „{{survey}}“, {{date}}",
+      "scores": "Neueste Werte",
+      "concerns": "Gesprächsbedarf",
+      "noConcerns": "Keine Frage liegt unter 3 oder ist um einen halben Punkt gefallen.",
+      "low": "Durchschnitt unter 3",
+      "drop": "{{change}} seit der letzten Umfrage"
+    },
+    "retro": {
+      "title": "Aktuelle Retrospektive",
+      "none": "Keine Retrospektive geplant oder im Gange.",
+      "plan": "Retrospektive planen",
+      "progress": "Schritt {{number}} von {{total}}: {{stage}}",
+      "open": "Öffnen",
+      "resume": "Fortsetzen"
+    },
+    "actions": {
+      "title": "Verbesserungsmaßnahmen",
+      "all": "Alle Maßnahmen",
+      "open": "Offen",
+      "overdue": "Überfällig",
+      "done": "Erledigt",
+      "doneSince": "Erledigt seit „{{retro}}“",
+      "doneList": "Kürzlich erledigt",
+      "due": "Fällig am {{date}}",
+      "helped": "Hat geholfen",
+      "didNotHelp": "Hat nicht geholfen",
+      "noOutcome": "Noch kein Ergebnis"
+    },
+    "history": {
+      "title": "Kontinuierliche Verbesserung",
+      "retros": "Letzte Retrospektiven",
+      "noRetros": "Abgeschlossene Retrospektiven erscheinen hier.",
+      "retroStats": "Themen {{topics}} · Entscheidungen {{decisions}} · Maßnahmen {{actions}}",
+      "top": "Meiste Stimmen: {{group}}",
+      "recurring": "Wiederkehrende Themen",
+      "noRecurring": "Kein Thema kam in mehr als einer Retrospektive vor.",
+      "recurringIn": "In {{retros}}",
+      "stuck": "Maßnahmen, die offen bleiben",
+      "noStuck": "Keine Maßnahme blieb über zwei Retrospektiven offen.",
+      "stuckFor": "Offen seit {{retros}} Retrospektiven",
+      "trends": "Gesundheit im Zeitverlauf",
+      "noTrends": "Trends erscheinen nach zwei Umfragen mit Ergebnissen."
     }
   }
 }
