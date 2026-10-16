@@ -191,5 +191,175 @@
       "noComments": "Aucun commentaire n'a été laissé."
     },
     "loading": "Chargement des sondages"
+  },
+  "retros": {
+    "loading": "Chargement des rétrospectives",
+    "loadingBoard": "Chargement du tableau",
+    "empty": {
+      "title": "Aucune rétrospective pour l'instant",
+      "manager": "Planifiez une rétrospective pour prendre du recul avec l'équipe et décider quoi changer.",
+      "member": "Quand une rétrospective sera planifiée dans cet espace, vous pourrez la rejoindre ici."
+    },
+    "list": {
+      "label": "Rétrospectives"
+    },
+    "create": {
+      "open": "Nouvelle rétrospective",
+      "title": "Nouvelle rétrospective",
+      "description": "Posez le cadre. Vous guiderez l'équipe à chaque étape.",
+      "name": "Titre",
+      "namePlaceholder": "Rétrospective du sprint 24",
+      "date": "Date",
+      "period": "Période couverte",
+      "periodPlaceholder": "Sprint 24, T3, le lancement…",
+      "goal": "Objectif",
+      "goalPlaceholder": "Qu'attendons-nous de cette séance ?",
+      "template": "Format",
+      "anonymous": "Sujets anonymes",
+      "anonymousHint": "Personne ne voit qui a écrit chaque sujet. Les auteurs peuvent toujours modifier les leurs.",
+      "votes": "Votes par personne",
+      "submit": "Créer la rétrospective",
+      "cancel": "Annuler"
+    },
+    "templates": {
+      "well_improve": "Bien passé / À améliorer",
+      "start_stop_continue": "Commencer / Arrêter / Continuer",
+      "mad_sad_glad": "Fâché / Triste / Content",
+      "open": "Sujets libres"
+    },
+    "columns": {
+      "went_well": "Bien passé",
+      "to_improve": "À améliorer",
+      "ideas": "Idées",
+      "start": "Commencer",
+      "stop": "Arrêter",
+      "continue": "Continuer",
+      "mad": "Fâché",
+      "sad": "Triste",
+      "glad": "Content",
+      "topics": "Sujets"
+    },
+    "stages": {
+      "label": "Étapes de la rétrospective",
+      "back": "Revenir à {{stage}}",
+      "next": "Passer à {{stage}}",
+      "close": "Clôturer la rétrospective",
+      "prepare": {
+        "name": "Préparer",
+        "facilitator": "Vérifiez le format et l'objectif, puis ouvrez le tableau quand l'équipe est prête.",
+        "participant": "La personne qui anime va bientôt ouvrir le tableau."
+      },
+      "collect": {
+        "name": "Collecter",
+        "facilitator": "Chacun ajoute ses sujets en privé. Passez au regroupement quand tout le monde a fini.",
+        "participant": "Ajoutez vos sujets. Les autres ne les verront qu'au moment du regroupement."
+      },
+      "group": {
+        "name": "Regrouper",
+        "facilitator": "Tout le monde voit désormais tous les sujets et peut regrouper ceux qui se ressemblent.",
+        "participant": "Glissez les sujets liés ensemble ou utilisez le menu de déplacement de chaque sujet."
+      },
+      "vote": {
+        "name": "Voter",
+        "facilitator": "Chaque sujet isolé est devenu un groupe. Les totaux restent cachés jusqu'à la discussion.",
+        "participant": "Répartissez vos votes sur ce qui compte le plus. Vous pouvez les changer jusqu'à la fin du vote."
+      },
+      "discuss": {
+        "name": "Discuter",
+        "facilitator": "Parcourez les groupes par nombre de votes et notez ce que l'équipe décide.",
+        "participant": "La personne qui anime prend des notes pendant que l'équipe discute des groupes les plus votés."
+      },
+      "closed": {
+        "name": "Clôturée",
+        "facilitator": "Cette rétrospective est clôturée. Vous pouvez revenir à la discussion pour corriger les notes.",
+        "participant": "Cette rétrospective est clôturée. Voici ce que l'équipe a décidé."
+      }
+    },
+    "details": {
+      "goal": "Objectif :",
+      "template": "Format",
+      "votes": "Votes par personne",
+      "anonymity": "Sujets",
+      "anonymous": "Anonymes",
+      "named": "Afficher qui les a écrits"
+    },
+    "actions": {
+      "delete": "Supprimer"
+    },
+    "delete": {
+      "title": "Supprimer la rétrospective ?",
+      "description": "« {{title}} » sera supprimée pour tout le monde avec ses sujets, votes et notes.",
+      "confirm": "Supprimer",
+      "cancel": "Annuler"
+    },
+    "collect": {
+      "hidden_one": "{{count}} sujet des autres reste caché jusqu'au regroupement.",
+      "hidden_many": "{{count}} sujets des autres restent cachés jusqu'au regroupement.",
+      "hidden_other": "{{count}} sujets des autres restent cachés jusqu'au regroupement.",
+      "topicTitle": "Nouveau sujet dans {{column}}",
+      "topicDescription": "Détails du nouveau sujet dans {{column}}",
+      "topicPlaceholder": "Ajouter un sujet…",
+      "descriptionPlaceholder": "Détails (facultatif)",
+      "add": "Ajouter",
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "edit": "Modifier « {{title}} »",
+      "delete": "Supprimer « {{title}} »",
+      "anonymous": "Les sujets sont anonymes : personne ne verra qui les a écrits.",
+      "named": "Votre nom s'affichera à côté de vos sujets une fois le tableau révélé."
+    },
+    "group": {
+      "hint": "Déposez un sujet sur un groupe pour l'y ajouter, sur le nom d'un groupe pour fusionner, ou dans l'emplacement vide pour créer un groupe.",
+      "loose": "Non regroupés",
+      "allGrouped": "Tous les sujets sont dans un groupe.",
+      "newGroup": "Nouveau groupe",
+      "dropNew": "Déposez un sujet ici pour créer un groupe",
+      "untitled": "Groupe {{number}}",
+      "name": "Nom de {{name}}",
+      "moveTopic": "Déplacer « {{title}} » vers",
+      "merge": "Fusionner {{name}} avec un autre groupe",
+      "mergeInto": "Fusionner avec…",
+      "ungroup": "Dégrouper {{name}}"
+    },
+    "vote": {
+      "hint": "Les totaux restent cachés jusqu'à la discussion pour que personne ne suive la majorité.",
+      "left_one": "{{count}} vote restant sur {{total}}",
+      "left_many": "{{count}} votes restants sur {{total}}",
+      "left_other": "{{count}} votes restants sur {{total}}",
+      "add": "Ajouter un vote à {{name}}",
+      "remove": "Retirer un vote de {{name}}",
+      "mine": "Vos votes pour {{name}} : {{count}}"
+    },
+    "discuss": {
+      "votes_one": "{{count}} vote",
+      "votes_many": "{{count}} votes",
+      "votes_other": "{{count}} votes",
+      "takeNotes": "Prendre des notes",
+      "takeNotesFor": "Prendre des notes sur {{name}}",
+      "fields": {
+        "summary": "Résumé",
+        "impact": "Impact",
+        "rootCauses": "Causes profondes",
+        "context": "Contexte"
+      },
+      "decision": "Décision sur {{name}}",
+      "decisionLabel": "Décision",
+      "decisions": {
+        "action": "Agir",
+        "monitor": "Surveiller",
+        "accept": "Accepter tel quel"
+      },
+      "save": "Enregistrer les notes",
+      "cancel": "Annuler"
+    },
+    "summary": {
+      "topics": "Sujets",
+      "groups": "Groupes",
+      "voters": "Votants",
+      "top": "Les plus votés",
+      "noVotes": "Personne n'a voté dans cette rétrospective.",
+      "discussed": "Discussion",
+      "noNotes": "Aucune note n'a été prise."
+    }
   }
 }

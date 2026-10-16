@@ -191,5 +191,172 @@
       "noComments": "No comments were left."
     },
     "loading": "Loading surveys"
+  },
+  "retros": {
+    "loading": "Loading retrospectives",
+    "loadingBoard": "Loading the board",
+    "empty": {
+      "title": "No retrospectives yet",
+      "manager": "Plan a retrospective to look back with the team and agree on what to change.",
+      "member": "When a retrospective is planned in this workspace you will be able to join it here."
+    },
+    "list": {
+      "label": "Retrospectives"
+    },
+    "create": {
+      "open": "New retrospective",
+      "title": "New retrospective",
+      "description": "Set the scene. You will guide the team through each stage.",
+      "name": "Title",
+      "namePlaceholder": "Sprint 24 retrospective",
+      "date": "Date",
+      "period": "Period reviewed",
+      "periodPlaceholder": "Sprint 24, Q3, the launch…",
+      "goal": "Goal",
+      "goalPlaceholder": "What do we want to get out of this session?",
+      "template": "Format",
+      "anonymous": "Anonymous topics",
+      "anonymousHint": "Nobody sees who wrote each topic. Authors can still edit their own.",
+      "votes": "Votes per person",
+      "submit": "Create retrospective",
+      "cancel": "Cancel"
+    },
+    "templates": {
+      "well_improve": "Went well / To improve",
+      "start_stop_continue": "Start / Stop / Continue",
+      "mad_sad_glad": "Mad / Sad / Glad",
+      "open": "Open topics"
+    },
+    "columns": {
+      "went_well": "Went well",
+      "to_improve": "To improve",
+      "ideas": "Ideas",
+      "start": "Start",
+      "stop": "Stop",
+      "continue": "Continue",
+      "mad": "Mad",
+      "sad": "Sad",
+      "glad": "Glad",
+      "topics": "Topics"
+    },
+    "stages": {
+      "label": "Retrospective stages",
+      "back": "Back to {{stage}}",
+      "next": "Start {{stage}}",
+      "close": "Close retrospective",
+      "prepare": {
+        "name": "Prepare",
+        "facilitator": "Check the format and goal, then open the board when the team is ready.",
+        "participant": "The facilitator will open the board soon."
+      },
+      "collect": {
+        "name": "Collect",
+        "facilitator": "Everyone adds topics privately. Move on to grouping when people are done.",
+        "participant": "Add your topics. Others only see them once the facilitator starts grouping."
+      },
+      "group": {
+        "name": "Group",
+        "facilitator": "Everyone can now see every topic and group the related ones together.",
+        "participant": "Drag related topics together or use the move menu on each topic."
+      },
+      "vote": {
+        "name": "Vote",
+        "facilitator": "Every topic left on its own became a group. Totals stay hidden until discussion.",
+        "participant": "Spend your votes on what matters most. You can change them until voting ends."
+      },
+      "discuss": {
+        "name": "Discuss",
+        "facilitator": "Go through the groups by votes and record what the team agrees on.",
+        "participant": "The facilitator takes notes while the team talks through the top groups."
+      },
+      "closed": {
+        "name": "Closed",
+        "facilitator": "This retrospective is closed. You can go back to discussion to amend notes.",
+        "participant": "This retrospective is closed. Here is what the team agreed."
+      }
+    },
+    "details": {
+      "goal": "Goal:",
+      "template": "Format",
+      "votes": "Votes per person",
+      "anonymity": "Topics",
+      "anonymous": "Anonymous",
+      "named": "Show who wrote them"
+    },
+    "actions": {
+      "delete": "Delete"
+    },
+    "delete": {
+      "title": "Delete retrospective?",
+      "description": "“{{title}}” with all its topics, votes and notes will be deleted for everyone.",
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    },
+    "collect": {
+      "hidden_one": "{{count}} topic from others stays hidden until grouping.",
+      "hidden_other": "{{count}} topics from others stay hidden until grouping.",
+      "topicTitle": "New topic in {{column}}",
+      "topicDescription": "Details for the new topic in {{column}}",
+      "topicPlaceholder": "Add a topic…",
+      "descriptionPlaceholder": "Details (optional)",
+      "add": "Add",
+      "save": "Save",
+      "cancel": "Cancel",
+      "edit": "Edit “{{title}}”",
+      "delete": "Delete “{{title}}”",
+      "anonymous": "Topics are anonymous: nobody will see who wrote them.",
+      "named": "Your name is shown next to your topics once the board is revealed."
+    },
+    "group": {
+      "hint": "Drop a topic on a group to add it, on a group name to merge groups, or on the empty slot to start a new group.",
+      "loose": "Not grouped",
+      "allGrouped": "Every topic is in a group.",
+      "newGroup": "New group",
+      "dropNew": "Drop a topic here to start a new group",
+      "untitled": "Group {{number}}",
+      "name": "Name of {{name}}",
+      "moveTopic": "Move “{{title}}” to",
+      "merge": "Merge {{name}} into another group",
+      "mergeInto": "Merge into…",
+      "ungroup": "Ungroup {{name}}"
+    },
+    "vote": {
+      "hint": "Totals stay hidden until discussion so nobody follows the crowd.",
+      "left_one": "{{count}} of {{total}} vote left",
+      "left_other": "{{count}} of {{total}} votes left",
+      "add": "Add a vote to {{name}}",
+      "remove": "Remove a vote from {{name}}",
+      "mine": "Your votes on {{name}}: {{count}}"
+    },
+    "discuss": {
+      "votes_one": "{{count}} vote",
+      "votes_other": "{{count}} votes",
+      "takeNotes": "Take notes",
+      "takeNotesFor": "Take notes on {{name}}",
+      "fields": {
+        "summary": "Summary",
+        "impact": "Impact",
+        "rootCauses": "Root causes",
+        "context": "Context"
+      },
+      "decision": "Decision on {{name}}",
+      "decisionLabel": "Decision",
+      "decisions": {
+        "action": "Take action",
+        "monitor": "Monitor",
+        "accept": "Accept as is"
+      },
+      "save": "Save notes",
+      "cancel": "Cancel"
+    },
+    "summary": {
+      "topics": "Topics",
+      "groups": "Groups",
+      "voters": "Voters",
+      "top": "Most voted",
+      "noVotes": "Nobody voted in this retrospective.",
+      "discussed": "Discussion",
+      "noNotes": "No notes were taken."
+    }
   }
 }

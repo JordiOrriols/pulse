@@ -191,5 +191,172 @@
       "noComments": "Es wurden keine Kommentare hinterlassen."
     },
     "loading": "Umfragen werden geladen"
+  },
+  "retros": {
+    "loading": "Retrospektiven werden geladen",
+    "loadingBoard": "Board wird geladen",
+    "empty": {
+      "title": "Noch keine Retrospektiven",
+      "manager": "Plane eine Retrospektive, um mit dem Team zurückzublicken und Änderungen zu vereinbaren.",
+      "member": "Sobald in diesem Workspace eine Retrospektive geplant ist, kannst du hier teilnehmen."
+    },
+    "list": {
+      "label": "Retrospektiven"
+    },
+    "create": {
+      "open": "Neue Retrospektive",
+      "title": "Neue Retrospektive",
+      "description": "Lege den Rahmen fest. Du führst das Team durch jede Phase.",
+      "name": "Titel",
+      "namePlaceholder": "Retrospektive Sprint 24",
+      "date": "Datum",
+      "period": "Betrachteter Zeitraum",
+      "periodPlaceholder": "Sprint 24, Q3, der Launch…",
+      "goal": "Ziel",
+      "goalPlaceholder": "Was wollen wir aus dieser Sitzung mitnehmen?",
+      "template": "Format",
+      "anonymous": "Anonyme Themen",
+      "anonymousHint": "Niemand sieht, wer welches Thema geschrieben hat. Eigene Themen bleiben bearbeitbar.",
+      "votes": "Stimmen pro Person",
+      "submit": "Retrospektive erstellen",
+      "cancel": "Abbrechen"
+    },
+    "templates": {
+      "well_improve": "Lief gut / Verbessern",
+      "start_stop_continue": "Starten / Stoppen / Weitermachen",
+      "mad_sad_glad": "Wütend / Traurig / Froh",
+      "open": "Offene Themen"
+    },
+    "columns": {
+      "went_well": "Lief gut",
+      "to_improve": "Verbessern",
+      "ideas": "Ideen",
+      "start": "Starten",
+      "stop": "Stoppen",
+      "continue": "Weitermachen",
+      "mad": "Wütend",
+      "sad": "Traurig",
+      "glad": "Froh",
+      "topics": "Themen"
+    },
+    "stages": {
+      "label": "Phasen der Retrospektive",
+      "back": "Zurück zu {{stage}}",
+      "next": "{{stage}} starten",
+      "close": "Retrospektive abschließen",
+      "prepare": {
+        "name": "Vorbereiten",
+        "facilitator": "Prüfe Format und Ziel und öffne das Board, wenn das Team bereit ist.",
+        "participant": "Die Moderation öffnet das Board gleich."
+      },
+      "collect": {
+        "name": "Sammeln",
+        "facilitator": "Alle fügen privat Themen hinzu. Geh zum Gruppieren über, wenn alle fertig sind.",
+        "participant": "Füge deine Themen hinzu. Andere sehen sie erst, wenn das Gruppieren beginnt."
+      },
+      "group": {
+        "name": "Gruppieren",
+        "facilitator": "Jetzt sehen alle jedes Thema und können zusammengehörige gruppieren.",
+        "participant": "Ziehe verwandte Themen zusammen oder nutze das Verschieben-Menü an jedem Thema."
+      },
+      "vote": {
+        "name": "Abstimmen",
+        "facilitator": "Jedes einzelne Thema wurde zu einer Gruppe. Summen bleiben bis zur Diskussion verborgen.",
+        "participant": "Verteile deine Stimmen auf das Wichtigste. Du kannst sie bis zum Ende ändern."
+      },
+      "discuss": {
+        "name": "Diskutieren",
+        "facilitator": "Geh die Gruppen nach Stimmen durch und halte fest, worauf sich das Team einigt.",
+        "participant": "Die Moderation schreibt mit, während das Team die wichtigsten Gruppen bespricht."
+      },
+      "closed": {
+        "name": "Abgeschlossen",
+        "facilitator": "Diese Retrospektive ist abgeschlossen. Du kannst zur Diskussion zurückkehren, um Notizen zu ändern.",
+        "participant": "Diese Retrospektive ist abgeschlossen. Das hat das Team vereinbart."
+      }
+    },
+    "details": {
+      "goal": "Ziel:",
+      "template": "Format",
+      "votes": "Stimmen pro Person",
+      "anonymity": "Themen",
+      "anonymous": "Anonym",
+      "named": "Zeigen, wer sie geschrieben hat"
+    },
+    "actions": {
+      "delete": "Löschen"
+    },
+    "delete": {
+      "title": "Retrospektive löschen?",
+      "description": "„{{title}}“ wird mit allen Themen, Stimmen und Notizen für alle gelöscht.",
+      "confirm": "Löschen",
+      "cancel": "Abbrechen"
+    },
+    "collect": {
+      "hidden_one": "{{count}} Thema anderer bleibt bis zum Gruppieren verborgen.",
+      "hidden_other": "{{count}} Themen anderer bleiben bis zum Gruppieren verborgen.",
+      "topicTitle": "Neues Thema in {{column}}",
+      "topicDescription": "Details zum neuen Thema in {{column}}",
+      "topicPlaceholder": "Thema hinzufügen…",
+      "descriptionPlaceholder": "Details (optional)",
+      "add": "Hinzufügen",
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "edit": "„{{title}}“ bearbeiten",
+      "delete": "„{{title}}“ löschen",
+      "anonymous": "Themen sind anonym: Niemand sieht, wer sie geschrieben hat.",
+      "named": "Dein Name erscheint neben deinen Themen, sobald das Board sichtbar wird."
+    },
+    "group": {
+      "hint": "Lege ein Thema auf einer Gruppe ab, um es hinzuzufügen, auf einem Gruppennamen, um Gruppen zusammenzuführen, oder im leeren Feld für eine neue Gruppe.",
+      "loose": "Nicht gruppiert",
+      "allGrouped": "Alle Themen sind in einer Gruppe.",
+      "newGroup": "Neue Gruppe",
+      "dropNew": "Thema hier ablegen, um eine neue Gruppe zu starten",
+      "untitled": "Gruppe {{number}}",
+      "name": "Name von {{name}}",
+      "moveTopic": "„{{title}}“ verschieben nach",
+      "merge": "{{name}} mit einer anderen Gruppe zusammenführen",
+      "mergeInto": "Zusammenführen mit…",
+      "ungroup": "{{name}} auflösen"
+    },
+    "vote": {
+      "hint": "Summen bleiben bis zur Diskussion verborgen, damit niemand der Mehrheit folgt.",
+      "left_one": "{{count}} von {{total}} Stimmen übrig",
+      "left_other": "{{count}} von {{total}} Stimmen übrig",
+      "add": "Eine Stimme für {{name}} hinzufügen",
+      "remove": "Eine Stimme von {{name}} entfernen",
+      "mine": "Deine Stimmen für {{name}}: {{count}}"
+    },
+    "discuss": {
+      "votes_one": "{{count}} Stimme",
+      "votes_other": "{{count}} Stimmen",
+      "takeNotes": "Notizen machen",
+      "takeNotesFor": "Notizen zu {{name}} machen",
+      "fields": {
+        "summary": "Zusammenfassung",
+        "impact": "Auswirkung",
+        "rootCauses": "Ursachen",
+        "context": "Kontext"
+      },
+      "decision": "Entscheidung zu {{name}}",
+      "decisionLabel": "Entscheidung",
+      "decisions": {
+        "action": "Handeln",
+        "monitor": "Beobachten",
+        "accept": "So akzeptieren"
+      },
+      "save": "Notizen speichern",
+      "cancel": "Abbrechen"
+    },
+    "summary": {
+      "topics": "Themen",
+      "groups": "Gruppen",
+      "voters": "Abstimmende",
+      "top": "Meiste Stimmen",
+      "noVotes": "In dieser Retrospektive hat niemand abgestimmt.",
+      "discussed": "Diskussion",
+      "noNotes": "Es wurden keine Notizen gemacht."
+    }
   }
 }

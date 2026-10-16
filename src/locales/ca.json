@@ -191,5 +191,175 @@
       "noComments": "No s'hi van deixar comentaris."
     },
     "loading": "Carregant enquestes"
+  },
+  "retros": {
+    "loading": "Carregant retrospectives",
+    "loadingBoard": "Carregant el tauler",
+    "empty": {
+      "title": "Encara no hi ha retrospectives",
+      "manager": "Planifica una retrospectiva per mirar enrere amb l'equip i acordar què cal canviar.",
+      "member": "Quan es planifiqui una retrospectiva en aquest espai t'hi podràs unir aquí."
+    },
+    "list": {
+      "label": "Retrospectives"
+    },
+    "create": {
+      "open": "Nova retrospectiva",
+      "title": "Nova retrospectiva",
+      "description": "Prepara el context. Guiaràs l'equip per cada etapa.",
+      "name": "Títol",
+      "namePlaceholder": "Retrospectiva de l'sprint 24",
+      "date": "Data",
+      "period": "Període revisat",
+      "periodPlaceholder": "Sprint 24, T3, el llançament…",
+      "goal": "Objectiu",
+      "goalPlaceholder": "Què volem treure d'aquesta sessió?",
+      "template": "Format",
+      "anonymous": "Temes anònims",
+      "anonymousHint": "Ningú veu qui ha escrit cada tema. Els autors poden editar els seus.",
+      "votes": "Vots per persona",
+      "submit": "Crear retrospectiva",
+      "cancel": "Cancel·lar"
+    },
+    "templates": {
+      "well_improve": "Ha anat bé / A millorar",
+      "start_stop_continue": "Començar / Deixar / Continuar",
+      "mad_sad_glad": "Enfadat / Trist / Content",
+      "open": "Temes oberts"
+    },
+    "columns": {
+      "went_well": "Ha anat bé",
+      "to_improve": "A millorar",
+      "ideas": "Idees",
+      "start": "Començar",
+      "stop": "Deixar",
+      "continue": "Continuar",
+      "mad": "Enfadat",
+      "sad": "Trist",
+      "glad": "Content",
+      "topics": "Temes"
+    },
+    "stages": {
+      "label": "Etapes de la retrospectiva",
+      "back": "Tornar a {{stage}}",
+      "next": "Començar {{stage}}",
+      "close": "Tancar retrospectiva",
+      "prepare": {
+        "name": "Preparar",
+        "facilitator": "Revisa el format i l'objectiu, i obre el tauler quan l'equip estigui a punt.",
+        "participant": "La persona facilitadora obrirà el tauler aviat."
+      },
+      "collect": {
+        "name": "Recollir",
+        "facilitator": "Cada persona afegeix temes en privat. Passa a agrupar quan hagin acabat.",
+        "participant": "Afegeix els teus temes. La resta només els veurà quan comenci l'agrupació."
+      },
+      "group": {
+        "name": "Agrupar",
+        "facilitator": "Ara tothom veu tots els temes i pot agrupar els relacionats.",
+        "participant": "Arrossega els temes relacionats junts o fes servir el menú de moure de cada tema."
+      },
+      "vote": {
+        "name": "Votar",
+        "facilitator": "Cada tema sol s'ha convertit en un grup. Els totals s'amaguen fins a la discussió.",
+        "participant": "Reparteix els teus vots en allò més important. Els pots canviar fins que acabi la votació."
+      },
+      "discuss": {
+        "name": "Discutir",
+        "facilitator": "Recorre els grups per vots i anota el que acordi l'equip.",
+        "participant": "La persona facilitadora pren notes mentre l'equip parla dels grups més votats."
+      },
+      "closed": {
+        "name": "Tancada",
+        "facilitator": "Aquesta retrospectiva està tancada. Pots tornar a la discussió per corregir notes.",
+        "participant": "Aquesta retrospectiva està tancada. Això és el que va acordar l'equip."
+      }
+    },
+    "details": {
+      "goal": "Objectiu:",
+      "template": "Format",
+      "votes": "Vots per persona",
+      "anonymity": "Temes",
+      "anonymous": "Anònims",
+      "named": "Mostrar qui els ha escrit"
+    },
+    "actions": {
+      "delete": "Eliminar"
+    },
+    "delete": {
+      "title": "Eliminar la retrospectiva?",
+      "description": "«{{title}}» s'eliminarà per a tothom amb tots els seus temes, vots i notes.",
+      "confirm": "Eliminar",
+      "cancel": "Cancel·lar"
+    },
+    "collect": {
+      "hidden_one": "{{count}} tema d'altres persones queda amagat fins a l'agrupació.",
+      "hidden_many": "{{count}} temes d'altres persones queden amagats fins a l'agrupació.",
+      "hidden_other": "{{count}} temes d'altres persones queden amagats fins a l'agrupació.",
+      "topicTitle": "Nou tema a {{column}}",
+      "topicDescription": "Detalls del nou tema a {{column}}",
+      "topicPlaceholder": "Afegeix un tema…",
+      "descriptionPlaceholder": "Detalls (opcional)",
+      "add": "Afegir",
+      "save": "Desar",
+      "cancel": "Cancel·lar",
+      "edit": "Editar «{{title}}»",
+      "delete": "Eliminar «{{title}}»",
+      "anonymous": "Els temes són anònims: ningú veurà qui els ha escrit.",
+      "named": "El teu nom apareixerà al costat dels teus temes quan es mostri el tauler."
+    },
+    "group": {
+      "hint": "Deixa anar un tema sobre un grup per afegir-l'hi, sobre el nom d'un grup per fusionar-los, o a l'espai buit per crear un grup nou.",
+      "loose": "Sense agrupar",
+      "allGrouped": "Tots els temes són en un grup.",
+      "newGroup": "Grup nou",
+      "dropNew": "Deixa anar un tema aquí per crear un grup nou",
+      "untitled": "Grup {{number}}",
+      "name": "Nom de {{name}}",
+      "moveTopic": "Moure «{{title}}» a",
+      "merge": "Fusionar {{name}} amb un altre grup",
+      "mergeInto": "Fusionar amb…",
+      "ungroup": "Desagrupar {{name}}"
+    },
+    "vote": {
+      "hint": "Els totals s'amaguen fins a la discussió perquè ningú segueixi la majoria.",
+      "left_one": "Et queda {{count}} de {{total}} vots",
+      "left_many": "Et queden {{count}} de {{total}} vots",
+      "left_other": "Et queden {{count}} de {{total}} vots",
+      "add": "Afegir un vot a {{name}}",
+      "remove": "Treure un vot de {{name}}",
+      "mine": "Els teus vots a {{name}}: {{count}}"
+    },
+    "discuss": {
+      "votes_one": "{{count}} vot",
+      "votes_many": "{{count}} vots",
+      "votes_other": "{{count}} vots",
+      "takeNotes": "Prendre notes",
+      "takeNotesFor": "Prendre notes de {{name}}",
+      "fields": {
+        "summary": "Resum",
+        "impact": "Impacte",
+        "rootCauses": "Causes arrel",
+        "context": "Context"
+      },
+      "decision": "Decisió sobre {{name}}",
+      "decisionLabel": "Decisió",
+      "decisions": {
+        "action": "Actuar",
+        "monitor": "Vigilar",
+        "accept": "Acceptar tal com és"
+      },
+      "save": "Desar notes",
+      "cancel": "Cancel·lar"
+    },
+    "summary": {
+      "topics": "Temes",
+      "groups": "Grups",
+      "voters": "Votants",
+      "top": "Més votats",
+      "noVotes": "Ningú no va votar en aquesta retrospectiva.",
+      "discussed": "Discussió",
+      "noNotes": "No es van prendre notes."
+    }
   }
 }

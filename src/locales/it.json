@@ -191,5 +191,175 @@
       "noComments": "Non sono stati lasciati commenti."
     },
     "loading": "Caricamento dei sondaggi"
+  },
+  "retros": {
+    "loading": "Caricamento delle retrospettive",
+    "loadingBoard": "Caricamento della bacheca",
+    "empty": {
+      "title": "Ancora nessuna retrospettiva",
+      "manager": "Pianifica una retrospettiva per guardare indietro con il team e decidere cosa cambiare.",
+      "member": "Quando verrà pianificata una retrospettiva in questo spazio potrai partecipare da qui."
+    },
+    "list": {
+      "label": "Retrospettive"
+    },
+    "create": {
+      "open": "Nuova retrospettiva",
+      "title": "Nuova retrospettiva",
+      "description": "Prepara il contesto. Guiderai il team in ogni fase.",
+      "name": "Titolo",
+      "namePlaceholder": "Retrospettiva dello sprint 24",
+      "date": "Data",
+      "period": "Periodo considerato",
+      "periodPlaceholder": "Sprint 24, T3, il lancio…",
+      "goal": "Obiettivo",
+      "goalPlaceholder": "Cosa vogliamo ottenere da questa sessione?",
+      "template": "Formato",
+      "anonymous": "Argomenti anonimi",
+      "anonymousHint": "Nessuno vede chi ha scritto ogni argomento. Gli autori possono comunque modificare i propri.",
+      "votes": "Voti per persona",
+      "submit": "Crea retrospettiva",
+      "cancel": "Annulla"
+    },
+    "templates": {
+      "well_improve": "È andato bene / Da migliorare",
+      "start_stop_continue": "Iniziare / Smettere / Continuare",
+      "mad_sad_glad": "Arrabbiato / Triste / Contento",
+      "open": "Argomenti liberi"
+    },
+    "columns": {
+      "went_well": "È andato bene",
+      "to_improve": "Da migliorare",
+      "ideas": "Idee",
+      "start": "Iniziare",
+      "stop": "Smettere",
+      "continue": "Continuare",
+      "mad": "Arrabbiato",
+      "sad": "Triste",
+      "glad": "Contento",
+      "topics": "Argomenti"
+    },
+    "stages": {
+      "label": "Fasi della retrospettiva",
+      "back": "Torna a {{stage}}",
+      "next": "Avvia {{stage}}",
+      "close": "Chiudi retrospettiva",
+      "prepare": {
+        "name": "Preparare",
+        "facilitator": "Controlla formato e obiettivo, poi apri la bacheca quando il team è pronto.",
+        "participant": "Chi facilita aprirà presto la bacheca."
+      },
+      "collect": {
+        "name": "Raccogliere",
+        "facilitator": "Ognuno aggiunge argomenti in privato. Passa al raggruppamento quando hanno finito.",
+        "participant": "Aggiungi i tuoi argomenti. Gli altri li vedranno solo quando inizia il raggruppamento."
+      },
+      "group": {
+        "name": "Raggruppare",
+        "facilitator": "Ora tutti vedono tutti gli argomenti e possono raggruppare quelli collegati.",
+        "participant": "Trascina insieme gli argomenti collegati o usa il menu di spostamento di ogni argomento."
+      },
+      "vote": {
+        "name": "Votare",
+        "facilitator": "Ogni argomento isolato è diventato un gruppo. I totali restano nascosti fino alla discussione.",
+        "participant": "Distribuisci i tuoi voti su ciò che conta di più. Puoi cambiarli fino alla fine della votazione."
+      },
+      "discuss": {
+        "name": "Discutere",
+        "facilitator": "Scorri i gruppi per voti e annota ciò che il team concorda.",
+        "participant": "Chi facilita prende appunti mentre il team discute i gruppi più votati."
+      },
+      "closed": {
+        "name": "Chiusa",
+        "facilitator": "Questa retrospettiva è chiusa. Puoi tornare alla discussione per correggere gli appunti.",
+        "participant": "Questa retrospettiva è chiusa. Ecco cosa ha concordato il team."
+      }
+    },
+    "details": {
+      "goal": "Obiettivo:",
+      "template": "Formato",
+      "votes": "Voti per persona",
+      "anonymity": "Argomenti",
+      "anonymous": "Anonimi",
+      "named": "Mostra chi li ha scritti"
+    },
+    "actions": {
+      "delete": "Elimina"
+    },
+    "delete": {
+      "title": "Eliminare la retrospettiva?",
+      "description": "«{{title}}» verrà eliminata per tutti con argomenti, voti e appunti.",
+      "confirm": "Elimina",
+      "cancel": "Annulla"
+    },
+    "collect": {
+      "hidden_one": "{{count}} argomento di altri resta nascosto fino al raggruppamento.",
+      "hidden_many": "{{count}} argomenti di altri restano nascosti fino al raggruppamento.",
+      "hidden_other": "{{count}} argomenti di altri restano nascosti fino al raggruppamento.",
+      "topicTitle": "Nuovo argomento in {{column}}",
+      "topicDescription": "Dettagli del nuovo argomento in {{column}}",
+      "topicPlaceholder": "Aggiungi un argomento…",
+      "descriptionPlaceholder": "Dettagli (facoltativo)",
+      "add": "Aggiungi",
+      "save": "Salva",
+      "cancel": "Annulla",
+      "edit": "Modifica «{{title}}»",
+      "delete": "Elimina «{{title}}»",
+      "anonymous": "Gli argomenti sono anonimi: nessuno vedrà chi li ha scritti.",
+      "named": "Il tuo nome comparirà accanto ai tuoi argomenti quando la bacheca sarà visibile."
+    },
+    "group": {
+      "hint": "Rilascia un argomento su un gruppo per aggiungerlo, sul nome di un gruppo per unirli, o nello spazio vuoto per creare un nuovo gruppo.",
+      "loose": "Non raggruppati",
+      "allGrouped": "Tutti gli argomenti sono in un gruppo.",
+      "newGroup": "Nuovo gruppo",
+      "dropNew": "Rilascia qui un argomento per creare un nuovo gruppo",
+      "untitled": "Gruppo {{number}}",
+      "name": "Nome di {{name}}",
+      "moveTopic": "Sposta «{{title}}» in",
+      "merge": "Unisci {{name}} a un altro gruppo",
+      "mergeInto": "Unisci a…",
+      "ungroup": "Separa {{name}}"
+    },
+    "vote": {
+      "hint": "I totali restano nascosti fino alla discussione così nessuno segue la maggioranza.",
+      "left_one": "Ti resta {{count}} voto su {{total}}",
+      "left_many": "Ti restano {{count}} voti su {{total}}",
+      "left_other": "Ti restano {{count}} voti su {{total}}",
+      "add": "Aggiungi un voto a {{name}}",
+      "remove": "Togli un voto da {{name}}",
+      "mine": "I tuoi voti su {{name}}: {{count}}"
+    },
+    "discuss": {
+      "votes_one": "{{count}} voto",
+      "votes_many": "{{count}} voti",
+      "votes_other": "{{count}} voti",
+      "takeNotes": "Prendi appunti",
+      "takeNotesFor": "Prendi appunti su {{name}}",
+      "fields": {
+        "summary": "Sintesi",
+        "impact": "Impatto",
+        "rootCauses": "Cause profonde",
+        "context": "Contesto"
+      },
+      "decision": "Decisione su {{name}}",
+      "decisionLabel": "Decisione",
+      "decisions": {
+        "action": "Agire",
+        "monitor": "Monitorare",
+        "accept": "Accettare così"
+      },
+      "save": "Salva appunti",
+      "cancel": "Annulla"
+    },
+    "summary": {
+      "topics": "Argomenti",
+      "groups": "Gruppi",
+      "voters": "Votanti",
+      "top": "Più votati",
+      "noVotes": "Nessuno ha votato in questa retrospettiva.",
+      "discussed": "Discussione",
+      "noNotes": "Non sono stati presi appunti."
+    }
   }
 }

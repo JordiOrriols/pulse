@@ -191,5 +191,175 @@
       "noComments": "No se dejaron comentarios."
     },
     "loading": "Cargando encuestas"
+  },
+  "retros": {
+    "loading": "Cargando retrospectivas",
+    "loadingBoard": "Cargando el tablero",
+    "empty": {
+      "title": "Aún no hay retrospectivas",
+      "manager": "Planifica una retrospectiva para mirar atrás con el equipo y acordar qué cambiar.",
+      "member": "Cuando se planifique una retrospectiva en este espacio podrás unirte aquí."
+    },
+    "list": {
+      "label": "Retrospectivas"
+    },
+    "create": {
+      "open": "Nueva retrospectiva",
+      "title": "Nueva retrospectiva",
+      "description": "Prepara el contexto. Guiarás al equipo por cada etapa.",
+      "name": "Título",
+      "namePlaceholder": "Retrospectiva del sprint 24",
+      "date": "Fecha",
+      "period": "Periodo revisado",
+      "periodPlaceholder": "Sprint 24, T3, el lanzamiento…",
+      "goal": "Objetivo",
+      "goalPlaceholder": "¿Qué queremos sacar de esta sesión?",
+      "template": "Formato",
+      "anonymous": "Temas anónimos",
+      "anonymousHint": "Nadie ve quién escribió cada tema. Los autores pueden editar los suyos.",
+      "votes": "Votos por persona",
+      "submit": "Crear retrospectiva",
+      "cancel": "Cancelar"
+    },
+    "templates": {
+      "well_improve": "Fue bien / A mejorar",
+      "start_stop_continue": "Empezar / Dejar / Continuar",
+      "mad_sad_glad": "Enfadado / Triste / Contento",
+      "open": "Temas abiertos"
+    },
+    "columns": {
+      "went_well": "Fue bien",
+      "to_improve": "A mejorar",
+      "ideas": "Ideas",
+      "start": "Empezar",
+      "stop": "Dejar",
+      "continue": "Continuar",
+      "mad": "Enfadado",
+      "sad": "Triste",
+      "glad": "Contento",
+      "topics": "Temas"
+    },
+    "stages": {
+      "label": "Etapas de la retrospectiva",
+      "back": "Volver a {{stage}}",
+      "next": "Empezar {{stage}}",
+      "close": "Cerrar retrospectiva",
+      "prepare": {
+        "name": "Preparar",
+        "facilitator": "Revisa el formato y el objetivo, y abre el tablero cuando el equipo esté listo.",
+        "participant": "La persona facilitadora abrirá el tablero en breve."
+      },
+      "collect": {
+        "name": "Recoger",
+        "facilitator": "Cada persona añade temas en privado. Pasa a agrupar cuando hayan terminado.",
+        "participant": "Añade tus temas. El resto solo los verá cuando empiece la agrupación."
+      },
+      "group": {
+        "name": "Agrupar",
+        "facilitator": "Ahora todo el mundo ve todos los temas y puede agrupar los relacionados.",
+        "participant": "Arrastra los temas relacionados juntos o usa el menú de mover de cada tema."
+      },
+      "vote": {
+        "name": "Votar",
+        "facilitator": "Cada tema suelto se ha convertido en un grupo. Los totales se ocultan hasta la discusión.",
+        "participant": "Reparte tus votos en lo más importante. Puedes cambiarlos hasta que acabe la votación."
+      },
+      "discuss": {
+        "name": "Discutir",
+        "facilitator": "Recorre los grupos por votos y anota lo que acuerde el equipo.",
+        "participant": "La persona facilitadora toma notas mientras el equipo habla de los grupos más votados."
+      },
+      "closed": {
+        "name": "Cerrada",
+        "facilitator": "Esta retrospectiva está cerrada. Puedes volver a la discusión para corregir notas.",
+        "participant": "Esta retrospectiva está cerrada. Esto es lo que acordó el equipo."
+      }
+    },
+    "details": {
+      "goal": "Objetivo:",
+      "template": "Formato",
+      "votes": "Votos por persona",
+      "anonymity": "Temas",
+      "anonymous": "Anónimos",
+      "named": "Mostrar quién los escribió"
+    },
+    "actions": {
+      "delete": "Eliminar"
+    },
+    "delete": {
+      "title": "¿Eliminar la retrospectiva?",
+      "description": "«{{title}}» se eliminará para todo el mundo con todos sus temas, votos y notas.",
+      "confirm": "Eliminar",
+      "cancel": "Cancelar"
+    },
+    "collect": {
+      "hidden_one": "{{count}} tema de otras personas queda oculto hasta la agrupación.",
+      "hidden_many": "{{count}} temas de otras personas quedan ocultos hasta la agrupación.",
+      "hidden_other": "{{count}} temas de otras personas quedan ocultos hasta la agrupación.",
+      "topicTitle": "Nuevo tema en {{column}}",
+      "topicDescription": "Detalles del nuevo tema en {{column}}",
+      "topicPlaceholder": "Añade un tema…",
+      "descriptionPlaceholder": "Detalles (opcional)",
+      "add": "Añadir",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "edit": "Editar «{{title}}»",
+      "delete": "Eliminar «{{title}}»",
+      "anonymous": "Los temas son anónimos: nadie verá quién los escribió.",
+      "named": "Tu nombre aparecerá junto a tus temas cuando se muestre el tablero."
+    },
+    "group": {
+      "hint": "Suelta un tema sobre un grupo para añadirlo, sobre el nombre de un grupo para fusionarlos, o en el hueco vacío para crear un grupo nuevo.",
+      "loose": "Sin agrupar",
+      "allGrouped": "Todos los temas están en un grupo.",
+      "newGroup": "Grupo nuevo",
+      "dropNew": "Suelta un tema aquí para crear un grupo nuevo",
+      "untitled": "Grupo {{number}}",
+      "name": "Nombre de {{name}}",
+      "moveTopic": "Mover «{{title}}» a",
+      "merge": "Fusionar {{name}} con otro grupo",
+      "mergeInto": "Fusionar con…",
+      "ungroup": "Desagrupar {{name}}"
+    },
+    "vote": {
+      "hint": "Los totales se ocultan hasta la discusión para que nadie siga a la mayoría.",
+      "left_one": "Te queda {{count}} de {{total}} votos",
+      "left_many": "Te quedan {{count}} de {{total}} votos",
+      "left_other": "Te quedan {{count}} de {{total}} votos",
+      "add": "Añadir un voto a {{name}}",
+      "remove": "Quitar un voto de {{name}}",
+      "mine": "Tus votos en {{name}}: {{count}}"
+    },
+    "discuss": {
+      "votes_one": "{{count}} voto",
+      "votes_many": "{{count}} votos",
+      "votes_other": "{{count}} votos",
+      "takeNotes": "Tomar notas",
+      "takeNotesFor": "Tomar notas de {{name}}",
+      "fields": {
+        "summary": "Resumen",
+        "impact": "Impacto",
+        "rootCauses": "Causas raíz",
+        "context": "Contexto"
+      },
+      "decision": "Decisión sobre {{name}}",
+      "decisionLabel": "Decisión",
+      "decisions": {
+        "action": "Actuar",
+        "monitor": "Vigilar",
+        "accept": "Aceptar tal cual"
+      },
+      "save": "Guardar notas",
+      "cancel": "Cancelar"
+    },
+    "summary": {
+      "topics": "Temas",
+      "groups": "Grupos",
+      "voters": "Votantes",
+      "top": "Más votados",
+      "noVotes": "Nadie votó en esta retrospectiva.",
+      "discussed": "Discusión",
+      "noNotes": "No se tomaron notas."
+    }
   }
 }
