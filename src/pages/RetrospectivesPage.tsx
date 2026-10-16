@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
 import { Button, ConfirmDialog, EmptyState, Spinner, StatusBadge, cn } from "@jordiorriols/ui";
 import { MessagesSquare, Plus } from "@jordiorriols/ui/icons";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
@@ -96,7 +97,8 @@ export default function RetrospectivesPage() {
   const list = useRetros(retroApi, workspaceId);
   const tracked = useActions(actionApi, workspaceId);
   const canManage = workspace?.access_level === "owner" || workspace?.access_level === "editor";
-  const [chosenId, setChosenId] = useState<string | null>(null);
+  const [params] = useSearchParams();
+  const [chosenId, setChosenId] = useState<string | null>(() => params.get("retro"));
   const [creating, setCreating] = useState(false);
   const [deleting, setDeleting] = useState<Retro | null>(null);
   const action = useAsyncAction();

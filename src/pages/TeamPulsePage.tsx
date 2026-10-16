@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
 import { Button, ConfirmDialog, EmptyState, Spinner, StatusBadge, cn } from "@jordiorriols/ui";
 import { CheckCircle2, HeartPulse, Plus } from "@jordiorriols/ui/icons";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
@@ -67,7 +68,8 @@ export default function TeamPulsePage() {
   const workspaceId = workspace?.id ?? null;
   const { surveys, results, loading, error, reload } = useSurveys(surveyApi, workspaceId);
   const canManage = workspace?.access_level === "owner" || workspace?.access_level === "editor";
-  const [chosenId, setChosenId] = useState<string | null>(null);
+  const [params] = useSearchParams();
+  const [chosenId, setChosenId] = useState<string | null>(() => params.get("survey"));
   const [creating, setCreating] = useState(false);
   const [answering, setAnswering] = useState<Survey | null>(null);
   const [deleting, setDeleting] = useState<Survey | null>(null);

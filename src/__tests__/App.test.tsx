@@ -740,6 +740,22 @@ describe("Team Pulse surveys", () => {
     expect(await screen.findByText("No surveys yet")).toBeInTheDocument();
   });
 
+  it("opens the survey named in the link", async () => {
+    const row = (id: string, title: string, status: string) => ({
+      id,
+      title,
+      asks_comment: false,
+      min_responses: 1,
+      status,
+      created_at: `2026-10-0${id.slice(-1)}T09:00:00Z`,
+      closed_at: null,
+      pulse_questions: [],
+    });
+    pulse.surveys = [row("survey-2", "Current", "open"), row("survey-1", "Earlier", "closed")];
+    renderAt("/team-pulse?survey=survey-1");
+    expect(await screen.findByRole("heading", { level: 2, name: "Earlier" })).toBeInTheDocument();
+  });
+
   it("lets viewers answer without managing surveys", async () => {
     auth.workspaces = [
       { id: "ws-1", name: "Platform", owner_id: "user-2", access_level: "viewer" },
@@ -958,6 +974,22 @@ describe("Retrospectives", () => {
       ).findByRole("article", { name: "Write a review guide" })
     ).toBeInTheDocument();
     expect(screen.queryByRole("region", { name: "Still open" })).not.toBeInTheDocument();
+  });
+
+  it("opens the retrospective named in the link", async () => {
+    retroRpcSeed();
+    retros.rows.push({
+      ...retros.rows[0],
+      id: "retro-8",
+      title: "Previous retro",
+      held_on: "2026-09-15",
+      stage: "closed",
+      closed_at: "2026-09-15T10:00:00Z",
+    });
+    renderAt("/retrospectives?retro=retro-8");
+    expect(
+      await screen.findByRole("heading", { level: 2, name: "Previous retro" })
+    ).toBeInTheDocument();
   });
 
   it("shows authors only when topics are not anonymous", async () => {
