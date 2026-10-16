@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@jordiorriols/ui/styles/tokens";
+
+@source "./node_modules/@jordiorriols/ui/dist";
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-brand: var(--primary);
+  --color-brand-foreground: var(--primary-foreground);
+  --font-heading: var(--font-sans);
+}
