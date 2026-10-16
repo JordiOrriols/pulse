@@ -10,6 +10,7 @@ import { DataProvider } from "./data/DataProvider";
 import { WorkspaceProvider } from "./data/WorkspaceProvider";
 import { SECTIONS } from "./sections";
 import SectionPage from "./pages/SectionPage";
+import RetrospectivesPage from "./pages/RetrospectivesPage";
 import TeamPulsePage from "./pages/TeamPulsePage";
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
@@ -40,6 +41,8 @@ export default function App() {
                     element={
                       section.id === "teamPulse" ? (
                         <TeamPulsePage />
+                      ) : section.id === "retrospectives" ? (
+                        <RetrospectivesPage />
                       ) : (
                         <SectionPage section={section} />
                       )

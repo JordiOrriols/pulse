@@ -6,7 +6,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import i18n from "@/i18n";
 import App from "@/App";
 
-const { client, auth, pulse } = vi.hoisted(() => {
+const { client, auth, pulse, retros } = vi.hoisted(() => {
   const auth = {
     session: null as { user: { id: string; email: string } } | null,
     listener: undefined as ((event: string, session: unknown) => void) | undefined,
@@ -56,6 +56,209 @@ const { client, auth, pulse } = vi.hoisted(() => {
         };
       });
     },
+  };
+  type RetroTopic = {
+    id: string;
+    column: string;
+    title: string;
+    description: string | null;
+    group_id: string | null;
+    created_at: string;
+    author: string;
+  };
+  type RetroGroup = {
+    id: string;
+    retro: string;
+    title: string | null;
+    created_at: string;
+    summary: string | null;
+    impact: string | null;
+    root_causes: string | null;
+    context: string | null;
+    decision: string | null;
+  };
+  /** An in-memory stand-in for the retrospective tables, seen by ada@example.com. */
+  const retros = {
+    rows: [] as Record<string, unknown>[],
+    topics: {} as Record<string, RetroTopic[]>,
+    groups: [] as RetroGroup[],
+    votes: {} as Record<string, number>,
+    facilitates: true,
+    counter: 0,
+    reset() {
+      retros.rows = [];
+      retros.topics = {};
+      retros.groups = [];
+      retros.votes = {};
+      retros.facilitates = true;
+      retros.counter = 0;
+    },
+    stamp() {
+      retros.counter += 1;
+      return `2026-10-01T10:${String(retros.counter).padStart(2, "0")}:00Z`;
+    },
+    find(id: unknown) {
+      return retros.rows.find((row) => row["id"] === id)!;
+    },
+    topicById(id: unknown) {
+      return Object.values(retros.topics)
+        .flat()
+        .find((topic) => topic.id === id)!;
+    },
+    retroOfGroup(id: unknown) {
+      return retros.groups.find((group) => group.id === id)!.retro;
+    },
+    addGroup(retro: string, title: string | null) {
+      const group: RetroGroup = {
+        id: `group-${retros.groups.length + 1}`,
+        retro,
+        title,
+        created_at: retros.stamp(),
+        summary: null,
+        impact: null,
+        root_causes: null,
+        context: null,
+        decision: null,
+      };
+      retros.groups.push(group);
+      return group;
+    },
+    dropEmpty(retro: string) {
+      const used = new Set(retros.topics[retro]?.map((topic) => topic.group_id));
+      retros.groups = retros.groups.filter((group) => group.retro !== retro || used.has(group.id));
+    },
+    board(id: string) {
+      const row = retros.find(id);
+      const collecting = row["stage"] === "collect";
+      const revealed = row["stage"] === "discuss" || row["stage"] === "closed";
+      const all = retros.topics[id] ?? [];
+      const visible = collecting ? all.filter((topic) => topic.author === "ada@example.com") : all;
+      return {
+        can_facilitate: retros.facilitates,
+        topics: visible.map(({ author, ...topic }) => ({
+          ...topic,
+          mine: author === "ada@example.com",
+          author: row["anonymous"] ? null : author,
+        })),
+        hidden_topics: collecting ? all.length - visible.length : 0,
+        groups: retros.groups
+          .filter((group) => group.retro === id)
+          .map(({ retro: _retro, ...group }) => ({
+            ...group,
+            votes: revealed ? (retros.votes[group.id] ?? 0) : null,
+            my_votes: retros.votes[group.id] ?? 0,
+          })),
+        voters: Object.values(retros.votes).some((votes) => votes > 0) ? 1 : 0,
+      };
+    },
+  };
+  const retroRpc = (name: string, args: Record<string, unknown>) => {
+    const text = (key: string) => String(args[key] ?? "").trim() || null;
+    switch (name) {
+      case "create_pulse_retro": {
+        const id = `retro-${retros.rows.length + 1}`;
+        retros.rows.unshift({
+          id,
+          title: args["retro_title"],
+          held_on: args["held"],
+          period: text("retro_period"),
+          goal: text("retro_goal"),
+          template: args["retro_template"],
+          anonymous: args["is_anonymous"],
+          votes_per_person: args["votes"],
+          stage: "prepare",
+          created_at: retros.stamp(),
+          closed_at: null,
+        });
+        return id;
+      }
+      case "delete_pulse_retro":
+        retros.rows = retros.rows.filter((row) => row["id"] !== args["retro"]);
+        return null;
+      case "set_pulse_retro_stage": {
+        const id = String(args["retro"]);
+        if (args["new_stage"] === "vote")
+          for (const topic of retros.topics[id] ?? [])
+            topic.group_id ??= retros.addGroup(id, null).id;
+        retros.find(id)["stage"] = args["new_stage"];
+        return null;
+      }
+      case "add_pulse_topic": {
+        const id = String(args["retro"]);
+        const topic = {
+          id: `topic-${retros.stamp()}`,
+          column: String(args["topic_column"]),
+          title: String(args["topic_title"]),
+          description: text("topic_description"),
+          group_id: null,
+          created_at: retros.stamp(),
+          author: "ada@example.com",
+        };
+        (retros.topics[id] ??= []).push(topic);
+        return topic.id;
+      }
+      case "update_pulse_topic":
+        Object.assign(retros.topicById(args["topic"]), {
+          column: args["topic_column"],
+          title: args["topic_title"],
+          description: text("topic_description"),
+        });
+        return null;
+      case "delete_pulse_topic":
+        for (const [id, topics] of Object.entries(retros.topics))
+          retros.topics[id] = topics.filter((topic) => topic.id !== args["topic"]);
+        return null;
+      case "create_pulse_group": {
+        const id = String(args["retro"]);
+        const group = retros.addGroup(id, text("group_title"));
+        for (const topic of args["topics"] as string[]) retros.topicById(topic).group_id = group.id;
+        retros.dropEmpty(id);
+        return group.id;
+      }
+      case "move_pulse_topic": {
+        const topic = retros.topicById(args["topic"]);
+        topic.group_id = (args["grp"] as string | null) ?? null;
+        for (const [id, topics] of Object.entries(retros.topics))
+          if (topics.includes(topic)) retros.dropEmpty(id);
+        return null;
+      }
+      case "rename_pulse_group":
+        retros.groups.find((group) => group.id === args["grp"])!.title = text("group_title");
+        return null;
+      case "merge_pulse_groups": {
+        const retro = retros.retroOfGroup(args["source"]);
+        for (const topic of retros.topics[retro] ?? [])
+          if (topic.group_id === args["source"]) topic.group_id = String(args["destination"]);
+        retros.dropEmpty(retro);
+        return null;
+      }
+      case "ungroup_pulse_group": {
+        const retro = retros.retroOfGroup(args["grp"]);
+        for (const topic of retros.topics[retro] ?? [])
+          if (topic.group_id === args["grp"]) topic.group_id = null;
+        retros.dropEmpty(retro);
+        return null;
+      }
+      case "set_pulse_vote":
+        retros.votes[String(args["grp"])] = Number(args["votes"]);
+        return null;
+      case "update_pulse_discussion":
+        Object.assign(
+          retros.groups.find((group) => group.id === args["grp"])!,
+          {
+            summary: text("group_summary"),
+            impact: text("group_impact"),
+            root_causes: text("group_root_causes"),
+            context: text("group_context"),
+            decision: args["group_decision"],
+          }
+        );
+        return null;
+      case "pulse_retro_board":
+        return retros.board(String(args["retro"]));
+      default:
+        return undefined;
+    }
   };
   const surveyRpc = (name: string, args: Record<string, unknown>) => {
     const find = () => pulse.surveys.find((survey) => survey.id === args["survey"])!;
@@ -114,9 +317,11 @@ const { client, auth, pulse } = vi.hoisted(() => {
       then: (resolve: (value: { data: unknown; error: null }) => unknown) =>
         resolve({
           data:
-            table === "pulse_surveys"
-              ? pulse.surveys
-              : pulse.answered.map((survey_id) => ({ survey_id })),
+            table === "pulse_retros"
+              ? retros.rows
+              : table === "pulse_surveys"
+                ? pulse.surveys
+                : pulse.answered.map((survey_id) => ({ survey_id })),
           error: null,
         }),
     };
@@ -135,7 +340,7 @@ const { client, auth, pulse } = vi.hoisted(() => {
           auth.workspaces.push({ ...row, access_level: "owner" });
           return { data: row, error: null };
         }
-        return { data: surveyRpc(name, args), error: null };
+        return { data: retroRpc(name, args) ?? surveyRpc(name, args), error: null };
       }),
       from: vi.fn(query),
       auth: {
@@ -150,7 +355,7 @@ const { client, auth, pulse } = vi.hoisted(() => {
       },
     } as unknown,
   };
-  return { client, auth, pulse };
+  return { client, auth, pulse, retros };
 });
 vi.mock("@/data/supabaseClient", () => ({
   get supabase() {
@@ -173,6 +378,7 @@ describe("Pulse shell", () => {
     auth.workspaces = [{ id: "ws-1", name: "Platform", owner_id: "user-1", access_level: "owner" }];
     localStorage.clear();
     pulse.reset();
+    retros.reset();
   });
 
   it("shows the shared header with Pulse as the current project", async () => {
@@ -193,7 +399,11 @@ describe("Pulse shell", () => {
     expect(screen.getByRole("heading", { level: 1, name: "Overview" })).toBeInTheDocument();
     await userEvent.click(within(tabs).getByRole("link", { name: "Team Pulse" }));
     expect(screen.getByRole("heading", { level: 1, name: "Team Pulse" })).toBeInTheDocument();
-    for (const name of ["Retrospectives", "Actions"]) {
+    await userEvent.click(within(tabs).getByRole("link", { name: "Retrospectives" }));
+    expect(
+      await screen.findByRole("heading", { level: 1, name: "Retrospectives" })
+    ).toBeInTheDocument();
+    for (const name of ["Actions"]) {
       await userEvent.click(within(tabs).getByRole("link", { name }));
       expect(within(tabs).getByRole("link", { name })).toHaveAttribute("aria-current", "page");
       expect(screen.getByRole("heading", { level: 1, name })).toBeInTheDocument();
@@ -418,4 +628,168 @@ describe("Team Pulse surveys", () => {
     ).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "New survey" })).not.toBeInTheDocument();
   });
+});
+
+describe("Retrospectives", () => {
+  beforeEach(async () => {
+    await i18n.changeLanguage("en");
+    auth.session = { user: { id: "user-1", email: "ada@example.com" } };
+    auth.workspaces = [{ id: "ws-1", name: "Platform", owner_id: "user-1", access_level: "owner" }];
+    localStorage.clear();
+    retros.reset();
+  });
+
+  const next = async (stage: string) => {
+    await userEvent.click(screen.getByRole("button", { name: stage }));
+    expect(await screen.findByRole("listitem", { current: "step" })).toBeInTheDocument();
+  };
+  const currentStage = () =>
+    screen.getByRole("list", { name: "Retrospective stages" }).querySelector("[aria-current]");
+
+  async function createRetro(anonymous = true) {
+    await userEvent.click(await screen.findByRole("button", { name: "New retrospective" }));
+    const dialog = await screen.findByRole("dialog", { name: "New retrospective" });
+    await userEvent.type(within(dialog).getByLabelText("Title"), "Sprint 24");
+    await userEvent.type(within(dialog).getByLabelText("Goal"), "Ship calmer");
+    if (!anonymous) await userEvent.click(within(dialog).getByLabelText(/Anonymous topics/));
+    const votes = within(dialog).getByLabelText("Votes per person");
+    await userEvent.clear(votes);
+    await userEvent.type(votes, "2");
+    await userEvent.click(within(dialog).getByRole("button", { name: "Create retrospective" }));
+    expect(await screen.findByRole("heading", { level: 2, name: "Sprint 24" })).toBeInTheDocument();
+  }
+
+  async function addTopic(column: string, title: string) {
+    await userEvent.type(screen.getByLabelText(`New topic in ${column}`), title);
+    const section = screen.getByRole("region", { name: column });
+    await userEvent.click(within(section).getByRole("button", { name: "Add" }));
+    expect(await within(section).findByText(title)).toBeInTheDocument();
+  }
+
+  it("invites managers to plan the first retrospective", async () => {
+    renderAt("/retrospectives");
+    expect(await screen.findByText("No retrospectives yet")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "New retrospective" })).toBeInTheDocument();
+  });
+
+  it("guides the team from collecting topics to a closing summary", async () => {
+    renderAt("/retrospectives");
+    await createRetro();
+    expect(retros.rows[0]).toMatchObject({
+      template: "well_improve",
+      anonymous: true,
+      votes_per_person: 2,
+    });
+    expect(screen.getByText("Ship calmer")).toBeInTheDocument();
+    expect(currentStage()).toHaveTextContent("Prepare");
+
+    await next("Start Collect");
+    retros.topics["retro-1"] = [
+      {
+        id: "topic-other",
+        column: "to_improve",
+        title: "Flaky CI",
+        description: null,
+        group_id: null,
+        created_at: "2026-10-01T09:00:00Z",
+        author: "grace@example.com",
+      },
+    ];
+    await addTopic("Went well", "Pairing");
+    await addTopic("To improve", "Slow reviews");
+    expect(
+      screen.getByText("1 topic from others stays hidden until grouping.")
+    ).toBeInTheDocument();
+    expect(screen.queryByText("Flaky CI")).not.toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Edit “Slow reviews”" }));
+    const edit = screen.getByDisplayValue("Slow reviews");
+    await userEvent.clear(edit);
+    await userEvent.type(edit, "Late reviews");
+    await userEvent.click(screen.getByRole("button", { name: "Save" }));
+    expect(await screen.findByText("Late reviews")).toBeInTheDocument();
+
+    await next("Start Group");
+    expect(await screen.findByText("Flaky CI")).toBeInTheDocument();
+    await userEvent.selectOptions(screen.getByLabelText("Move “Late reviews” to"), "New group");
+    const group = await screen.findByRole("region", { name: "Late reviews" });
+    await userEvent.selectOptions(screen.getByLabelText("Move “Flaky CI” to"), "Late reviews");
+    expect(await within(group).findByText("Flaky CI")).toBeInTheDocument();
+    const name = within(group).getByRole("textbox", { name: /^Name of/ });
+    await userEvent.type(name, "Delivery flow{Enter}");
+    expect(await screen.findByRole("region", { name: "Delivery flow" })).toBeInTheDocument();
+
+    await next("Start Vote");
+    expect(retros.groups).toHaveLength(2);
+    expect(screen.getByText("2 of 2 votes left")).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: "Add a vote to Delivery flow" }));
+    await userEvent.click(
+      await screen.findByRole("button", { name: "Add a vote to Delivery flow" })
+    );
+    expect(await screen.findByText("0 of 2 votes left")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Add a vote to Pairing" })).toBeDisabled();
+
+    await next("Start Discuss");
+    const ranked = screen.getAllByRole("listitem", { name: /Delivery flow|Pairing/ });
+    expect(ranked.map((item) => item.getAttribute("aria-label"))).toEqual([
+      "Delivery flow",
+      "Pairing",
+    ]);
+    expect(within(ranked[0]!).getByText("2 votes")).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: "Take notes on Delivery flow" }));
+    await userEvent.type(screen.getByLabelText("Root causes"), "Reviews wait for one person");
+    await userEvent.click(screen.getByLabelText("Take action"));
+    await userEvent.click(screen.getByRole("button", { name: "Save notes" }));
+    expect(await screen.findByText("Reviews wait for one person")).toBeInTheDocument();
+
+    await next("Close retrospective");
+    expect(currentStage()).toHaveTextContent("Closed");
+    expect(screen.getByRole("heading", { name: "Most voted" })).toBeInTheDocument();
+    expect(screen.getAllByText("Take action").length).toBeGreaterThan(0);
+    expect(screen.getByText("Voters").nextElementSibling).toHaveTextContent("1");
+  });
+
+  it("shows authors only when topics are not anonymous", async () => {
+    renderAt("/retrospectives");
+    await createRetro(false);
+    await next("Start Collect");
+    await addTopic("Ideas", "Mob on Fridays");
+    expect(screen.getByText("ada@example.com", { selector: "p" })).toBeInTheDocument();
+  });
+
+  it("lets participants follow along without facilitating", async () => {
+    auth.workspaces = [
+      { id: "ws-1", name: "Platform", owner_id: "user-2", access_level: "viewer" },
+    ];
+    retros.facilitates = false;
+    retroRpcSeed();
+    renderAt("/retrospectives");
+    expect(
+      await screen.findByRole("heading", { level: 2, name: "Team retro" })
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByText("The facilitator will open the board soon.")
+    ).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "New retrospective" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Delete" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /^Start / })).not.toBeInTheDocument();
+  });
+
+  function retroRpcSeed() {
+    retros.rows = [
+      {
+        id: "retro-9",
+        title: "Team retro",
+        held_on: "2026-10-01",
+        period: null,
+        goal: null,
+        template: "open",
+        anonymous: true,
+        votes_per_person: 3,
+        stage: "prepare",
+        created_at: "2026-10-01T08:00:00Z",
+        closed_at: null,
+      },
+    ];
+  }
 });
