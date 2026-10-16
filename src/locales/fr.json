@@ -75,5 +75,11 @@
     "retros": "Rétrospectives collaboratives",
     "actions": "Actions suivies jusqu'au bout",
     "authUnavailable": "Configurez VITE_SUPABASE_URL et VITE_SUPABASE_PUBLISHABLE_KEY pour vous connecter. Pulse n'enregistre pas de données localement."
+  },
+  "workspace": {
+    "empty": {
+      "title": "Aucun espace de travail pour l'instant",
+      "description": "Créez-en un depuis le menu des espaces de travail à côté des onglets, ou demandez à son propriétaire de vous le partager dans Pulse."
+    }
   }
 }

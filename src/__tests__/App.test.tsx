@@ -10,9 +10,23 @@ const { client, auth } = vi.hoisted(() => {
   const auth = {
     session: null as { user: { id: string; email: string } } | null,
     listener: undefined as ((event: string, session: unknown) => void) | undefined,
+    workspaces: [] as { id: string; name: string; owner_id: string; access_level: string }[],
   };
   const client = {
     current: {
+      rpc: vi.fn(async (name: string, args: Record<string, unknown>) => {
+        if (name === "list_workspaces") return { data: auth.workspaces, error: null };
+        if (name === "create_workspace") {
+          const row = {
+            id: `ws-${auth.workspaces.length + 1}`,
+            name: String(args["workspace_name"]),
+            owner_id: "user-1",
+          };
+          auth.workspaces.push({ ...row, access_level: "owner" });
+          return { data: row, error: null };
+        }
+        return { data: [], error: null };
+      }),
       auth: {
         getSession: vi.fn(async () => ({ data: { session: auth.session }, error: null })),
         onAuthStateChange: vi.fn((listener: typeof auth.listener) => {
@@ -45,6 +59,8 @@ describe("Pulse shell", () => {
   beforeEach(async () => {
     await i18n.changeLanguage("en");
     auth.session = { user: { id: "user-1", email: "ada@example.com" } };
+    auth.workspaces = [{ id: "ws-1", name: "Platform", owner_id: "user-1", access_level: "owner" }];
+    localStorage.clear();
   });
 
   it("shows the shared header with Pulse as the current project", async () => {
@@ -74,6 +90,30 @@ describe("Pulse shell", () => {
   it("sends unknown routes to the overview", async () => {
     renderAt("/missing");
     expect(await screen.findByRole("heading", { level: 1, name: "Overview" })).toBeInTheDocument();
+  });
+
+  it("opens the first workspace from the shared workspace bar", async () => {
+    renderAt("/");
+    expect(await screen.findByTestId("workspace-switcher")).toHaveTextContent("Platform");
+    expect(screen.getByTestId("workspace-share")).toBeInTheDocument();
+    expect((client.current as { rpc: ReturnType<typeof vi.fn> }).rpc).toHaveBeenCalledWith(
+      "list_workspaces",
+      { app_name: "pulse" }
+    );
+  });
+
+  it("asks for a workspace when the account has none, and opens the one it creates", async () => {
+    auth.workspaces = [];
+    renderAt("/");
+    expect(await screen.findByText("No workspace yet")).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { level: 1, name: "Overview" })).not.toBeInTheDocument();
+    await userEvent.click(screen.getByTestId("workspace-switcher"));
+    await userEvent.click(await screen.findByRole("menuitem", { name: "New workspace" }));
+    await userEvent.type(screen.getByLabelText("Name"), "Mobile");
+    await userEvent.click(screen.getByRole("button", { name: "Create" }));
+    expect(await screen.findByRole("heading", { level: 1, name: "Overview" })).toBeInTheDocument();
+    expect(screen.getByTestId("workspace-switcher")).toHaveTextContent("Mobile");
+    expect(localStorage.getItem("pulse.workspace")).toBe("ws-1");
   });
 
   it("signs out from the shared header", async () => {

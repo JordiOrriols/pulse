@@ -75,5 +75,11 @@
     "retros": "Collaborative retrospectives",
     "actions": "Actions followed to done",
     "authUnavailable": "Configure VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY to sign in. Pulse does not save data locally."
+  },
+  "workspace": {
+    "empty": {
+      "title": "No workspace yet",
+      "description": "Create a workspace from the workspace menu next to the tabs, or ask its owner to share one with you in Pulse."
+    }
   }
 }

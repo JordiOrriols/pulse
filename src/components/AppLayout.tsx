@@ -7,18 +7,25 @@ import {
   AppNavigation,
   AppNavigationItem,
   AppPage,
+  AppSkeleton,
+  EmptyState,
   LanguageSelector,
   PROJECTS,
+  WorkspaceBar,
+  getWorkspaceLabels,
 } from "@jordiorriols/ui";
+import { FolderOpen } from "@jordiorriols/ui/icons";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
 import { useData } from "@/data/DataProvider";
+import { useWorkspace } from "@/data/WorkspaceProvider";
 import { SECTIONS } from "@/sections";
 
 const AppIcon = PROJECTS.find((project) => project.id === "pulse")!.icon;
 
 export default function AppLayout() {
   const { t, i18n } = useTranslation();
-  const { signOut, user } = useData();
+  const { signOut, user, workspaceApi } = useData();
+  const { workspaces, workspace, select, refresh, error, loading } = useWorkspace();
   const action = useAsyncAction();
 
   return (
@@ -45,7 +52,26 @@ export default function AppLayout() {
           onClick: () => void action.run(signOut),
         }}
         navigation={
-          <AppNavigation label={t("app.pages")}>
+          <AppNavigation
+            label={t("app.pages")}
+            actions={
+              workspaceApi && (
+                <WorkspaceBar
+                  api={workspaceApi}
+                  app="pulse"
+                  workspaces={workspaces ?? []}
+                  value={workspace?.id ?? ""}
+                  onValueChange={select}
+                  onCreated={async (created) => {
+                    select(created.id);
+                    await refresh();
+                  }}
+                  onSharesChanged={refresh}
+                  labels={getWorkspaceLabels(i18n.language)}
+                />
+              )
+            }
+          >
             {SECTIONS.map(({ id, path, icon: Icon }) => (
               <AppNavigationItem key={id} asChild>
                 <NavLink to={path} end={path === "/"}>
@@ -63,7 +89,24 @@ export default function AppLayout() {
             {action.error}
           </p>
         )}
-        <Outlet />
+        {error && (
+          <p role="alert" className="text-destructive">
+            {error}
+          </p>
+        )}
+        {loading ? (
+          <AppSkeleton label={t("app.loading")} />
+        ) : workspace ? (
+          <Outlet />
+        ) : (
+          !error && (
+            <EmptyState
+              icon={<FolderOpen className="size-8 text-muted-foreground" />}
+              title={t("workspace.empty.title")}
+              description={t("workspace.empty.description")}
+            />
+          )
+        )}
       </AppMain>
     </AppPage>
   );

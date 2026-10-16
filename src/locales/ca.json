@@ -75,5 +75,11 @@
     "retros": "Retrospectives col·laboratives",
     "actions": "Accions seguides fins al final",
     "authUnavailable": "Configura VITE_SUPABASE_URL i VITE_SUPABASE_PUBLISHABLE_KEY per iniciar sessió. Pulse no desa dades localment."
+  },
+  "workspace": {
+    "empty": {
+      "title": "Encara no hi ha cap espai de treball",
+      "description": "Crea'n un des del menú d'espais de treball al costat de les pestanyes, o demana al seu propietari que te'l comparteixi a Pulse."
+    }
   }
 }

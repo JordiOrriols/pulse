@@ -75,5 +75,11 @@
     "retros": "Gemeinsame Retrospektiven",
     "actions": "Maßnahmen bis zum Abschluss",
     "authUnavailable": "Konfiguriere VITE_SUPABASE_URL und VITE_SUPABASE_PUBLISHABLE_KEY, um dich anzumelden. Pulse speichert keine Daten lokal."
+  },
+  "workspace": {
+    "empty": {
+      "title": "Noch kein Workspace",
+      "description": "Erstelle einen Workspace über das Workspace-Menü neben den Tabs oder bitte den Eigentümer, ihn in Pulse mit dir zu teilen."
+    }
   }
 }

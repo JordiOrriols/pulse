@@ -23,6 +23,15 @@ password reset and sign out come from `@jordiorriols/ui` (`useSupabaseAuth`,
 and publishable key; without them the welcome page explains that sign-in is not
 configured.
 
+## Workspaces
+
+Like Planner and Ladders, Pulse works inside a workspace. The shared
+`WorkspaceBar` next to the tabs lists the workspaces the account can open in
+Pulse (`list_workspaces('pulse')`), creates new ones and lets the owner share a
+workspace per app. `WorkspaceProvider` (`useWorkspace()`) exposes the open
+workspace to the pages; the selection is remembered in `localStorage` under
+`pulse.workspace`.
+
 ## Development
 
 ```sh

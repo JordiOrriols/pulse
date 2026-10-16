@@ -7,6 +7,7 @@ import AppLayout from "./components/AppLayout";
 import { EntryGate } from "./components/EntryGate";
 import { PasswordResetDialog } from "./components/PasswordResetDialog";
 import { DataProvider } from "./data/DataProvider";
+import { WorkspaceProvider } from "./data/WorkspaceProvider";
 import { SECTIONS } from "./sections";
 import SectionPage from "./pages/SectionPage";
 
@@ -28,18 +29,20 @@ export default function App() {
       <DataProvider>
         <PasswordResetDialog />
         <EntryGate>
-          <Routes>
-            <Route element={<AppLayout />}>
-              {SECTIONS.map((section) => (
-                <Route
-                  key={section.id}
-                  path={section.path}
-                  element={<SectionPage section={section} />}
-                />
-              ))}
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Route>
-          </Routes>
+          <WorkspaceProvider>
+            <Routes>
+              <Route element={<AppLayout />}>
+                {SECTIONS.map((section) => (
+                  <Route
+                    key={section.id}
+                    path={section.path}
+                    element={<SectionPage section={section} />}
+                  />
+                ))}
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Route>
+            </Routes>
+          </WorkspaceProvider>
         </EntryGate>
       </DataProvider>
     </ErrorBoundary>

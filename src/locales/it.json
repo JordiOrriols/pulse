@@ -75,5 +75,11 @@
     "retros": "Retrospettive collaborative",
     "actions": "Azioni seguite fino in fondo",
     "authUnavailable": "Configura VITE_SUPABASE_URL e VITE_SUPABASE_PUBLISHABLE_KEY per accedere. Pulse non salva dati in locale."
+  },
+  "workspace": {
+    "empty": {
+      "title": "Ancora nessuno spazio di lavoro",
+      "description": "Creane uno dal menu degli spazi di lavoro accanto alle schede, oppure chiedi al proprietario di condividerlo con te in Pulse."
+    }
   }
 }
