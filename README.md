@@ -10,8 +10,8 @@ React 18, Vite, Tailwind 4, i18next (en, es, ca, fr, de, it) and the shared
 
 ## Status
 
-Team Pulse surveys work end to end. Overview, Retrospectives and Actions are
-still empty placeholders; each comes in its own step.
+Team Pulse surveys and guided retrospectives work end to end. Overview and
+Actions are still empty placeholders; each comes in its own step.
 
 ## Sign-in
 
@@ -55,6 +55,33 @@ in Planner):
 distribution, change since the previous survey, the last five surveys as a
 trend, the strongest and weakest question and the response rate. Recurring
 surveys are not built yet.
+
+## Retrospectives
+
+Owners and editors create a retrospective with a title, date, period, goal,
+format (went well / to improve / ideas; start / stop / continue; mad / sad /
+glad; or open), anonymity (on by default) and votes per person (default 3).
+The facilitator (the creator, an owner or an editor) moves it through the
+stages; everyone else follows along, and boards refresh every few seconds:
+
+1. **Prepare**: the details above.
+2. **Collect**: each person adds topics to the columns and sees only their own,
+   plus a count of the hidden ones. Authors can edit or delete their topics.
+3. **Group**: every topic becomes visible. Drag topics onto groups, group names
+   onto other groups to merge, or use the selects on each card.
+4. **Vote**: loose topics become groups of one. Each person spends their votes,
+   several on the same group if they like; totals stay hidden.
+5. **Discuss**: groups are ranked by votes, then topic count, then age. The
+   facilitator records summary, impact, root causes, context and a decision
+   (take action, monitor, accept as is).
+6. **Closed**: a summary with counts, the most voted groups and the decisions.
+   The facilitator can step back to amend notes.
+
+The rules live in the database (`supabase/migrations/20261017040000_pulse_retrospectives.sql`
+in Planner). Accounts read only `pulse_retros`; topics, groups and votes come
+from `pulse_retro_board`, which hides other people's topics during Collect,
+never returns authors of anonymous topics and hides vote totals until Discuss.
+Turning discussed groups into tracked actions comes with the Actions step.
 
 ## Development
 
