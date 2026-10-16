@@ -10,8 +10,8 @@ React 18, Vite, Tailwind 4, i18next (en, es, ca, fr, de, it) and the shared
 
 ## Status
 
-Team Pulse surveys and guided retrospectives work end to end. Overview and
-Actions are still empty placeholders; each comes in its own step.
+Team Pulse surveys, guided retrospectives and improvement actions work end to
+end. Overview is still an empty placeholder and comes in its own step.
 
 ## Sign-in
 
@@ -74,14 +74,41 @@ stages; everyone else follows along, and boards refresh every few seconds:
 5. **Discuss**: groups are ranked by votes, then topic count, then age. The
    facilitator records summary, impact, root causes, context and a decision
    (take action, monitor, accept as is).
-6. **Closed**: a summary with counts, the most voted groups and the decisions.
-   The facilitator can step back to amend notes.
+6. **Actions**: groups marked "take action" come first; the facilitator turns
+   them into tracked actions (see below), one or more per group or for the
+   retrospective as a whole.
+7. **Closed**: a summary with counts, the most voted groups, the decisions,
+   the agreed actions and the ones carried over. The facilitator can step back
+   to amend notes.
+
+While preparing the next retrospective, the facilitator sees the actions that
+are still open and the ones done since the last retrospective.
 
 The rules live in the database (`supabase/migrations/20261017040000_pulse_retrospectives.sql`
 in Planner). Accounts read only `pulse_retros`; topics, groups and votes come
 from `pulse_retro_board`, which hides other people's topics during Collect,
 never returns authors of anonymous topics and hides vote totals until Discuss.
-Turning discussed groups into tracked actions comes with the Actions step.
+
+## Actions
+
+An improvement action has a title, description, owner, collaborators, due
+date, priority, success criteria and a status (open, in progress, blocked,
+done, cancelled). It can come from a retrospective (and one of its groups) or
+be created on its own from the Actions page. Owners and collaborators are
+accounts with Pulse access to the workspace.
+
+- Owners, editors and the facilitator of the action's retrospective create,
+  edit and delete actions.
+- The action's owner and collaborators (and the managers above) change its
+  status, add notes and, once it is done, record the outcome: whether it
+  helped, what happened and any follow-up.
+- Every change is kept in the action's history, shown on each card with the
+  notes.
+
+The Actions page counts open, in progress, overdue and recently done actions,
+filters by status, owner, retrospective and due date, and groups by status,
+owner or retrospective. The rules live in the database
+(`supabase/migrations/20261017050000_pulse_actions.sql` in Planner).
 
 ## Development
 
