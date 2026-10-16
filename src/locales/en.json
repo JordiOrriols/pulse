@@ -81,5 +81,8 @@
       "title": "No workspace yet",
       "description": "Create a workspace from the workspace menu next to the tabs, or ask its owner to share one with you in Pulse."
     }
+  },
+  "errors": {
+    "unexpectedResponse": "The server sent an unexpected response. Reload and try again."
   }
 }

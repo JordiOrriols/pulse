@@ -81,5 +81,8 @@
       "title": "Noch kein Workspace",
       "description": "Erstelle einen Workspace über das Workspace-Menü neben den Tabs oder bitte den Eigentümer, ihn in Pulse mit dir zu teilen."
     }
+  },
+  "errors": {
+    "unexpectedResponse": "Der Server hat eine unerwartete Antwort gesendet. Lade neu und versuche es noch einmal."
   }
 }

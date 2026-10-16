@@ -81,5 +81,8 @@
       "title": "Aucun espace de travail pour l'instant",
       "description": "Créez-en un depuis le menu des espaces de travail à côté des onglets, ou demandez à son propriétaire de vous le partager dans Pulse."
     }
+  },
+  "errors": {
+    "unexpectedResponse": "Le serveur a renvoyé une réponse inattendue. Rechargez et réessayez."
   }
 }

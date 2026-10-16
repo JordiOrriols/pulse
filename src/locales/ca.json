@@ -81,5 +81,8 @@
       "title": "Encara no hi ha cap espai de treball",
       "description": "Crea'n un des del menú d'espais de treball al costat de les pestanyes, o demana al seu propietari que te'l comparteixi a Pulse."
     }
+  },
+  "errors": {
+    "unexpectedResponse": "El servidor ha enviat una resposta inesperada. Torna a carregar i prova-ho de nou."
   }
 }

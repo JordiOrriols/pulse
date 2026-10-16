@@ -3,19 +3,25 @@ import { useSupabaseAuth } from "@jordiorriols/ui/hooks";
 import { createWorkspaceApi, getAuthRedirectUrl, type WorkspaceApi } from "@jordiorriols/ui";
 import i18n from "@/i18n";
 import { supabase } from "./supabaseClient";
+import { createSurveyApi, type SurveyApi } from "./surveys";
 
 type DataContextValue = ReturnType<typeof useSupabaseAuth> & {
   workspaceApi: WorkspaceApi | null;
+  surveyApi: SurveyApi | null;
 };
 const DataContext = createContext<DataContextValue | null>(null);
 
 export function DataProvider({ children }: { children: ReactNode }) {
   const auth = useSupabaseAuth(supabase, getAuthRedirectUrl("pulse"));
-  const workspaceApi = useMemo(
-    () => (supabase && auth.user ? createWorkspaceApi(supabase) : null),
-    [auth.user]
+  const signedIn = !!auth.user;
+  const apis = useMemo(
+    () =>
+      supabase && signedIn
+        ? { workspaceApi: createWorkspaceApi(supabase), surveyApi: createSurveyApi(supabase) }
+        : { workspaceApi: null, surveyApi: null },
+    [signedIn]
   );
-  return <DataContext.Provider value={{ ...auth, workspaceApi }}>{children}</DataContext.Provider>;
+  return <DataContext.Provider value={{ ...auth, ...apis }}>{children}</DataContext.Provider>;
 }
 
 const unavailable = async (): Promise<never> => {
@@ -28,6 +34,7 @@ const fallback: DataContextValue = {
   passwordRecovery: false,
   authError: null,
   workspaceApi: null,
+  surveyApi: null,
   signIn: unavailable,
   signInWithGitHub: unavailable,
   signUp: unavailable,

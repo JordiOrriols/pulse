@@ -81,5 +81,8 @@
       "title": "Aún no hay ningún espacio de trabajo",
       "description": "Crea uno desde el menú de espacios de trabajo junto a las pestañas, o pide a su propietario que te lo comparta en Pulse."
     }
+  },
+  "errors": {
+    "unexpectedResponse": "El servidor ha enviado una respuesta inesperada. Recarga e inténtalo de nuevo."
   }
 }

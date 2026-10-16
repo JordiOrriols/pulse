@@ -81,5 +81,8 @@
       "title": "Ancora nessuno spazio di lavoro",
       "description": "Creane uno dal menu degli spazi di lavoro accanto alle schede, oppure chiedi al proprietario di condividerlo con te in Pulse."
     }
+  },
+  "errors": {
+    "unexpectedResponse": "Il server ha inviato una risposta inattesa. Ricarica e riprova."
   }
 }
