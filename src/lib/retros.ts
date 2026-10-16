@@ -14,7 +14,15 @@ export const TEMPLATE_COLUMNS: Record<RetroTemplate, readonly string[]> = {
   open: ["topics"],
 };
 
-export const RETRO_STAGES = ["prepare", "collect", "group", "vote", "discuss", "closed"] as const;
+export const RETRO_STAGES = [
+  "prepare",
+  "collect",
+  "group",
+  "vote",
+  "discuss",
+  "actions",
+  "closed",
+] as const;
 export type RetroStage = (typeof RETRO_STAGES)[number];
 
 export const DECISIONS = ["action", "monitor", "accept"] as const;

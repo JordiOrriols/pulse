@@ -5,8 +5,17 @@ import { MessagesSquare, Plus } from "@jordiorriols/ui/icons";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
 import { useData } from "@/data/DataProvider";
 import { useWorkspace } from "@/data/WorkspaceProvider";
+import { useActions } from "@/hooks/useActions";
+import { useDateFormat } from "@/hooks/useDateFormat";
 import { usePolling, useRetroBoard, useRetros } from "@/hooks/useRetros";
+import { localDate, reviewActions } from "@/lib/actions";
 import { TEMPLATE_COLUMNS, type Retro, type RetroBoard } from "@/lib/retros";
+import {
+  ActionReviewPanel,
+  ActionsStage,
+  RetroActionsSummary,
+} from "@/components/actions/RetroActions";
+import { useActionEditor } from "@/components/actions/useActionEditor";
 import { CollectBoard } from "@/components/retros/CollectBoard";
 import { DiscussBoard } from "@/components/retros/DiscussBoard";
 import { GroupBoard } from "@/components/retros/GroupBoard";
@@ -14,14 +23,6 @@ import { NewRetroDialog } from "@/components/retros/NewRetroDialog";
 import { RetroSummary } from "@/components/retros/RetroSummary";
 import { StageStepper } from "@/components/retros/StageStepper";
 import { VoteBoard } from "@/components/retros/VoteBoard";
-
-function useDateFormat() {
-  const { i18n } = useTranslation();
-  return (date: string) =>
-    new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium", timeZone: "UTC" }).format(
-      new Date(`${date}T00:00:00Z`)
-    );
-}
 
 function RetroListItem({
   retro,
@@ -89,10 +90,11 @@ function PrepareDetails({ retro }: { retro: Retro }) {
 export default function RetrospectivesPage() {
   const { t } = useTranslation();
   const formatDate = useDateFormat();
-  const { retroApi } = useData();
+  const { retroApi, actionApi } = useData();
   const { workspace } = useWorkspace();
   const workspaceId = workspace?.id ?? null;
   const list = useRetros(retroApi, workspaceId);
+  const tracked = useActions(actionApi, workspaceId);
   const canManage = workspace?.access_level === "owner" || workspace?.access_level === "editor";
   const [chosenId, setChosenId] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
@@ -108,18 +110,28 @@ export default function RetrospectivesPage() {
   const refresh = () => {
     void list.reload();
     void room.reload();
+    void tracked.reload();
   };
   usePolling(refresh, !!selected && selected.stage !== "closed" && !action.busy);
-
-  if (!retroApi || !workspaceId) return null;
 
   const change = async (operation: () => Promise<unknown>) => {
     const result = await action.run(async () => {
       await operation();
-      await Promise.all([list.reload(), room.reload()]);
+      await Promise.all([list.reload(), room.reload(), tracked.reload()]);
     });
     return result.ok;
   };
+  const editor = useActionEditor({
+    api: actionApi,
+    workspaceId,
+    people: tracked.people,
+    reload: tracked.reload,
+    onChange: change,
+  });
+
+  if (!retroApi || !workspaceId) return null;
+
+  const actionProps = { today: localDate(), busy: action.busy, onChange: change, editor };
 
   const header = (
     <header className="flex flex-wrap items-end justify-between gap-4">
@@ -139,9 +151,15 @@ export default function RetrospectivesPage() {
   );
 
   const stageContent = (retro: Retro, board: RetroBoard) => {
+    const review = reviewActions(tracked.actions, retro, list.retros);
     switch (retro.stage) {
       case "prepare":
-        return <PrepareDetails retro={retro} />;
+        return (
+          <>
+            <PrepareDetails retro={retro} />
+            <ActionReviewPanel review={review} {...actionProps} />
+          </>
+        );
       case "collect":
         return (
           <CollectBoard
@@ -188,8 +206,15 @@ export default function RetrospectivesPage() {
             }
           />
         );
+      case "actions":
+        return <ActionsStage retro={retro} board={board} agreed={review.agreed} {...actionProps} />;
       case "closed":
-        return <RetroSummary board={board} />;
+        return (
+          <>
+            <RetroSummary board={board} />
+            <RetroActionsSummary review={review} {...actionProps} />
+          </>
+        );
     }
   };
 
@@ -299,6 +324,7 @@ export default function RetrospectivesPage() {
           setChosenId(id);
         }}
       />
+      {editor.dialogs}
       <ConfirmDialog
         isOpen={deleting !== null}
         title={t("retros.delete.title")}

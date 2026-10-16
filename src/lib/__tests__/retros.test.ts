@@ -48,7 +48,9 @@ const board = (groups: RetroGroup[], topics: RetroTopic[]): RetroBoard => ({
 describe("retrospective stages", () => {
   it("moves one stage at a time and stops at both ends", () => {
     expect(nextStage("prepare")).toBe("collect");
-    expect(nextStage("discuss")).toBe("closed");
+    expect(nextStage("discuss")).toBe("actions");
+    expect(nextStage("actions")).toBe("closed");
+    expect(previousStage("closed")).toBe("actions");
     expect(nextStage("closed")).toBeNull();
     expect(previousStage("collect")).toBe("prepare");
     expect(previousStage("prepare")).toBeNull();

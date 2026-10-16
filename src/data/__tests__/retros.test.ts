@@ -103,7 +103,7 @@ describe("createRetroApi", () => {
 
   it.each([
     ["an unknown template", { ...retroRow, template: "sailboat" }],
-    ["an unknown stage", { ...retroRow, stage: "actions" }],
+    ["an unknown stage", { ...retroRow, stage: "archived" }],
   ])("rejects a retrospective with %s", async (_, row) => {
     const { client } = fakeClient({ pulse_retros: { data: [row], error: null } });
     await expect(createRetroApi(client).listRetros("w1")).rejects.toThrow(

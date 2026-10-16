@@ -6,7 +6,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import i18n from "@/i18n";
 import App from "@/App";
 
-const { client, auth, pulse, retros } = vi.hoisted(() => {
+const { client, auth, pulse, retros, actions } = vi.hoisted(() => {
   const auth = {
     session: null as { user: { id: string; email: string } } | null,
     listener: undefined as ((event: string, session: unknown) => void) | undefined,
@@ -130,7 +130,7 @@ const { client, auth, pulse, retros } = vi.hoisted(() => {
     board(id: string) {
       const row = retros.find(id);
       const collecting = row["stage"] === "collect";
-      const revealed = row["stage"] === "discuss" || row["stage"] === "closed";
+      const revealed = ["discuss", "actions", "closed"].includes(String(row["stage"]));
       const all = retros.topics[id] ?? [];
       const visible = collecting ? all.filter((topic) => topic.author === "ada@example.com") : all;
       return {
@@ -180,7 +180,10 @@ const { client, auth, pulse, retros } = vi.hoisted(() => {
         if (args["new_stage"] === "vote")
           for (const topic of retros.topics[id] ?? [])
             topic.group_id ??= retros.addGroup(id, null).id;
-        retros.find(id)["stage"] = args["new_stage"];
+        Object.assign(retros.find(id), {
+          stage: args["new_stage"],
+          closed_at: args["new_stage"] === "closed" ? retros.stamp() : null,
+        });
         return null;
       }
       case "add_pulse_topic": {
@@ -256,6 +259,122 @@ const { client, auth, pulse, retros } = vi.hoisted(() => {
         return null;
       case "pulse_retro_board":
         return retros.board(String(args["retro"]));
+      default:
+        return undefined;
+    }
+  };
+  type ActionRow = Record<string, unknown> & { id: string; status: string; owner_id: string };
+  /** An in-memory stand-in for improvement actions, as the workspace owner sees them. */
+  const actions = {
+    rows: [] as ActionRow[],
+    updates: {} as Record<string, Record<string, unknown>[]>,
+    people: [
+      { user_id: "user-1", email: "ada@example.com" },
+      { user_id: "user-2", email: "grace@example.com" },
+    ],
+    canManage: true,
+    reset() {
+      actions.rows = [];
+      actions.updates = {};
+      actions.canManage = true;
+    },
+    email(id: unknown) {
+      return actions.people.find((person) => person.user_id === id)?.email ?? null;
+    },
+    log(id: string, kind: string, extra: Record<string, unknown> = {}) {
+      (actions.updates[id] ??= []).push({
+        id: `update-${retros.stamp()}`,
+        kind,
+        status: null,
+        note: null,
+        author_email: "ada@example.com",
+        created_at: retros.stamp(),
+        ...extra,
+      });
+    },
+    fields(args: Record<string, unknown>) {
+      const text = (key: string) => String(args[key] ?? "").trim() || null;
+      return {
+        title: String(args["action_title"]).trim(),
+        description: text("action_description"),
+        owner_id: String(args["action_owner"]),
+        owner_email: actions.email(args["action_owner"]),
+        collaborators: (args["collaborators"] as string[]).map((id) => ({
+          id,
+          email: actions.email(id),
+        })),
+        due_on: args["due"] ?? null,
+        priority: args["action_priority"] ?? "medium",
+        success_criteria: text("criteria"),
+      };
+    },
+    list() {
+      return actions.rows.map((row) => {
+        const retro = retros.rows.find((other) => other["id"] === row["retro_id"]);
+        return {
+          ...row,
+          retro_title: retro?.["title"] ?? null,
+          retro_held_on: retro?.["held_on"] ?? null,
+          group_title: null,
+          can_manage: actions.canManage,
+          can_update: actions.canManage || row.owner_id === "user-1",
+        };
+      });
+    },
+  };
+  const actionRpc = (name: string, args: Record<string, unknown>) => {
+    const find = () => actions.rows.find((row) => row.id === args["action"])!;
+    switch (name) {
+      case "pulse_workspace_people":
+        return actions.people;
+      case "list_pulse_actions":
+        return actions.list();
+      case "pulse_action_history":
+        return actions.updates[String(args["action"])] ?? [];
+      case "create_pulse_action": {
+        const id = `action-${actions.rows.length + 1}`;
+        actions.rows.push({
+          id,
+          retro_id: args["retro"] ?? null,
+          group_id: args["grp"] ?? null,
+          ...actions.fields(args),
+          status: "open",
+          outcome: null,
+          helped: null,
+          follow_up: null,
+          created_at: retros.stamp(),
+          completed_at: null,
+        });
+        actions.log(id, "created");
+        return id;
+      }
+      case "update_pulse_action":
+        Object.assign(find(), actions.fields(args));
+        actions.log(find().id, "edited");
+        return null;
+      case "set_pulse_action_status": {
+        const status = String(args["new_status"]);
+        Object.assign(find(), {
+          status,
+          completed_at: status === "done" ? retros.stamp() : null,
+        });
+        actions.log(find().id, "status", { status });
+        return null;
+      }
+      case "add_pulse_action_note":
+        actions.log(find().id, "note", { note: args["action_note"] });
+        return null;
+      case "record_pulse_action_outcome":
+        Object.assign(find(), {
+          outcome: String(args["action_outcome"] ?? "").trim() || null,
+          helped: args["did_help"],
+          follow_up: String(args["action_follow_up"] ?? "").trim() || null,
+        });
+        actions.log(find().id, "outcome");
+        return null;
+      case "delete_pulse_action":
+        actions.rows = actions.rows.filter((row) => row.id !== args["action"]);
+        return null;
       default:
         return undefined;
     }
@@ -340,7 +459,10 @@ const { client, auth, pulse, retros } = vi.hoisted(() => {
           auth.workspaces.push({ ...row, access_level: "owner" });
           return { data: row, error: null };
         }
-        return { data: retroRpc(name, args) ?? surveyRpc(name, args), error: null };
+        return {
+          data: retroRpc(name, args) ?? actionRpc(name, args) ?? surveyRpc(name, args),
+          error: null,
+        };
       }),
       from: vi.fn(query),
       auth: {
@@ -355,7 +477,7 @@ const { client, auth, pulse, retros } = vi.hoisted(() => {
       },
     } as unknown,
   };
-  return { client, auth, pulse, retros };
+  return { client, auth, pulse, retros, actions };
 });
 vi.mock("@/data/supabaseClient", () => ({
   get supabase() {
@@ -379,6 +501,7 @@ describe("Pulse shell", () => {
     localStorage.clear();
     pulse.reset();
     retros.reset();
+    actions.reset();
   });
 
   it("shows the shared header with Pulse as the current project", async () => {
@@ -637,6 +760,7 @@ describe("Retrospectives", () => {
     auth.workspaces = [{ id: "ws-1", name: "Platform", owner_id: "user-1", access_level: "owner" }];
     localStorage.clear();
     retros.reset();
+    actions.reset();
   });
 
   const next = async (stage: string) => {
@@ -741,11 +865,98 @@ describe("Retrospectives", () => {
     await userEvent.click(screen.getByRole("button", { name: "Save notes" }));
     expect(await screen.findByText("Reviews wait for one person")).toBeInTheDocument();
 
+    await next("Start Actions");
+    const chosen = screen
+      .getAllByRole("listitem")
+      .find((item) => within(item).queryByRole("heading", { name: "Delivery flow" }))!;
+    expect(within(chosen).getByText("Take action")).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: "Add an action for Delivery flow" }));
+    const dialog = await screen.findByRole("dialog", { name: "New action" });
+    expect(within(dialog).getByText("For Delivery flow")).toBeInTheDocument();
+    const create = within(dialog).getByRole("button", { name: "Create action" });
+    await userEvent.type(within(dialog).getByLabelText("Action"), "Rotate reviewers");
+    expect(create).toBeDisabled();
+    await userEvent.selectOptions(within(dialog).getByLabelText("Owner"), "grace@example.com");
+    await userEvent.type(within(dialog).getByLabelText("Due date"), "2026-10-30");
+    await userEvent.click(within(dialog).getByRole("checkbox", { name: "ada@example.com" }));
+    await userEvent.click(create);
+    expect(
+      await within(chosen).findByRole("article", { name: "Rotate reviewers" })
+    ).toBeInTheDocument();
+    expect(actions.rows[0]).toMatchObject({
+      retro_id: "retro-1",
+      group_id: retros.groups.find((group) => group.title === "Delivery flow")!.id,
+      owner_id: "user-2",
+      due_on: "2026-10-30",
+      collaborators: [{ id: "user-1", email: "ada@example.com" }],
+    });
+
     await next("Close retrospective");
     expect(currentStage()).toHaveTextContent("Closed");
     expect(screen.getByRole("heading", { name: "Most voted" })).toBeInTheDocument();
     expect(screen.getAllByText("Take action").length).toBeGreaterThan(0);
     expect(screen.getByText("Voters").nextElementSibling).toHaveTextContent("1");
+    const agreed = screen.getByRole("region", { name: "Agreed actions" });
+    expect(within(agreed).getByRole("article", { name: "Rotate reviewers" })).toHaveTextContent(
+      "grace@example.com"
+    );
+  });
+
+  it("reviews earlier actions while preparing the next retrospective", async () => {
+    retroRpcSeed();
+    retros.rows.push({
+      ...retros.rows[0],
+      id: "retro-8",
+      title: "Previous retro",
+      held_on: "2026-09-15",
+      stage: "closed",
+      created_at: "2026-09-15T08:00:00Z",
+      closed_at: "2026-09-15T10:00:00Z",
+    });
+    const base = {
+      retro_id: "retro-8",
+      group_id: null,
+      description: null,
+      owner_id: "user-1",
+      owner_email: "ada@example.com",
+      collaborators: [],
+      due_on: "2026-09-20",
+      priority: "high",
+      success_criteria: null,
+      outcome: null,
+      helped: null,
+      follow_up: null,
+      created_at: "2026-09-15T09:00:00Z",
+      completed_at: null,
+    };
+    actions.rows = [
+      { ...base, id: "action-1", title: "Write a review guide", status: "in_progress" },
+      {
+        ...base,
+        id: "action-2",
+        title: "Pair on releases",
+        status: "done",
+        completed_at: "2026-09-25T09:00:00Z",
+      },
+    ];
+    renderAt("/retrospectives");
+    const open = await screen.findByRole("region", { name: "Still open" });
+    const late = within(open).getByRole("article", { name: "Write a review guide" });
+    expect(late).toHaveTextContent("Overdue");
+    expect(late).toHaveTextContent("From Previous retro");
+    const done = screen.getByRole("region", { name: "Done since the last retrospective" });
+    expect(within(done).getByRole("article", { name: "Pair on releases" })).toBeInTheDocument();
+
+    await userEvent.selectOptions(
+      within(late).getByLabelText("Status of “Write a review guide”"),
+      "Done"
+    );
+    expect(
+      await within(
+        await screen.findByRole("region", { name: "Done since the last retrospective" })
+      ).findByRole("article", { name: "Write a review guide" })
+    ).toBeInTheDocument();
+    expect(screen.queryByRole("region", { name: "Still open" })).not.toBeInTheDocument();
   });
 
   it("shows authors only when topics are not anonymous", async () => {
