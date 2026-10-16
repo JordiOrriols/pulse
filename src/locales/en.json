@@ -322,7 +322,7 @@
     },
     "vote": {
       "hint": "Totals stay hidden until discussion so nobody follows the crowd.",
-      "left_one": "{{count}} of {{total}} vote left",
+      "left_one": "{{count}} of {{total}} votes left",
       "left_other": "{{count}} of {{total}} votes left",
       "add": "Add a vote to {{name}}",
       "remove": "Remove a vote from {{name}}",

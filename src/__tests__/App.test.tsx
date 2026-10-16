@@ -723,9 +723,8 @@ describe("Retrospectives", () => {
     expect(retros.groups).toHaveLength(2);
     expect(screen.getByText("2 of 2 votes left")).toBeInTheDocument();
     await userEvent.click(screen.getByRole("button", { name: "Add a vote to Delivery flow" }));
-    await userEvent.click(
-      await screen.findByRole("button", { name: "Add a vote to Delivery flow" })
-    );
+    expect(await screen.findByText("1 of 2 votes left")).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: "Add a vote to Delivery flow" }));
     expect(await screen.findByText("0 of 2 votes left")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Add a vote to Pairing" })).toBeDisabled();
 
