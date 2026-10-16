@@ -10,8 +10,8 @@ React 18, Vite, Tailwind 4, i18next (en, es, ca, fr, de, it) and the shared
 
 ## Status
 
-The four sections (Overview, Team Pulse, Retrospectives, Actions) are still
-empty placeholders; the data model comes in later steps.
+Team Pulse surveys work end to end. Overview, Retrospectives and Actions are
+still empty placeholders; each comes in its own step.
 
 ## Sign-in
 
@@ -31,6 +31,30 @@ Pulse (`list_workspaces('pulse')`), creates new ones and lets the owner share a
 workspace per app. `WorkspaceProvider` (`useWorkspace()`) exposes the open
 workspace to the pages; the selection is remembered in `localStorage` under
 `pulse.workspace`.
+
+## Team Pulse surveys
+
+Surveys belong to the workspace, so every team in it answers the same survey.
+Owners and editors create a survey from the six default questions in the brief
+and their own 1–5 questions, choose whether to ask the free-text question and
+set a minimum number of responses. They can close, reopen and delete it.
+Anyone with Pulse access answers once.
+
+Anonymity is enforced by the database (`supabase/migrations/20261017030000_pulse_surveys.sql`
+in Planner):
+
+- `submit_pulse_response` stores the ratings and the comment without the
+  account; `pulse_participations` only records who answered, so an account
+  cannot answer twice and answers cannot be edited.
+- Accounts cannot read `pulse_responses`, `pulse_answers` or `pulse_comments`.
+  `pulse_survey_results` returns counts, and only returns the 1–5
+  distribution and comments once the survey is closed with at least the
+  minimum number of responses.
+
+`src/lib/surveys.ts` turns those results into the report: averages,
+distribution, change since the previous survey, the last five surveys as a
+trend, the strongest and weakest question and the response rate. Recurring
+surveys are not built yet.
 
 ## Development
 
