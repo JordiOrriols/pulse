@@ -3,11 +3,13 @@ import { useSupabaseAuth } from "@jordiorriols/ui/hooks";
 import { createWorkspaceApi, getAuthRedirectUrl, type WorkspaceApi } from "@jordiorriols/ui";
 import i18n from "@/i18n";
 import { supabase } from "./supabaseClient";
+import { createRetroApi, type RetroApi } from "./retros";
 import { createSurveyApi, type SurveyApi } from "./surveys";
 
 type DataContextValue = ReturnType<typeof useSupabaseAuth> & {
   workspaceApi: WorkspaceApi | null;
   surveyApi: SurveyApi | null;
+  retroApi: RetroApi | null;
 };
 const DataContext = createContext<DataContextValue | null>(null);
 
@@ -17,8 +19,12 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const apis = useMemo(
     () =>
       supabase && signedIn
-        ? { workspaceApi: createWorkspaceApi(supabase), surveyApi: createSurveyApi(supabase) }
-        : { workspaceApi: null, surveyApi: null },
+        ? {
+            workspaceApi: createWorkspaceApi(supabase),
+            surveyApi: createSurveyApi(supabase),
+            retroApi: createRetroApi(supabase),
+          }
+        : { workspaceApi: null, surveyApi: null, retroApi: null },
     [signedIn]
   );
   return <DataContext.Provider value={{ ...auth, ...apis }}>{children}</DataContext.Provider>;
@@ -35,6 +41,7 @@ const fallback: DataContextValue = {
   authError: null,
   workspaceApi: null,
   surveyApi: null,
+  retroApi: null,
   signIn: unavailable,
   signInWithGitHub: unavailable,
   signUp: unavailable,

@@ -28,8 +28,10 @@ describe("Pulse authentication", () => {
     expect(result.current.workspaceApi).toBeNull();
     await act(async () => state.listener?.("SIGNED_IN", { user: { id: "one" } }));
     expect(result.current.workspaceApi?.listWorkspaces).toBeTypeOf("function");
+    expect(result.current.retroApi?.loadBoard).toBeTypeOf("function");
     await act(async () => state.listener?.("SIGNED_OUT", null));
     expect(result.current.workspaceApi).toBeNull();
+    expect(result.current.retroApi).toBeNull();
   });
 
   it("sends sign-up and recovery emails back to Pulse", async () => {
