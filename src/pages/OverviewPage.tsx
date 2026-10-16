@@ -53,7 +53,7 @@ function Panel({
       aria-labelledby={id}
       className={cn("space-y-4 rounded-xl border border-border bg-card p-5", className)}
     >
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex min-h-8 items-center justify-between gap-3">
         <h2 id={id} className="text-base font-semibold">
           {title}
         </h2>
@@ -409,7 +409,7 @@ function Improvement({
 
   return (
     <Panel id="overview-improvement" title={t("overview.history.title")} className="lg:col-span-2">
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
         <Block
           id="overview-recent"
           title={t("overview.history.retros")}
@@ -515,9 +515,9 @@ export default function OverviewPage() {
       ) : loading ? (
         <Spinner label={t("overview.loading")} />
       ) : (
-        <div className="grid gap-4 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <TeamHealth report={report} open={open} />
-          <div className="space-y-4">
+          <div className="min-w-0 space-y-4">
             <CurrentRetro retro={currentRetro(retros.retros)} />
             <Actions actions={tracked.actions} since={lastRetro(retros.retros)} />
           </div>
