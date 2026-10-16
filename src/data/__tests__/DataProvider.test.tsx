@@ -18,7 +18,7 @@ const { auth, state } = vi.hoisted(() => {
     },
   };
 });
-vi.mock("../supabaseClient", () => ({ supabase: { auth } }));
+vi.mock("../supabaseClient", () => ({ supabase: { auth }, authCallback: null }));
 
 describe("Pulse authentication", () => {
   it("creates the shared workspace API only while a user is signed in", async () => {

@@ -62,7 +62,8 @@
     "switchToSignUp": "Noch kein Konto? Erstellen Sie eines",
     "switchToSignIn": "Sie haben bereits ein Konto? Anmelden",
     "notConfigured": "Die Anmeldung ist für diesen Build nicht konfiguriert.",
-    "cancel": "Abbrechen"
+    "cancel": "Abbrechen",
+    "linkFailed": "Dieser Link hat nicht funktioniert: {{message}}. Fordere über „Anmelden“ einen neuen an."
   },
   "welcome": {
     "title": "Behalte den Puls deines Teams im Blick.",

@@ -62,7 +62,8 @@
     "switchToSignUp": "¿No tiene cuenta? Cree una",
     "switchToSignIn": "¿Ya tiene cuenta? Inicie sesión",
     "notConfigured": "El inicio de sesión no está configurado en esta versión.",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "linkFailed": "Este enlace no ha funcionado: {{message}}. Pide uno nuevo desde Iniciar sesión."
   },
   "welcome": {
     "title": "Toma el pulso a tu equipo.",

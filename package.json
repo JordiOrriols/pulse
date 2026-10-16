@@ -19,7 +19,7 @@
     "format:check": "prettier --check src"
   },
   "dependencies": {
-    "@jordiorriols/ui": "^0.3.13",
+    "@jordiorriols/ui": "^0.3.14",
     "@supabase/supabase-js": "^2.118.0",
     "i18next": "25.7.3",
     "i18next-browser-languagedetector": "8.2.0",

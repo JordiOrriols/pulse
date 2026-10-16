@@ -62,7 +62,8 @@
     "switchToSignUp": "No account? Create one",
     "switchToSignIn": "Already have an account? Sign in",
     "notConfigured": "Sign-in is not configured for this build.",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "linkFailed": "This link did not work: {{message}}. Ask for a new one from Sign in."
   },
   "welcome": {
     "title": "Keep a finger on the team's pulse.",

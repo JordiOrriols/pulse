@@ -62,7 +62,8 @@
     "switchToSignUp": "No teniu compte? Creeu-ne un",
     "switchToSignIn": "Ja teniu compte? Inicieu sessió",
     "notConfigured": "L'inici de sessió no està configurat en aquesta versió.",
-    "cancel": "Cancel·la"
+    "cancel": "Cancel·la",
+    "linkFailed": "Aquest enllaç no ha funcionat: {{message}}. Demana'n un de nou des d'Iniciar sessió."
   },
   "welcome": {
     "title": "Pren el pols al teu equip.",

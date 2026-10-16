@@ -62,7 +62,8 @@
     "switchToSignUp": "Pas de compte ? Créez-en un",
     "switchToSignIn": "Vous avez déjà un compte ? Connectez-vous",
     "notConfigured": "La connexion n'est pas configurée pour cette version.",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "linkFailed": "Ce lien n'a pas fonctionné : {{message}}. Demandez-en un nouveau depuis Se connecter."
   },
   "welcome": {
     "title": "Prenez le pouls de votre équipe.",

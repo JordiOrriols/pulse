@@ -447,6 +447,7 @@ const { client, auth, pulse, retros, actions } = vi.hoisted(() => {
     return builder;
   };
   const client = {
+    link: null as unknown,
     current: {
       rpc: vi.fn(async (name: string, args: Record<string, unknown>) => {
         if (name === "list_workspaces") return { data: auth.workspaces, error: null };
@@ -474,6 +475,11 @@ const { client, auth, pulse, retros, actions } = vi.hoisted(() => {
         signInWithPassword: vi.fn(async () => ({ error: null })),
         signOut: vi.fn(async () => ({ error: null })),
         updateUser: vi.fn(async () => ({ data: { user: null }, error: null })),
+        setSession: vi.fn(async () => {
+          auth.session = { user: { id: "user-1", email: "ada@example.com" } };
+          auth.listener?.("SIGNED_IN", auth.session);
+          return { data: { session: auth.session }, error: null };
+        }),
       },
     } as unknown,
   };
@@ -482,6 +488,9 @@ const { client, auth, pulse, retros, actions } = vi.hoisted(() => {
 vi.mock("@/data/supabaseClient", () => ({
   get supabase() {
     return client.current;
+  },
+  get authCallback() {
+    return client.link;
   },
 }));
 const supabaseAuth = (client.current as { auth: Record<string, ReturnType<typeof vi.fn>> }).auth;
@@ -581,6 +590,30 @@ describe("Pulse sign-in", () => {
   beforeEach(async () => {
     await i18n.changeLanguage("en");
     auth.session = null;
+    client.link = null;
+  });
+
+  it("asks for a new password after a recovery link that carries its tokens in the hash", async () => {
+    client.link = { kind: "session", accessToken: "at", refreshToken: "rt", recovery: true };
+    renderAt("/");
+    expect(
+      await screen.findByRole("alertdialog", { name: "Set a new password" })
+    ).toBeInTheDocument();
+    expect(supabaseAuth["setSession"]).toHaveBeenCalledWith({
+      access_token: "at",
+      refresh_token: "rt",
+    });
+  });
+
+  it("says why a sign-in link did not work instead of ignoring it", async () => {
+    client.link = { kind: "error", message: "Email link is invalid or has expired" };
+    renderAt("/");
+    expect(
+      await screen.findByText(
+        "This link did not work: Email link is invalid or has expired. Ask for a new one from Sign in."
+      )
+    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Sign in" })).toBeEnabled();
   });
 
   it("welcomes signed-out visitors instead of showing any section", async () => {
