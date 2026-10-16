@@ -84,5 +84,112 @@
   },
   "errors": {
     "unexpectedResponse": "Il server ha inviato una risposta inattesa. Ricarica e riprova."
+  },
+  "surveys": {
+    "questions": {
+      "health": {
+        "prompt": "Come ti senti nel team in questo momento?",
+        "low": "Molto male",
+        "high": "Molto bene"
+      },
+      "delivery": {
+        "prompt": "Quanto sei fiducioso che rispetteremo gli impegni attuali?",
+        "low": "Per niente fiducioso",
+        "high": "Molto fiducioso"
+      },
+      "autonomy": {
+        "prompt": "Hai abbastanza autonomia per lavorare bene?",
+        "low": "Molto bassa",
+        "high": "Molto alta"
+      },
+      "clarity": {
+        "prompt": "Le nostre priorità e aspettative sono chiare?",
+        "low": "Per niente chiare",
+        "high": "Molto chiare"
+      },
+      "workload": {
+        "prompt": "Quanto è gestibile il tuo carico di lavoro attuale?",
+        "low": "Del tutto ingestibile",
+        "high": "Molto gestibile"
+      },
+      "collaboration": {
+        "prompt": "Quanto bene collaboriamo e ci sosteniamo a vicenda?",
+        "low": "Molto male",
+        "high": "Ottimamente"
+      }
+    },
+    "scale": {
+      "low": "Molto basso",
+      "high": "Molto alto"
+    },
+    "status": {
+      "open": "Aperto",
+      "closed": "Chiuso"
+    },
+    "empty": {
+      "title": "Ancora nessun sondaggio",
+      "manager": "Crea un breve sondaggio per sapere come sta il team.",
+      "member": "Quando si aprirà un sondaggio in questo spazio potrai rispondere qui."
+    },
+    "list": {
+      "label": "Sondaggi",
+      "answered": "{{responses}} su {{participants}} hanno risposto"
+    },
+    "create": {
+      "open": "Nuovo sondaggio",
+      "title": "Nuovo sondaggio",
+      "description": "Scegli le domande che il team valuterà da 1 a 5.",
+      "name": "Titolo",
+      "namePlaceholder": "Polso dello sprint 24",
+      "questions": "Domande",
+      "custom": "Le tue domande",
+      "customPrompt": "Domanda {{number}}",
+      "customPromptPlaceholder": "Scrivi una domanda da valutare da 1 a 5",
+      "lowLabel": "Etichetta dell'1 nella domanda {{number}}",
+      "highLabel": "Etichetta del 5 nella domanda {{number}}",
+      "removeCustom": "Rimuovi la domanda {{number}}",
+      "addCustom": "Aggiungi una domanda",
+      "asksComment": "Chiedi cosa aiuta o frena il team",
+      "minimum": "Risposte minime",
+      "minimumHint": "I risultati restano nascosti finché il sondaggio non viene chiuso con almeno queste risposte.",
+      "submit": "Crea sondaggio",
+      "cancel": "Annulla"
+    },
+    "answer": {
+      "open": "Rispondi",
+      "done": "Hai risposto",
+      "description": "Valuta ogni affermazione da 1 a 5. Richiede meno di un minuto.",
+      "rating": "{{rating}} per: {{question}}",
+      "comment": "Qual è la cosa che più aiuta o frena il team in questo momento?",
+      "commentHint": "Facoltativo. Evita dettagli che potrebbero identificarti.",
+      "privacy": "La tua risposta è anonima: viene salvata senza il tuo account e mostrata solo in forma aggregata quando il sondaggio si chiude con almeno {{minimum}} risposte. Pulse registra solo che hai risposto e non potrai modificare la risposta in seguito.",
+      "submit": "Invia risposta",
+      "cancel": "Annulla"
+    },
+    "actions": {
+      "close": "Chiudi sondaggio",
+      "reopen": "Riapri",
+      "delete": "Elimina"
+    },
+    "delete": {
+      "title": "Eliminare il sondaggio?",
+      "description": "«{{title}}» e tutte le sue risposte verranno eliminati per tutti.",
+      "confirm": "Elimina",
+      "cancel": "Annulla"
+    },
+    "results": {
+      "hiddenWhileOpen": "I risultati compaiono alla chiusura del sondaggio, così nessuno vede le risposte mentre altri stanno ancora rispondendo.",
+      "belowThreshold": "Sono arrivate solo {{responses}} risposte e questo sondaggio ne richiede {{minimum}} per mostrare i risultati, quindi restano nascosti per proteggere l'anonimato.",
+      "responses": "Risposte",
+      "rate": "Tasso di risposta",
+      "strongest": "Punto di forza",
+      "weakest": "Da migliorare",
+      "trend": "Andamento degli ultimi {{points}} sondaggi per: {{question}}",
+      "changeHint": "Variazione rispetto al sondaggio precedente",
+      "distribution": "Valutazioni da 1 a 5 per {{question}}: {{counts}}",
+      "comments": "Cosa aiuta o frena il team",
+      "noComments": "Non sono stati lasciati commenti."
+    },
+    "loading": "Caricamento dei sondaggi"
   }
 }

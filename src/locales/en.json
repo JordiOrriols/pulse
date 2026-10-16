@@ -84,5 +84,112 @@
   },
   "errors": {
     "unexpectedResponse": "The server sent an unexpected response. Reload and try again."
+  },
+  "surveys": {
+    "questions": {
+      "health": {
+        "prompt": "How are you feeling about the team right now?",
+        "low": "Very bad",
+        "high": "Very good"
+      },
+      "delivery": {
+        "prompt": "How confident are you that we can deliver our current commitments?",
+        "low": "Not confident",
+        "high": "Very confident"
+      },
+      "autonomy": {
+        "prompt": "Do you have enough autonomy to do your work effectively?",
+        "low": "Very low",
+        "high": "Very high"
+      },
+      "clarity": {
+        "prompt": "Are our priorities and expectations clear?",
+        "low": "Very unclear",
+        "high": "Very clear"
+      },
+      "workload": {
+        "prompt": "How manageable is your current workload?",
+        "low": "Completely unmanageable",
+        "high": "Very manageable"
+      },
+      "collaboration": {
+        "prompt": "How well are we collaborating and supporting each other?",
+        "low": "Very poor",
+        "high": "Excellent"
+      }
+    },
+    "scale": {
+      "low": "Very low",
+      "high": "Very high"
+    },
+    "status": {
+      "open": "Open",
+      "closed": "Closed"
+    },
+    "empty": {
+      "title": "No surveys yet",
+      "manager": "Create a short survey to hear how the team is doing.",
+      "member": "When a survey opens in this workspace you will be able to answer it here."
+    },
+    "list": {
+      "label": "Surveys",
+      "answered": "{{responses}} of {{participants}} answered"
+    },
+    "create": {
+      "open": "New survey",
+      "title": "New survey",
+      "description": "Pick the questions the team will rate from 1 to 5.",
+      "name": "Title",
+      "namePlaceholder": "Sprint 24 pulse",
+      "questions": "Questions",
+      "custom": "Your own questions",
+      "customPrompt": "Question {{number}}",
+      "customPromptPlaceholder": "Write a question rated from 1 to 5",
+      "lowLabel": "Label for 1 in question {{number}}",
+      "highLabel": "Label for 5 in question {{number}}",
+      "removeCustom": "Remove question {{number}}",
+      "addCustom": "Add a question",
+      "asksComment": "Ask what is helping or hurting the team",
+      "minimum": "Minimum responses",
+      "minimumHint": "Results stay hidden until the survey is closed with at least this many answers.",
+      "submit": "Create survey",
+      "cancel": "Cancel"
+    },
+    "answer": {
+      "open": "Answer",
+      "done": "You answered",
+      "description": "Rate each statement from 1 to 5. It takes less than a minute.",
+      "rating": "{{rating}} for: {{question}}",
+      "comment": "What is the main thing helping or hurting the team right now?",
+      "commentHint": "Optional. Avoid details that would identify you.",
+      "privacy": "Your answer is anonymous: it is stored without your account and only shown aggregated once the survey closes with at least {{minimum}} answers. Pulse only records that you answered, and you cannot change your answer afterwards.",
+      "submit": "Send answer",
+      "cancel": "Cancel"
+    },
+    "actions": {
+      "close": "Close survey",
+      "reopen": "Reopen",
+      "delete": "Delete"
+    },
+    "delete": {
+      "title": "Delete survey?",
+      "description": "“{{title}}” and all its answers will be deleted for everyone.",
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    },
+    "results": {
+      "hiddenWhileOpen": "Results appear when the survey is closed, so nobody sees answers while people are still responding.",
+      "belowThreshold": "Only {{responses}} answers were received and this survey needs {{minimum}} to show results, so they stay hidden to protect anonymity.",
+      "responses": "Responses",
+      "rate": "Response rate",
+      "strongest": "Strongest",
+      "weakest": "Needs attention",
+      "trend": "Trend over the last {{points}} surveys for: {{question}}",
+      "changeHint": "Change since the previous survey",
+      "distribution": "Ratings 1 to 5 for {{question}}: {{counts}}",
+      "comments": "What is helping or hurting the team",
+      "noComments": "No comments were left."
+    },
+    "loading": "Loading surveys"
   }
 }

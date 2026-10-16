@@ -10,6 +10,7 @@ import { DataProvider } from "./data/DataProvider";
 import { WorkspaceProvider } from "./data/WorkspaceProvider";
 import { SECTIONS } from "./sections";
 import SectionPage from "./pages/SectionPage";
+import TeamPulsePage from "./pages/TeamPulsePage";
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   const { t } = useTranslation();
@@ -36,7 +37,13 @@ export default function App() {
                   <Route
                     key={section.id}
                     path={section.path}
-                    element={<SectionPage section={section} />}
+                    element={
+                      section.id === "teamPulse" ? (
+                        <TeamPulsePage />
+                      ) : (
+                        <SectionPage section={section} />
+                      )
+                    }
                   />
                 ))}
                 <Route path="*" element={<Navigate to="/" replace />} />

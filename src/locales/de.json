@@ -84,5 +84,112 @@
   },
   "errors": {
     "unexpectedResponse": "Der Server hat eine unerwartete Antwort gesendet. Lade neu und versuche es noch einmal."
+  },
+  "surveys": {
+    "questions": {
+      "health": {
+        "prompt": "Wie fühlst du dich gerade im Team?",
+        "low": "Sehr schlecht",
+        "high": "Sehr gut"
+      },
+      "delivery": {
+        "prompt": "Wie zuversichtlich bist du, dass wir unsere aktuellen Zusagen einhalten?",
+        "low": "Nicht zuversichtlich",
+        "high": "Sehr zuversichtlich"
+      },
+      "autonomy": {
+        "prompt": "Hast du genug Autonomie, um deine Arbeit gut zu machen?",
+        "low": "Sehr gering",
+        "high": "Sehr hoch"
+      },
+      "clarity": {
+        "prompt": "Sind unsere Prioritäten und Erwartungen klar?",
+        "low": "Sehr unklar",
+        "high": "Sehr klar"
+      },
+      "workload": {
+        "prompt": "Wie gut ist deine aktuelle Arbeitslast zu bewältigen?",
+        "low": "Gar nicht zu bewältigen",
+        "high": "Sehr gut zu bewältigen"
+      },
+      "collaboration": {
+        "prompt": "Wie gut arbeiten wir zusammen und unterstützen uns?",
+        "low": "Sehr schlecht",
+        "high": "Ausgezeichnet"
+      }
+    },
+    "scale": {
+      "low": "Sehr niedrig",
+      "high": "Sehr hoch"
+    },
+    "status": {
+      "open": "Offen",
+      "closed": "Geschlossen"
+    },
+    "empty": {
+      "title": "Noch keine Umfragen",
+      "manager": "Erstelle eine kurze Umfrage, um zu erfahren, wie es dem Team geht.",
+      "member": "Sobald in diesem Arbeitsbereich eine Umfrage geöffnet wird, kannst du sie hier beantworten."
+    },
+    "list": {
+      "label": "Umfragen",
+      "answered": "{{responses}} von {{participants}} haben geantwortet"
+    },
+    "create": {
+      "open": "Neue Umfrage",
+      "title": "Neue Umfrage",
+      "description": "Wähle die Fragen, die das Team von 1 bis 5 bewertet.",
+      "name": "Titel",
+      "namePlaceholder": "Puls Sprint 24",
+      "questions": "Fragen",
+      "custom": "Eigene Fragen",
+      "customPrompt": "Frage {{number}}",
+      "customPromptPlaceholder": "Schreibe eine Frage mit Bewertung von 1 bis 5",
+      "lowLabel": "Beschriftung für 1 bei Frage {{number}}",
+      "highLabel": "Beschriftung für 5 bei Frage {{number}}",
+      "removeCustom": "Frage {{number}} entfernen",
+      "addCustom": "Frage hinzufügen",
+      "asksComment": "Fragen, was dem Team hilft oder schadet",
+      "minimum": "Mindestanzahl an Antworten",
+      "minimumHint": "Ergebnisse bleiben verborgen, bis die Umfrage mit mindestens so vielen Antworten geschlossen wird.",
+      "submit": "Umfrage erstellen",
+      "cancel": "Abbrechen"
+    },
+    "answer": {
+      "open": "Antworten",
+      "done": "Du hast geantwortet",
+      "description": "Bewerte jede Aussage von 1 bis 5. Das dauert weniger als eine Minute.",
+      "rating": "{{rating}} für: {{question}}",
+      "comment": "Was hilft oder schadet dem Team gerade am meisten?",
+      "commentHint": "Optional. Vermeide Details, die dich identifizieren könnten.",
+      "privacy": "Deine Antwort ist anonym: Sie wird ohne dein Konto gespeichert und erst zusammengefasst angezeigt, wenn die Umfrage mit mindestens {{minimum}} Antworten geschlossen ist. Pulse speichert nur, dass du geantwortet hast, und du kannst deine Antwort danach nicht mehr ändern.",
+      "submit": "Antwort senden",
+      "cancel": "Abbrechen"
+    },
+    "actions": {
+      "close": "Umfrage schließen",
+      "reopen": "Wieder öffnen",
+      "delete": "Löschen"
+    },
+    "delete": {
+      "title": "Umfrage löschen?",
+      "description": "„{{title}}“ und alle Antworten werden für alle gelöscht.",
+      "confirm": "Löschen",
+      "cancel": "Abbrechen"
+    },
+    "results": {
+      "hiddenWhileOpen": "Ergebnisse erscheinen, wenn die Umfrage geschlossen ist, damit niemand Antworten sieht, solange noch geantwortet wird.",
+      "belowThreshold": "Es gibt nur {{responses}} Antworten und diese Umfrage braucht {{minimum}}, um Ergebnisse zu zeigen. Zum Schutz der Anonymität bleiben sie verborgen.",
+      "responses": "Antworten",
+      "rate": "Rücklaufquote",
+      "strongest": "Stärke",
+      "weakest": "Braucht Aufmerksamkeit",
+      "trend": "Verlauf der letzten {{points}} Umfragen für: {{question}}",
+      "changeHint": "Veränderung seit der vorherigen Umfrage",
+      "distribution": "Bewertungen 1 bis 5 für {{question}}: {{counts}}",
+      "comments": "Was dem Team hilft oder schadet",
+      "noComments": "Es wurden keine Kommentare hinterlassen."
+    },
+    "loading": "Umfragen werden geladen"
   }
 }

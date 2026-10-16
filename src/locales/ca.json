@@ -84,5 +84,112 @@
   },
   "errors": {
     "unexpectedResponse": "El servidor ha enviat una resposta inesperada. Torna a carregar i prova-ho de nou."
+  },
+  "surveys": {
+    "questions": {
+      "health": {
+        "prompt": "Com et sents amb l'equip ara mateix?",
+        "low": "Molt malament",
+        "high": "Molt bé"
+      },
+      "delivery": {
+        "prompt": "Quina confiança tens que puguem complir els compromisos actuals?",
+        "low": "Gens de confiança",
+        "high": "Molta confiança"
+      },
+      "autonomy": {
+        "prompt": "Tens prou autonomia per fer bé la teva feina?",
+        "low": "Molt baixa",
+        "high": "Molt alta"
+      },
+      "clarity": {
+        "prompt": "Són clares les nostres prioritats i expectatives?",
+        "low": "Gens clares",
+        "high": "Molt clares"
+      },
+      "workload": {
+        "prompt": "És assumible la teva càrrega de feina actual?",
+        "low": "Totalment inassumible",
+        "high": "Molt assumible"
+      },
+      "collaboration": {
+        "prompt": "Com col·laborem i ens donem suport entre nosaltres?",
+        "low": "Molt malament",
+        "high": "Excel·lent"
+      }
+    },
+    "scale": {
+      "low": "Molt baix",
+      "high": "Molt alt"
+    },
+    "status": {
+      "open": "Oberta",
+      "closed": "Tancada"
+    },
+    "empty": {
+      "title": "Encara no hi ha enquestes",
+      "manager": "Crea una enquesta breu per saber com està l'equip.",
+      "member": "Quan s'obri una enquesta en aquest espai la podràs respondre aquí."
+    },
+    "list": {
+      "label": "Enquestes",
+      "answered": "{{responses}} de {{participants}} han respost"
+    },
+    "create": {
+      "open": "Nova enquesta",
+      "title": "Nova enquesta",
+      "description": "Tria les preguntes que l'equip valorarà de l'1 al 5.",
+      "name": "Títol",
+      "namePlaceholder": "Pols de l'sprint 24",
+      "questions": "Preguntes",
+      "custom": "Les teves preguntes",
+      "customPrompt": "Pregunta {{number}}",
+      "customPromptPlaceholder": "Escriu una pregunta per valorar de l'1 al 5",
+      "lowLabel": "Etiqueta de l'1 a la pregunta {{number}}",
+      "highLabel": "Etiqueta del 5 a la pregunta {{number}}",
+      "removeCustom": "Treu la pregunta {{number}}",
+      "addCustom": "Afegeix una pregunta",
+      "asksComment": "Pregunta què ajuda o perjudica l'equip",
+      "minimum": "Respostes mínimes",
+      "minimumHint": "Els resultats queden amagats fins que es tanqui l'enquesta amb almenys aquestes respostes.",
+      "submit": "Crea l'enquesta",
+      "cancel": "Cancel·la"
+    },
+    "answer": {
+      "open": "Respon",
+      "done": "Ja has respost",
+      "description": "Valora cada afirmació de l'1 al 5. Trigaràs menys d'un minut.",
+      "rating": "{{rating}} per a: {{question}}",
+      "comment": "Què és el que més ajuda o perjudica l'equip ara mateix?",
+      "commentHint": "Opcional. Evita detalls que et puguin identificar.",
+      "privacy": "La teva resposta és anònima: es desa sense el teu compte i només es mostra agregada quan l'enquesta es tanca amb almenys {{minimum}} respostes. Pulse només registra que has respost i després no podràs canviar la resposta.",
+      "submit": "Envia la resposta",
+      "cancel": "Cancel·la"
+    },
+    "actions": {
+      "close": "Tanca l'enquesta",
+      "reopen": "Torna a obrir",
+      "delete": "Elimina"
+    },
+    "delete": {
+      "title": "Vols eliminar l'enquesta?",
+      "description": "S'eliminaran «{{title}}» i totes les respostes per a tothom.",
+      "confirm": "Elimina",
+      "cancel": "Cancel·la"
+    },
+    "results": {
+      "hiddenWhileOpen": "Els resultats apareixen en tancar l'enquesta, així ningú veu respostes mentre encara s'hi respon.",
+      "belowThreshold": "Només hi ha {{responses}} respostes i aquesta enquesta en necessita {{minimum}} per mostrar resultats, així que continuen amagats per protegir l'anonimat.",
+      "responses": "Respostes",
+      "rate": "Participació",
+      "strongest": "Punt fort",
+      "weakest": "A millorar",
+      "trend": "Tendència de les últimes {{points}} enquestes per a: {{question}}",
+      "changeHint": "Canvi respecte a l'enquesta anterior",
+      "distribution": "Valoracions de l'1 al 5 per a {{question}}: {{counts}}",
+      "comments": "Què ajuda o perjudica l'equip",
+      "noComments": "No s'hi van deixar comentaris."
+    },
+    "loading": "Carregant enquestes"
   }
 }

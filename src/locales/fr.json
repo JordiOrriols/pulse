@@ -84,5 +84,112 @@
   },
   "errors": {
     "unexpectedResponse": "Le serveur a renvoyé une réponse inattendue. Rechargez et réessayez."
+  },
+  "surveys": {
+    "questions": {
+      "health": {
+        "prompt": "Comment te sens-tu dans l'équipe en ce moment ?",
+        "low": "Très mal",
+        "high": "Très bien"
+      },
+      "delivery": {
+        "prompt": "À quel point es-tu confiant que nous tiendrons nos engagements actuels ?",
+        "low": "Pas confiant",
+        "high": "Très confiant"
+      },
+      "autonomy": {
+        "prompt": "As-tu assez d'autonomie pour bien faire ton travail ?",
+        "low": "Très faible",
+        "high": "Très élevée"
+      },
+      "clarity": {
+        "prompt": "Nos priorités et nos attentes sont-elles claires ?",
+        "low": "Pas claires du tout",
+        "high": "Très claires"
+      },
+      "workload": {
+        "prompt": "Ta charge de travail actuelle est-elle gérable ?",
+        "low": "Totalement ingérable",
+        "high": "Très gérable"
+      },
+      "collaboration": {
+        "prompt": "Comment collaborons-nous et nous soutenons-nous ?",
+        "low": "Très mal",
+        "high": "Excellemment"
+      }
+    },
+    "scale": {
+      "low": "Très faible",
+      "high": "Très élevé"
+    },
+    "status": {
+      "open": "Ouvert",
+      "closed": "Fermé"
+    },
+    "empty": {
+      "title": "Aucun sondage pour l'instant",
+      "manager": "Crée un court sondage pour savoir comment va l'équipe.",
+      "member": "Quand un sondage s'ouvrira dans cet espace, tu pourras y répondre ici."
+    },
+    "list": {
+      "label": "Sondages",
+      "answered": "{{responses}} sur {{participants}} ont répondu"
+    },
+    "create": {
+      "open": "Nouveau sondage",
+      "title": "Nouveau sondage",
+      "description": "Choisis les questions que l'équipe notera de 1 à 5.",
+      "name": "Titre",
+      "namePlaceholder": "Pouls du sprint 24",
+      "questions": "Questions",
+      "custom": "Tes propres questions",
+      "customPrompt": "Question {{number}}",
+      "customPromptPlaceholder": "Écris une question notée de 1 à 5",
+      "lowLabel": "Libellé du 1 pour la question {{number}}",
+      "highLabel": "Libellé du 5 pour la question {{number}}",
+      "removeCustom": "Retirer la question {{number}}",
+      "addCustom": "Ajouter une question",
+      "asksComment": "Demander ce qui aide ou freine l'équipe",
+      "minimum": "Réponses minimales",
+      "minimumHint": "Les résultats restent masqués jusqu'à la fermeture du sondage avec au moins ce nombre de réponses.",
+      "submit": "Créer le sondage",
+      "cancel": "Annuler"
+    },
+    "answer": {
+      "open": "Répondre",
+      "done": "Tu as répondu",
+      "description": "Note chaque affirmation de 1 à 5. Cela prend moins d'une minute.",
+      "rating": "{{rating}} pour : {{question}}",
+      "comment": "Qu'est-ce qui aide ou freine le plus l'équipe en ce moment ?",
+      "commentHint": "Facultatif. Évite les détails qui pourraient t'identifier.",
+      "privacy": "Ta réponse est anonyme : elle est enregistrée sans ton compte et n'est affichée qu'agrégée une fois le sondage fermé avec au moins {{minimum}} réponses. Pulse enregistre seulement que tu as répondu, et tu ne pourras plus modifier ta réponse.",
+      "submit": "Envoyer la réponse",
+      "cancel": "Annuler"
+    },
+    "actions": {
+      "close": "Fermer le sondage",
+      "reopen": "Rouvrir",
+      "delete": "Supprimer"
+    },
+    "delete": {
+      "title": "Supprimer le sondage ?",
+      "description": "« {{title}} » et toutes ses réponses seront supprimés pour tout le monde.",
+      "confirm": "Supprimer",
+      "cancel": "Annuler"
+    },
+    "results": {
+      "hiddenWhileOpen": "Les résultats apparaissent à la fermeture du sondage, pour que personne ne voie de réponses pendant que d'autres répondent encore.",
+      "belowThreshold": "Seulement {{responses}} réponses ont été reçues et ce sondage en demande {{minimum}} pour afficher les résultats ; ils restent donc masqués pour protéger l'anonymat.",
+      "responses": "Réponses",
+      "rate": "Taux de réponse",
+      "strongest": "Point fort",
+      "weakest": "À améliorer",
+      "trend": "Tendance sur les {{points}} derniers sondages pour : {{question}}",
+      "changeHint": "Évolution depuis le sondage précédent",
+      "distribution": "Notes de 1 à 5 pour {{question}} : {{counts}}",
+      "comments": "Ce qui aide ou freine l'équipe",
+      "noComments": "Aucun commentaire n'a été laissé."
+    },
+    "loading": "Chargement des sondages"
   }
 }

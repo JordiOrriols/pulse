@@ -84,5 +84,112 @@
   },
   "errors": {
     "unexpectedResponse": "El servidor ha enviado una respuesta inesperada. Recarga e inténtalo de nuevo."
+  },
+  "surveys": {
+    "questions": {
+      "health": {
+        "prompt": "¿Cómo te sientes con el equipo ahora mismo?",
+        "low": "Muy mal",
+        "high": "Muy bien"
+      },
+      "delivery": {
+        "prompt": "¿Qué confianza tienes en que podamos cumplir los compromisos actuales?",
+        "low": "Ninguna confianza",
+        "high": "Mucha confianza"
+      },
+      "autonomy": {
+        "prompt": "¿Tienes suficiente autonomía para hacer bien tu trabajo?",
+        "low": "Muy baja",
+        "high": "Muy alta"
+      },
+      "clarity": {
+        "prompt": "¿Están claras nuestras prioridades y expectativas?",
+        "low": "Nada claras",
+        "high": "Muy claras"
+      },
+      "workload": {
+        "prompt": "¿Es manejable tu carga de trabajo actual?",
+        "low": "Totalmente inmanejable",
+        "high": "Muy manejable"
+      },
+      "collaboration": {
+        "prompt": "¿Cómo colaboramos y nos apoyamos entre nosotros?",
+        "low": "Muy mal",
+        "high": "Excelente"
+      }
+    },
+    "scale": {
+      "low": "Muy bajo",
+      "high": "Muy alto"
+    },
+    "status": {
+      "open": "Abierta",
+      "closed": "Cerrada"
+    },
+    "empty": {
+      "title": "Aún no hay encuestas",
+      "manager": "Crea una encuesta breve para saber cómo está el equipo.",
+      "member": "Cuando se abra una encuesta en este espacio podrás responderla aquí."
+    },
+    "list": {
+      "label": "Encuestas",
+      "answered": "{{responses}} de {{participants}} han respondido"
+    },
+    "create": {
+      "open": "Nueva encuesta",
+      "title": "Nueva encuesta",
+      "description": "Elige las preguntas que el equipo valorará del 1 al 5.",
+      "name": "Título",
+      "namePlaceholder": "Pulso del sprint 24",
+      "questions": "Preguntas",
+      "custom": "Tus propias preguntas",
+      "customPrompt": "Pregunta {{number}}",
+      "customPromptPlaceholder": "Escribe una pregunta para valorar del 1 al 5",
+      "lowLabel": "Etiqueta del 1 en la pregunta {{number}}",
+      "highLabel": "Etiqueta del 5 en la pregunta {{number}}",
+      "removeCustom": "Quitar la pregunta {{number}}",
+      "addCustom": "Añadir una pregunta",
+      "asksComment": "Preguntar qué ayuda o perjudica al equipo",
+      "minimum": "Respuestas mínimas",
+      "minimumHint": "Los resultados quedan ocultos hasta cerrar la encuesta con al menos estas respuestas.",
+      "submit": "Crear encuesta",
+      "cancel": "Cancelar"
+    },
+    "answer": {
+      "open": "Responder",
+      "done": "Ya has respondido",
+      "description": "Valora cada afirmación del 1 al 5. Tardarás menos de un minuto.",
+      "rating": "{{rating}} para: {{question}}",
+      "comment": "¿Qué es lo que más ayuda o perjudica al equipo ahora mismo?",
+      "commentHint": "Opcional. Evita detalles que puedan identificarte.",
+      "privacy": "Tu respuesta es anónima: se guarda sin tu cuenta y solo se muestra agregada cuando la encuesta se cierra con al menos {{minimum}} respuestas. Pulse solo registra que has respondido y después no podrás cambiar tu respuesta.",
+      "submit": "Enviar respuesta",
+      "cancel": "Cancelar"
+    },
+    "actions": {
+      "close": "Cerrar encuesta",
+      "reopen": "Reabrir",
+      "delete": "Eliminar"
+    },
+    "delete": {
+      "title": "¿Eliminar la encuesta?",
+      "description": "Se eliminarán «{{title}}» y todas sus respuestas para todo el mundo.",
+      "confirm": "Eliminar",
+      "cancel": "Cancelar"
+    },
+    "results": {
+      "hiddenWhileOpen": "Los resultados aparecen al cerrar la encuesta, así nadie ve respuestas mientras se sigue respondiendo.",
+      "belowThreshold": "Solo hay {{responses}} respuestas y esta encuesta necesita {{minimum}} para mostrar resultados, así que siguen ocultos para proteger el anonimato.",
+      "responses": "Respuestas",
+      "rate": "Participación",
+      "strongest": "Punto fuerte",
+      "weakest": "A mejorar",
+      "trend": "Tendencia de las últimas {{points}} encuestas para: {{question}}",
+      "changeHint": "Cambio respecto a la encuesta anterior",
+      "distribution": "Valoraciones del 1 al 5 para {{question}}: {{counts}}",
+      "comments": "Qué ayuda o perjudica al equipo",
+      "noComments": "No se dejaron comentarios."
+    },
+    "loading": "Cargando encuestas"
   }
 }
