@@ -10,8 +10,8 @@ React 18, Vite, Tailwind 4, i18next (en, es, ca, fr, de, it) and the shared
 
 ## Status
 
-Team Pulse surveys, guided retrospectives and improvement actions work end to
-end. Overview is still an empty placeholder and comes in its own step.
+Team Pulse surveys, guided retrospectives, improvement actions and the team
+overview work end to end.
 
 ## Sign-in
 
@@ -109,6 +109,26 @@ The Actions page counts open, in progress, overdue and recently done actions,
 filters by status, owner, retrospective and due date, and groups by status,
 owner or retrospective. The rules live in the database
 (`supabase/migrations/20261017050000_pulse_actions.sql` in Planner).
+
+## Overview
+
+The landing page summarises the workspace in four panels. It never combines
+them into a single health score.
+
+- **Team health**: the scores of the latest survey with visible results, their
+  change against the previous one, and the questions worth discussing (average
+  below 3, or a drop of 0.5 or more). An open survey shows a prompt to answer.
+- **Current retrospective**: the running retrospective (or the next one being
+  prepared) with its stage, plus what the last one produced.
+- **Improvement actions**: open, overdue and done counts, the overdue list, and
+  what was done since the last retrospective with its outcome.
+- **Continuous improvement**: recent retrospectives, topics and groups that
+  come back in two or more of them (matched ignoring case, accents and
+  punctuation), actions still open after two or more later retrospectives,
+  and health over time.
+
+Links open the exact item: `/retrospectives?retro=ID` and
+`/team-pulse?survey=ID`. The logic lives in `src/lib/overview.ts`.
 
 ## Development
 
