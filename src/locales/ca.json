@@ -1,4 +1,15 @@
 {
+  "retroRoom": {
+    "open": "Obre a pantalla completa",
+    "share": "Comparteix l'enllaç a pantalla completa",
+    "copied": "Enllaç copiat",
+    "back": "Torna a les retrospectives",
+    "enterBrowser": "Pantalla completa del navegador",
+    "exitBrowser": "Surt de pantalla completa",
+    "unavailable": "Retrospectiva no disponible",
+    "notFound": "Aquesta retrospectiva ja no existeix o no pertany a aquest espai.",
+    "noAccess": "No tens accés a aquest espai. Demana que el comparteixin amb el teu compte."
+  },
   "app": {
     "name": "Pulse",
     "subtitle": "Salut de l'equip i millora contínua",

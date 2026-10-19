@@ -1,4 +1,15 @@
 {
+  "retroRoom": {
+    "open": "Ouvrir en plein écran",
+    "share": "Partager le lien plein écran",
+    "copied": "Lien copié",
+    "back": "Retour aux rétrospectives",
+    "enterBrowser": "Plein écran du navigateur",
+    "exitBrowser": "Quitter le plein écran",
+    "unavailable": "Rétrospective indisponible",
+    "notFound": "Cette rétrospective n'existe plus ou n'appartient pas à cet espace.",
+    "noAccess": "Vous n'avez pas accès à cet espace. Demandez à l'expéditeur de le partager avec votre compte."
+  },
   "app": {
     "name": "Pulse",
     "subtitle": "Santé de l'équipe et amélioration continue",

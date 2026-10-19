@@ -58,6 +58,18 @@ surveys are not built yet.
 
 ## Retrospectives
 
+Active retrospectives have **Open fullscreen** and **Share fullscreen link**
+controls. The direct `#/workspaces/<workspace>/retrospectives/<retro>` route opens
+only that board, without the app header, tabs or retrospective list. The link
+requires sign-in and existing Pulse access to its workspace; it grants no new
+permissions. A missing or inaccessible target is never replaced with another
+retrospective. Existing topic visibility, voting and facilitator rules still apply.
+
+**Enter browser fullscreen** additionally hides the browser chrome after an
+explicit click. Browsers do not allow a shared URL to enter that mode automatically.
+Escape exits browser fullscreen; **Back to retrospectives** returns to the normal
+page. A previously shared room still shows the read-only summary once closed.
+
 Owners and editors create a retrospective with a title, date, period, goal,
 format (went well / to improve / ideas; start / stop / continue; mad / sad /
 glad; or open), anonymity (on by default) and votes per person (default 3).

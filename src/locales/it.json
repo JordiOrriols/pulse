@@ -1,4 +1,15 @@
 {
+  "retroRoom": {
+    "open": "Apri a schermo intero",
+    "share": "Condividi link a schermo intero",
+    "copied": "Link copiato",
+    "back": "Torna alle retrospettive",
+    "enterBrowser": "Schermo intero del browser",
+    "exitBrowser": "Esci dallo schermo intero",
+    "unavailable": "Retrospettiva non disponibile",
+    "notFound": "Questa retrospettiva non esiste più o non appartiene a questo spazio.",
+    "noAccess": "Non hai accesso a questo spazio. Chiedi al mittente di condividerlo con il tuo account."
+  },
   "app": {
     "name": "Pulse",
     "subtitle": "Salute del team e miglioramento continuo",

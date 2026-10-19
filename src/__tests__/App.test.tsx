@@ -846,6 +846,35 @@ describe("Retrospectives", () => {
     expect(screen.getByRole("button", { name: "New retrospective" })).toBeInTheDocument();
   });
 
+  it("opens an active retrospective in a distraction-free room", async () => {
+    retroRpcSeed();
+    renderAt("/retrospectives");
+    await userEvent.click(await screen.findByRole("link", { name: "Open fullscreen" }));
+    expect(await screen.findByRole("heading", { name: "Team retro" })).toBeVisible();
+    expect(screen.queryByRole("navigation", { name: "Pulse pages" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("navigation", { name: "Retrospectives" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Share fullscreen link" })).toBeVisible();
+    await userEvent.click(screen.getByRole("button", { name: "Back to retrospectives" }));
+    expect(await screen.findByRole("navigation", { name: "Pulse pages" })).toBeVisible();
+  });
+
+  it("never substitutes a different retrospective for a missing room link", async () => {
+    retroRpcSeed();
+    renderAt("/workspaces/ws-1/retrospectives/missing");
+    expect(await screen.findByText("Retrospective unavailable")).toBeVisible();
+    expect(screen.queryByRole("heading", { name: "Team retro" })).not.toBeInTheDocument();
+  });
+
+  it("does not offer a fullscreen link for a closed retrospective", async () => {
+    retroRpcSeed();
+    retros.rows[0]!["stage"] = "closed";
+    retros.rows[0]!["closed_at"] = "2026-10-01T10:00:00Z";
+    renderAt("/retrospectives");
+    expect(await screen.findByRole("heading", { name: "Team retro" })).toBeVisible();
+    expect(screen.queryByRole("link", { name: "Open fullscreen" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Share fullscreen link" })).not.toBeInTheDocument();
+  });
+
   it("guides the team from collecting topics to a closing summary", async () => {
     renderAt("/retrospectives");
     await createRetro();

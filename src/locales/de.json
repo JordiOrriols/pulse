@@ -1,4 +1,15 @@
 {
+  "retroRoom": {
+    "open": "Im Vollbild öffnen",
+    "share": "Vollbild-Link teilen",
+    "copied": "Link kopiert",
+    "back": "Zurück zu Retrospektiven",
+    "enterBrowser": "Browser-Vollbild öffnen",
+    "exitBrowser": "Vollbild verlassen",
+    "unavailable": "Retrospektive nicht verfügbar",
+    "notFound": "Diese Retrospektive existiert nicht mehr oder gehört nicht zu diesem Arbeitsbereich.",
+    "noAccess": "Du hast keinen Zugriff auf diesen Arbeitsbereich. Bitte den Absender, ihn mit deinem Konto zu teilen."
+  },
   "app": {
     "name": "Pulse",
     "subtitle": "Teamgesundheit und kontinuierliche Verbesserung",

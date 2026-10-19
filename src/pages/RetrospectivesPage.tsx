@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Button, ConfirmDialog, EmptyState, Spinner, StatusBadge, cn } from "@jordiorriols/ui";
-import { MessagesSquare, Plus } from "@jordiorriols/ui/icons";
+import { Maximize2, MessagesSquare, Plus, Share2 } from "@jordiorriols/ui/icons";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
 import { useData } from "@/data/DataProvider";
 import { useWorkspace } from "@/data/WorkspaceProvider";
@@ -10,7 +10,7 @@ import { useActions } from "@/hooks/useActions";
 import { useDateFormat } from "@/hooks/useDateFormat";
 import { usePolling, useRetroBoard, useRetros } from "@/hooks/useRetros";
 import { localDate, reviewActions } from "@/lib/actions";
-import { TEMPLATE_COLUMNS, type Retro, type RetroBoard } from "@/lib/retros";
+import { retroRoomPath, TEMPLATE_COLUMNS, type Retro, type RetroBoard } from "@/lib/retros";
 import {
   ActionReviewPanel,
   ActionsStage,
@@ -88,7 +88,13 @@ function PrepareDetails({ retro }: { retro: Retro }) {
   );
 }
 
-export default function RetrospectivesPage() {
+export default function RetrospectivesPage({
+  retroId,
+  fullscreen = false,
+}: {
+  retroId?: string;
+  fullscreen?: boolean;
+}) {
   const { t } = useTranslation();
   const formatDate = useDateFormat();
   const { retroApi, actionApi } = useData();
@@ -101,13 +107,15 @@ export default function RetrospectivesPage() {
   const [chosenId, setChosenId] = useState<string | null>(() => params.get("retro"));
   const [creating, setCreating] = useState(false);
   const [deleting, setDeleting] = useState<Retro | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
   const action = useAsyncAction();
 
-  const selected =
-    list.retros.find((retro) => retro.id === chosenId) ??
-    list.retros.find((retro) => retro.stage !== "closed") ??
-    list.retros[0] ??
-    null;
+  const selected = retroId
+    ? (list.retros.find((retro) => retro.id === retroId) ?? null)
+    : (list.retros.find((retro) => retro.id === chosenId) ??
+      list.retros.find((retro) => retro.stage !== "closed") ??
+      list.retros[0] ??
+      null);
   const room = useRetroBoard(retroApi, selected?.id ?? null);
   const refresh = () => {
     void list.reload();
@@ -237,26 +245,34 @@ export default function RetrospectivesPage() {
     body = (
       <EmptyState
         icon={<MessagesSquare className="size-8 text-muted-foreground" />}
-        title={t("retros.empty.title")}
-        description={t(canManage ? "retros.empty.manager" : "retros.empty.member")}
+        title={t(retroId ? "retroRoom.unavailable" : "retros.empty.title")}
+        description={t(
+          retroId
+            ? "retroRoom.notFound"
+            : canManage
+              ? "retros.empty.manager"
+              : "retros.empty.member"
+        )}
       />
     );
   } else {
     const board = room.board;
     body = (
-      <div className="grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)]">
-        <nav aria-label={t("retros.list.label")}>
-          <ul className="space-y-1">
-            {list.retros.map((retro) => (
-              <RetroListItem
-                key={retro.id}
-                retro={retro}
-                selected={retro.id === selected.id}
-                onSelect={() => setChosenId(retro.id)}
-              />
-            ))}
-          </ul>
-        </nav>
+      <div className={cn("grid gap-6", !fullscreen && "lg:grid-cols-[16rem_minmax(0,1fr)]")}>
+        {!fullscreen && (
+          <nav aria-label={t("retros.list.label")}>
+            <ul className="space-y-1">
+              {list.retros.map((retro) => (
+                <RetroListItem
+                  key={retro.id}
+                  retro={retro}
+                  selected={retro.id === selected.id}
+                  onSelect={() => setChosenId(retro.id)}
+                />
+              ))}
+            </ul>
+          </nav>
+        )}
 
         <article className="panel min-w-0 space-y-5 self-start" aria-labelledby="pulse-retro-title">
           <header className="flex flex-wrap items-start justify-between gap-3">
@@ -278,11 +294,43 @@ export default function RetrospectivesPage() {
                 </p>
               )}
             </div>
-            {canManage && (
-              <Button variant="ghost" disabled={action.busy} onClick={() => setDeleting(selected)}>
-                {t("retros.actions.delete")}
-              </Button>
-            )}
+            <div className="flex flex-wrap gap-2">
+              {selected.stage !== "closed" && (
+                <>
+                  {!fullscreen && (
+                    <Button asChild variant="outline">
+                      <Link to={retroRoomPath(workspaceId, selected.id)}>
+                        <Maximize2 className="size-4" />
+                        {t("retroRoom.open")}
+                      </Link>
+                    </Button>
+                  )}
+                  <Button
+                    variant="outline"
+                    disabled={action.busy}
+                    onClick={() =>
+                      void action.run(async () => {
+                        const url = `${window.location.href.split("#")[0]}#${retroRoomPath(workspaceId, selected.id)}`;
+                        await navigator.clipboard.writeText(url);
+                        setCopiedId(selected.id);
+                      })
+                    }
+                  >
+                    <Share2 className="size-4" />
+                    {t(copiedId === selected.id ? "retroRoom.copied" : "retroRoom.share")}
+                  </Button>
+                </>
+              )}
+              {canManage && !fullscreen && (
+                <Button
+                  variant="ghost"
+                  disabled={action.busy}
+                  onClick={() => setDeleting(selected)}
+                >
+                  {t("retros.actions.delete")}
+                </Button>
+              )}
+            </div>
           </header>
           {board && (
             <StageStepper
@@ -314,8 +362,8 @@ export default function RetrospectivesPage() {
   }
 
   return (
-    <section className="space-y-6" aria-labelledby="retrospectives-title">
-      {header}
+    <section className="space-y-6" aria-label={t("sections.retrospectives.title")}>
+      {!fullscreen && header}
       {body}
       <NewRetroDialog
         isOpen={creating}

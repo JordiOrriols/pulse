@@ -29,6 +29,8 @@ export const DECISIONS = ["action", "monitor", "accept"] as const;
 export type Decision = (typeof DECISIONS)[number];
 
 export const DEFAULT_VOTES = 3;
+export const retroRoomPath = (workspace: string, retro: string) =>
+  `/workspaces/${encodeURIComponent(workspace)}/retrospectives/${encodeURIComponent(retro)}`;
 export const MAX_VOTES = 10;
 
 export interface Retro {

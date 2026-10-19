@@ -12,6 +12,7 @@ import { SECTIONS } from "./sections";
 import ActionsPage from "./pages/ActionsPage";
 import OverviewPage from "./pages/OverviewPage";
 import RetrospectivesPage from "./pages/RetrospectivesPage";
+import RetroRoomPage from "./pages/RetroRoomPage";
 import TeamPulsePage from "./pages/TeamPulsePage";
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
@@ -34,6 +35,10 @@ export default function App() {
         <EntryGate>
           <WorkspaceProvider>
             <Routes>
+              <Route
+                path="/workspaces/:workspaceId/retrospectives/:retroId"
+                element={<RetroRoomPage />}
+              />
               <Route element={<AppLayout />}>
                 {SECTIONS.map((section) => (
                   <Route

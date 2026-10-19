@@ -1,4 +1,15 @@
 {
+  "retroRoom": {
+    "open": "Open fullscreen",
+    "share": "Share fullscreen link",
+    "copied": "Link copied",
+    "back": "Back to retrospectives",
+    "enterBrowser": "Enter browser fullscreen",
+    "exitBrowser": "Exit browser fullscreen",
+    "unavailable": "Retrospective unavailable",
+    "notFound": "This retrospective no longer exists or is not in this workspace.",
+    "noAccess": "You do not have access to this workspace. Ask the sender to share it with your account."
+  },
   "app": {
     "name": "Pulse",
     "subtitle": "Team health & continuous improvement",
