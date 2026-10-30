@@ -3,6 +3,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   AppHeader,
+  AppFooter,
   AppMain,
   AppNavigation,
   AppNavigationItem,
@@ -110,6 +111,7 @@ export default function AppLayout() {
           )
         )}
       </AppMain>
+      <AppFooter projectId="pulse" language={i18n.language} />
     </AppPage>
   );
 }

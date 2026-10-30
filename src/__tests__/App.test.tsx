@@ -533,7 +533,7 @@ describe("Pulse shell", () => {
         .getAllByRole("link")
         .map((link) => link.textContent)
     ).toEqual(["Overview", "Team Pulse", "Retrospectives", "Actions"]);
-    expect(screen.getByRole("heading", { level: 1, name: "Overview" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 1, name: "Overview" })).toBeInTheDocument();
     await userEvent.click(within(tabs).getByRole("link", { name: "Team Pulse" }));
     expect(screen.getByRole("heading", { level: 1, name: "Team Pulse" })).toBeInTheDocument();
     await userEvent.click(within(tabs).getByRole("link", { name: "Retrospectives" }));
@@ -581,7 +581,8 @@ describe("Pulse shell", () => {
   it("signs out from the shared header", async () => {
     renderAt("/");
     const signOut = await screen.findByRole("button", { name: "Sign out" });
-    expect(signOut).toHaveAttribute("title", "ada");
+    await userEvent.hover(signOut);
+    expect(await screen.findByRole("tooltip")).toHaveTextContent("Sign out: ada");
     await userEvent.click(signOut);
     expect(supabaseAuth["signOut"]).toHaveBeenCalled();
     await act(async () => auth.listener?.("SIGNED_OUT", null));
