@@ -10,7 +10,7 @@ import {
   AppSkeleton,
   EmptyState,
   LanguageSelector,
-  PROJECTS,
+  ProjectIcon,
   WorkspaceBar,
   getWorkspaceLabels,
 } from "@jordiorriols/ui";
@@ -19,8 +19,6 @@ import { useAsyncAction } from "@jordiorriols/ui/hooks";
 import { useData } from "@/data/DataProvider";
 import { useWorkspace } from "@/data/WorkspaceProvider";
 import { SECTIONS } from "@/sections";
-
-const AppIcon = PROJECTS.find((project) => project.id === "pulse")!.icon;
 
 export default function AppLayout() {
   const { t, i18n } = useTranslation();
@@ -35,7 +33,7 @@ export default function AppLayout() {
         projectSwitcherLabel={t("app.switchProject")}
         title={t("app.name")}
         subtitle={t("app.subtitle")}
-        icon={<AppIcon />}
+        icon={<ProjectIcon projectId="pulse" />}
         actions={
           <LanguageSelector
             value={i18n.language}

@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { PROJECTS, WelcomeScreen } from "@jordiorriols/ui";
+import { ProjectIcon, WelcomeScreen } from "@jordiorriols/ui";
 import { HeartPulse, ListChecks, MessagesSquare } from "@jordiorriols/ui/icons";
 import { LoginDialog } from "@/components/LoginDialog";
 import { useData } from "@/data/DataProvider";
-
-const AppIcon = PROJECTS.find((project) => project.id === "pulse")!.icon;
 
 export function WelcomePage() {
   const { t } = useTranslation();
@@ -18,8 +16,9 @@ export function WelcomePage() {
   };
   return (
     <WelcomeScreen
+      projectId="pulse"
       brand={t("app.name")}
-      icon={<AppIcon />}
+      icon={<ProjectIcon projectId="pulse" />}
       title={t("welcome.title")}
       description={t("welcome.description")}
       features={[
