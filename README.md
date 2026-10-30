@@ -160,6 +160,12 @@ sync and `no-inline-copy.test.ts` rejects hard-coded UI text.
 
 ## Deployment
 
+Build and deployment run in separate jobs. Builds have only read permissions;
+`UI_READ_TOKEN` is available only to dependency installation. Only the deployment
+job receives Pages/OIDC permissions, on `main` or `master` and subject to the
+`github-pages` environment's branch policy. Checkout credentials are not persisted.
+Actions are pinned to commit SHAs and receive weekly Dependabot update PRs.
+
 `.github/workflows/build.yml` type-checks, lints, tests and builds on every
 push to `main`, then deploys `dist` to GitHub Pages at
 https://pulse.jordiorriols.cat/. The repository needs the `UI_READ_TOKEN`
