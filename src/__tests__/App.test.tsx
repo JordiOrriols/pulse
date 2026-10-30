@@ -6,6 +6,11 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import i18n from "@/i18n";
 import App from "@/App";
 
+async function chooseSelect(trigger: HTMLElement, label: string) {
+  await userEvent.click(trigger);
+  await userEvent.click(screen.getByRole("option", { name: label, exact: true }));
+}
+
 const { client, auth, pulse, retros, actions } = vi.hoisted(() => {
   const auth = {
     session: null as { user: { id: string; email: string } } | null,
@@ -576,7 +581,7 @@ describe("Pulse shell", () => {
   it("signs out from the shared header", async () => {
     renderAt("/");
     const signOut = await screen.findByRole("button", { name: "Sign out" });
-    expect(signOut).toHaveAttribute("title", "ada@example.com");
+    expect(signOut).toHaveAttribute("title", "ada");
     await userEvent.click(signOut);
     expect(supabaseAuth["signOut"]).toHaveBeenCalled();
     await act(async () => auth.listener?.("SIGNED_OUT", null));
@@ -914,9 +919,9 @@ describe("Retrospectives", () => {
 
     await next("Start Group");
     expect(await screen.findByText("Flaky CI")).toBeInTheDocument();
-    await userEvent.selectOptions(screen.getByLabelText("Move “Late reviews” to"), "New group");
+    await chooseSelect(screen.getByLabelText("Move “Late reviews” to"), "New group");
     const group = await screen.findByRole("region", { name: "Late reviews" });
-    await userEvent.selectOptions(screen.getByLabelText("Move “Flaky CI” to"), "Late reviews");
+    await chooseSelect(screen.getByLabelText("Move “Flaky CI” to"), "Late reviews");
     expect(await within(group).findByText("Flaky CI")).toBeInTheDocument();
     const name = within(group).getByRole("textbox", { name: /^Name of/ });
     await userEvent.type(name, "Delivery flow{Enter}");
@@ -955,7 +960,7 @@ describe("Retrospectives", () => {
     const create = within(dialog).getByRole("button", { name: "Create action" });
     await userEvent.type(within(dialog).getByLabelText("Action"), "Rotate reviewers");
     expect(create).toBeDisabled();
-    await userEvent.selectOptions(within(dialog).getByLabelText("Owner"), "grace@example.com");
+    await chooseSelect(within(dialog).getByLabelText("Owner"), "grace@example.com");
     await userEvent.type(within(dialog).getByLabelText("Due date"), "2026-10-30");
     await userEvent.click(within(dialog).getByRole("checkbox", { name: "ada@example.com" }));
     await userEvent.click(create);
@@ -1026,10 +1031,7 @@ describe("Retrospectives", () => {
     const done = screen.getByRole("region", { name: "Done since the last retrospective" });
     expect(within(done).getByRole("article", { name: "Pair on releases" })).toBeInTheDocument();
 
-    await userEvent.selectOptions(
-      within(late).getByLabelText("Status of “Write a review guide”"),
-      "Done"
-    );
+    await chooseSelect(within(late).getByLabelText("Status of “Write a review guide”"), "Done");
     expect(
       await within(
         await screen.findByRole("region", { name: "Done since the last retrospective" })
@@ -1146,8 +1148,8 @@ describe("Improvement actions", () => {
     await userEvent.click(await screen.findByRole("button", { name: "New action" }));
     const dialog = await screen.findByRole("dialog", { name: "New action" });
     await userEvent.type(within(dialog).getByLabelText("Action"), "Automate release notes");
-    await userEvent.selectOptions(within(dialog).getByLabelText("Owner"), "ada@example.com");
-    await userEvent.selectOptions(within(dialog).getByLabelText("Priority"), "High");
+    await chooseSelect(within(dialog).getByLabelText("Owner"), "ada@example.com");
+    await chooseSelect(within(dialog).getByLabelText("Priority"), "High");
     await userEvent.type(within(dialog).getByLabelText("Success criteria"), "No manual notes");
     await userEvent.click(within(dialog).getByRole("button", { name: "Create action" }));
 
@@ -1158,7 +1160,7 @@ describe("Improvement actions", () => {
     expect(card).toHaveTextContent("No manual notes");
     expect(screen.getByText("Open", { selector: "dt" }).nextElementSibling).toHaveTextContent("1");
 
-    await userEvent.selectOptions(
+    await chooseSelect(
       within(card).getByLabelText("Status of “Automate release notes”"),
       "In progress"
     );
@@ -1182,11 +1184,8 @@ describe("Improvement actions", () => {
     await userEvent.click(within(history).getByRole("button", { name: "Add note" }));
     expect(await within(history).findByText("Draft script ready")).toBeInTheDocument();
 
-    await userEvent.selectOptions(screen.getByLabelText("Status"), "all");
-    await userEvent.selectOptions(
-      within(card).getByLabelText("Status of “Automate release notes”"),
-      "Done"
-    );
+    await chooseSelect(screen.getByLabelText("Status"), "All statuses");
+    await chooseSelect(within(card).getByLabelText("Status of “Automate release notes”"), "Done");
     await screen.findByRole("heading", { level: 2, name: /^Done/ });
     card = await findCard();
     await userEvent.click(await within(card).findByRole("button", { name: "Record outcome" }));
@@ -1219,15 +1218,15 @@ describe("Improvement actions", () => {
       "1"
     );
 
-    await userEvent.selectOptions(screen.getByLabelText("Owner"), "grace@example.com");
+    await chooseSelect(screen.getByLabelText("Owner"), "grace@example.com");
     expect(titles()).toEqual(["Pair on releases"]);
-    await userEvent.selectOptions(screen.getByLabelText("Due"), "overdue");
+    await chooseSelect(screen.getByLabelText("Due"), "Overdue");
     expect(screen.getByText("No actions match these filters.")).toBeInTheDocument();
     await userEvent.click(screen.getByRole("button", { name: "Clear filters" }));
-    await userEvent.selectOptions(screen.getByLabelText("Status"), "all");
+    await chooseSelect(screen.getByLabelText("Status"), "All statuses");
     expect(titles()).toHaveLength(3);
 
-    await userEvent.selectOptions(screen.getByLabelText("Group by"), "retro");
+    await chooseSelect(screen.getByLabelText("Group by"), "Retrospective");
     expect(
       screen.getAllByRole("heading", { level: 2 }).map((heading) => heading.textContent)
     ).toEqual(["Sprint 11", "Not from a retrospective2"]);

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Input, Label, cn } from "@jordiorriols/ui";
+import { Button, Input, Label, cn, SelectField } from "@jordiorriols/ui";
 import { CalendarDays, History, Pencil, Trash2, UserRound } from "@jordiorriols/ui/icons";
 import { useData } from "@/data/DataProvider";
 import { useActionHistory } from "@/hooks/useActions";
@@ -297,23 +297,20 @@ export function ActionCard({
           )}
         </div>
         {action.canUpdate ? (
-          <select
+          <SelectField
             aria-label={t("actions.card.status", { title: action.title })}
             value={action.status}
             disabled={busy}
-            onChange={(event) => setStatus(event.target.value as ActionStatus)}
+            onValueChange={(value) => setStatus(value as ActionStatus)}
             className={cn(
-              FIELD_CLASS,
               "w-auto border-transparent py-1 text-xs font-medium",
               STATUS_TONES[action.status]
             )}
-          >
-            {ACTION_STATUSES.map((status) => (
-              <option key={status} value={status}>
-                {t(`actions.statuses.${status}`)}
-              </option>
-            ))}
-          </select>
+            options={ACTION_STATUSES.map((status) => ({
+              value: status,
+              label: t(`actions.statuses.${status}`),
+            }))}
+          />
         ) : (
           <ActionStatusBadge status={action.status} />
         )}

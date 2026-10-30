@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Input, Label, Modal } from "@jordiorriols/ui";
+import { Button, Input, Label, Modal, SelectField } from "@jordiorriols/ui";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
 import type { ActionDraft } from "@/data/actions";
 import { PRIORITIES, type ImprovementAction, type Person, type Priority } from "@/lib/actions";
@@ -124,21 +124,15 @@ export function ActionDialog({
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="space-y-2">
             <Label htmlFor="pulse-action-owner">{t("actions.form.owner")}</Label>
-            <select
+            <SelectField
               id="pulse-action-owner"
               value={draft.ownerId}
-              onChange={(event) => set("ownerId", event.target.value)}
-              className={FIELD_CLASS}
-            >
-              <option value="" disabled>
-                {t("actions.form.chooseOwner")}
-              </option>
-              {people.map((person) => (
-                <option key={person.id} value={person.id}>
-                  {person.email}
-                </option>
-              ))}
-            </select>
+              onValueChange={(value) => set("ownerId", value)}
+              options={[
+                { value: "", label: t("actions.form.chooseOwner"), disabled: true },
+                ...people.map((person) => ({ value: person.id, label: person.email })),
+              ]}
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="pulse-action-due">{t("actions.form.due")}</Label>
@@ -151,18 +145,15 @@ export function ActionDialog({
           </div>
           <div className="space-y-2">
             <Label htmlFor="pulse-action-priority">{t("actions.form.priority")}</Label>
-            <select
+            <SelectField
               id="pulse-action-priority"
               value={draft.priority}
-              onChange={(event) => set("priority", event.target.value as Priority)}
-              className={FIELD_CLASS}
-            >
-              {PRIORITIES.map((priority) => (
-                <option key={priority} value={priority}>
-                  {t(`actions.priorities.${priority}`)}
-                </option>
-              ))}
-            </select>
+              onValueChange={(value) => set("priority", value as Priority)}
+              options={PRIORITIES.map((priority) => ({
+                value: priority,
+                label: t(`actions.priorities.${priority}`),
+              }))}
+            />
           </div>
         </div>
         {others.length > 0 && (

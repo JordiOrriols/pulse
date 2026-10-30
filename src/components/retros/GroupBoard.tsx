@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Input, cn } from "@jordiorriols/ui";
+import { Button, Input, cn, SelectField } from "@jordiorriols/ui";
 import { GripVertical, Layers, Ungroup } from "@jordiorriols/ui/icons";
 import {
   groupLabel,
@@ -11,7 +11,6 @@ import {
   type RetroTopic,
 } from "@/lib/retros";
 import { TopicCard } from "./CollectBoard";
-import { FIELD_CLASS } from "./styles";
 
 const TOPIC = "application/x-pulse-topic";
 const GROUP = "application/x-pulse-group";
@@ -82,25 +81,24 @@ function DraggableTopic({
     >
       <div className="mt-2 flex items-center gap-1.5">
         <GripVertical className="size-3.5 shrink-0 text-muted-foreground" aria-hidden />
-        <select
-          className={cn(FIELD_CLASS, "h-7 py-0 text-xs")}
+        <SelectField
+          className="h-7 py-0 text-xs"
           aria-label={t("retros.group.moveTopic", { title: topic.title })}
           value={topic.groupId ?? LOOSE}
           disabled={busy}
-          onChange={(event) => {
-            const target = event.target.value;
+          onValueChange={(target) => {
             if (target === NEW) onCreateGroup([topic.id], "");
             else onMove(topic.id, target === LOOSE ? null : target);
           }}
-        >
-          <option value={LOOSE}>{t("retros.group.loose")}</option>
-          <option value={NEW}>{t("retros.group.newGroup")}</option>
-          {groups.map((group) => (
-            <option key={group.id} value={group.id}>
-              {names.get(group.id)}
-            </option>
-          ))}
-        </select>
+          options={[
+            { value: LOOSE, label: t("retros.group.loose") },
+            { value: NEW, label: t("retros.group.newGroup") },
+            ...groups.map((group, index) => ({
+              value: group.id,
+              label: names.get(group.id) ?? t("retros.group.untitled", { number: index + 1 }),
+            })),
+          ]}
+        />
       </div>
     </TopicCard>
   );
@@ -194,20 +192,24 @@ function GroupCard({
         ))}
       </ul>
       {others.length > 0 && (
-        <select
-          className={cn(FIELD_CLASS, "mt-2 h-8 py-0 text-xs text-muted-foreground")}
+        <SelectField
+          className="mt-2 h-8 py-0 text-xs text-muted-foreground"
           aria-label={t("retros.group.merge", { name })}
           value=""
           disabled={busy}
-          onChange={(event) => event.target.value && handlers.onMerge(group.id, event.target.value)}
-        >
-          <option value="">{t("retros.group.mergeInto")}</option>
-          {others.map((item) => (
-            <option key={item.id} value={item.id}>
-              {names.get(item.id)}
-            </option>
-          ))}
-        </select>
+          onValueChange={(value) => {
+            if (value) handlers.onMerge(group.id, value);
+          }}
+          options={[
+            { value: "", label: t("retros.group.mergeInto") },
+            ...others.map((item) => ({
+              value: item.id,
+              label:
+                names.get(item.id) ??
+                t("retros.group.untitled", { number: groups.indexOf(item) + 1 }),
+            })),
+          ]}
+        />
       )}
     </section>
   );
