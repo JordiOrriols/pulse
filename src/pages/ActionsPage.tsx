@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, EmptyState, Spinner, cn } from "@jordiorriols/ui";
+import { Button, EmptyState, Spinner, cn, SelectField } from "@jordiorriols/ui";
 import { ListChecks, Plus } from "@jordiorriols/ui/icons";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
 import { useData } from "@/data/DataProvider";
@@ -24,7 +24,6 @@ import {
 } from "@/lib/actions";
 import { ActionCard } from "@/components/actions/ActionCard";
 import { useActionEditor } from "@/components/actions/useActionEditor";
-import { FIELD_CLASS } from "@/components/retros/styles";
 
 const COUNT_KEYS = ["open", "inProgress", "overdue", "doneRecently"] as const;
 
@@ -74,18 +73,12 @@ function Filter({
       <label htmlFor={id} className="text-xs font-medium text-muted-foreground">
         {label}
       </label>
-      <select
+      <SelectField
         id={id}
         value={value}
-        onChange={(event) => onChange(event.target.value)}
-        className={FIELD_CLASS}
-      >
-        {options.map(([option, text]) => (
-          <option key={option} value={option}>
-            {text}
-          </option>
-        ))}
-      </select>
+        onValueChange={onChange}
+        options={options.map(([value, label]) => ({ value, label }))}
+      />
     </div>
   );
 }
