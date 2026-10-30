@@ -144,6 +144,9 @@ Links open the exact item: `/retrospectives?retro=ID` and
 
 ## Development
 
+Use Node.js 26 LTS with npm 11.20.0. Run `nvm install && nvm use` to select
+the `.nvmrc` version used by CI and deployment.
+
 ```sh
 npm install   # needs GITHUB_TOKEN with read:packages for @jordiorriols/ui
 npm start     # http://127.0.0.1:5177
