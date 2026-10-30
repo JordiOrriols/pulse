@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { AppMain, AppPage, AppSkeleton, Button } from "@jordiorriols/ui";
+import { AppFooter, AppMain, AppPage, AppSkeleton, Button } from "@jordiorriols/ui";
 import { ArrowLeft, Maximize2, Minimize2 } from "@jordiorriols/ui/icons";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
 import { useWorkspace } from "@/data/WorkspaceProvider";
@@ -10,7 +10,7 @@ import RetrospectivesPage from "./RetrospectivesPage";
 /** A direct room link selects only a workspace the account can already access. */
 export default function RetroRoomPage() {
   const { workspaceId = "", retroId = "" } = useParams();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const { workspaces, workspace, select, loading, error } = useWorkspace();
   const allowed = workspaces?.some((item) => item.id === workspaceId) ?? false;
@@ -80,6 +80,7 @@ export default function RetroRoomPage() {
           <RetrospectivesPage key={`${workspaceId}:${retroId}`} retroId={retroId} fullscreen />
         )}
       </AppMain>
+      <AppFooter projectId="pulse" language={i18n.language} />
     </AppPage>
   );
 }
