@@ -10,6 +10,7 @@ import {
   AppPage,
   AppSkeleton,
   EmptyState,
+  ErrorState,
   LanguageSelector,
   ProjectIcon,
   WorkspaceBar,
@@ -87,16 +88,8 @@ export default function AppLayout() {
         }
       />
       <AppMain>
-        {action.error && (
-          <p role="alert" className="text-destructive">
-            {action.error}
-          </p>
-        )}
-        {error && (
-          <p role="alert" className="text-destructive">
-            {error}
-          </p>
-        )}
+        {action.error && <ErrorState message={action.error} />}
+        {error && <ErrorState message={error} />}
         {loading ? (
           <AppSkeleton label={t("app.loading")} />
         ) : workspace ? (

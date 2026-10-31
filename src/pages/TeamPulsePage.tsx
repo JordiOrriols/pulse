@@ -1,7 +1,15 @@
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
-import { Button, ConfirmDialog, EmptyState, Spinner, StatusBadge, cn } from "@jordiorriols/ui";
+import {
+  Button,
+  ConfirmDialog,
+  EmptyState,
+  ErrorState,
+  Spinner,
+  StatusBadge,
+  cn,
+} from "@jordiorriols/ui";
 import { CheckCircle2, HeartPulse, Plus } from "@jordiorriols/ui/icons";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
 import { useData } from "@/data/DataProvider";
@@ -120,11 +128,7 @@ export default function TeamPulsePage() {
 
   let body;
   if (error) {
-    body = (
-      <p role="alert" className="text-sm text-destructive">
-        {error}
-      </p>
-    );
+    body = <ErrorState message={error} />;
   } else if (loading) {
     body = (
       <div className="flex justify-center py-12">
@@ -215,11 +219,7 @@ export default function TeamPulsePage() {
               )}
             </div>
           </header>
-          {action.error && (
-            <p role="alert" className="text-sm text-destructive">
-              {action.error}
-            </p>
-          )}
+          {action.error && <ErrorState message={action.error} />}
           <SurveyResults report={report} />
         </article>
       </div>
