@@ -2,17 +2,12 @@ import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
-  AppHeader,
-  AppFooter,
-  AppMain,
+  AppShell,
   AppNavigation,
   AppNavigationItem,
-  AppPage,
   AppSkeleton,
   EmptyState,
   ErrorState,
-  LanguageSelector,
-  ProjectIcon,
   WorkspaceBar,
   getWorkspaceLabels,
   getDisplayName,
@@ -30,22 +25,19 @@ export default function AppLayout() {
   const action = useAsyncAction();
 
   return (
-    <AppPage>
-      <AppHeader
-        projectId="pulse"
-        projectSwitcherLabel={t("app.switchProject")}
-        title={t("app.name")}
-        subtitle={t("app.subtitle")}
-        icon={<ProjectIcon projectId="pulse" />}
-        actions={
-          <LanguageSelector
-            value={i18n.language}
-            label={t("app.language")}
-            className="inline-flex"
-            onValueChange={(language) => void i18n.changeLanguage(language)}
-          />
-        }
-        accountAction={{
+    <AppShell
+      projectId="pulse"
+      header={{
+        projectSwitcherLabel: t("app.switchProject"),
+        title: t("app.name"),
+        subtitle: t("app.subtitle"),
+        language: {
+          value: i18n.language,
+          label: t("app.language"),
+          className: "inline-flex",
+          onValueChange: (language) => void i18n.changeLanguage(language),
+        },
+        accountAction: {
           type: "signOut",
           label: t("auth.signOut"),
           title: getDisplayName({
@@ -54,8 +46,8 @@ export default function AppLayout() {
           }),
           disabled: action.busy,
           onClick: () => void action.run(signOut),
-        }}
-        navigation={
+        },
+        navigation: (
           <AppNavigation
             label={t("app.pages")}
             actions={
@@ -85,26 +77,24 @@ export default function AppLayout() {
               </AppNavigationItem>
             ))}
           </AppNavigation>
-        }
-      />
-      <AppMain>
-        {action.error && <ErrorState message={action.error} />}
-        {error && <ErrorState message={error} />}
-        {loading ? (
-          <AppSkeleton label={t("app.loading")} />
-        ) : workspace ? (
-          <Outlet />
-        ) : (
-          !error && (
-            <EmptyState
-              icon={<FolderOpen className="size-8 text-muted-foreground" />}
-              title={t("workspace.empty.title")}
-              description={t("workspace.empty.description")}
-            />
-          )
-        )}
-      </AppMain>
-      <AppFooter projectId="pulse" language={i18n.language} />
-    </AppPage>
+        ),
+      }}
+    >
+      {action.error && <ErrorState message={action.error} />}
+      {error && <ErrorState message={error} />}
+      {loading ? (
+        <AppSkeleton label={t("app.loading")} />
+      ) : workspace ? (
+        <Outlet />
+      ) : (
+        !error && (
+          <EmptyState
+            icon={<FolderOpen className="size-8 text-muted-foreground" />}
+            title={t("workspace.empty.title")}
+            description={t("workspace.empty.description")}
+          />
+        )
+      )}
+    </AppShell>
   );
 }
