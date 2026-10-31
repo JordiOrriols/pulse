@@ -47,11 +47,7 @@ export function AnswerSurveyDialog({
         </Button>
       }
     >
-      <form
-        id="pulse-answer"
-        onSubmit={submit}
-        className="max-h-[60vh] space-y-5 overflow-y-auto pr-1"
-      >
+      <form id="pulse-answer" onSubmit={submit} className="space-y-5">
         {survey.questions.map((question, index) => {
           const labels = scaleLabels(t, question);
           const selected = ratings[question.id];

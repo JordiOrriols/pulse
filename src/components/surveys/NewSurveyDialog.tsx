@@ -99,7 +99,7 @@ export function NewSurveyDialog({
       <form
         id="pulse-new-survey"
         onSubmit={submit}
-        className="max-h-[60vh] space-y-5 overflow-y-auto pr-1"
+        className="space-y-5"
       >
         <div className="space-y-2">
           <Label htmlFor="pulse-survey-title">{t("surveys.create.name")}</Label>

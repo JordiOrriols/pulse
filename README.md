@@ -18,6 +18,8 @@ Survey question/comment options, retrospective anonymity and action collaborator
 use UI's shared Radix `Checkbox`, with label activation and keyboard Space support.
 
 ## Status
+Dialogs use the shared UI modal's single scrolling content region. Form controls
+and lists do not add nested vertical scrollbars; footer actions remain visible.
 
 Team Pulse surveys, guided retrospectives, improvement actions and the team
 overview work end to end.

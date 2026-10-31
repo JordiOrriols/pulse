@@ -98,7 +98,7 @@ export function ActionDialog({
       <form
         id="pulse-action-form"
         onSubmit={submit}
-        className="max-h-[60vh] space-y-4 overflow-y-auto pr-1"
+        className="space-y-4"
       >
         <div className="space-y-2">
           <Label htmlFor="pulse-action-title">{t("actions.form.title")}</Label>

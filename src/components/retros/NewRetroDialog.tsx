@@ -83,7 +83,7 @@ export function NewRetroDialog({
       <form
         id="pulse-new-retro"
         onSubmit={submit}
-        className="max-h-[60vh] space-y-5 overflow-y-auto pr-1"
+        className="space-y-5"
       >
         <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_10rem]">
           <div className="space-y-2">
