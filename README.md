@@ -7,7 +7,7 @@ The product brief is in [DEFINITION.md](./DEFINITION.md).
 Pulse is a sibling of Planner and Ladders and is built the same way:
 React 18, Vite, Tailwind 4, i18next (en, es, ca, fr, de, it) and the shared
 `@jordiorriols/ui` package for the header, project switcher, tabs and tokens.
-UI `^0.3.24` is installed from GitHub Packages. Header, project-menu and
+UI `^0.3.29` is installed from GitHub Packages. Header, project-menu and
 login/welcome icons reuse the shared purple Pulse branding through `projectId`
 and `ProjectIcon`; no local palette is maintained.
 
@@ -25,6 +25,10 @@ Hints are associated with their controls; the app retains validation, translatio
 and save behavior rather than duplicating textarea styling.
 Workspace and page-level query/action failures use UI's shared `ErrorState`.
 Request handling, error copy and existing recovery behavior remain in Pulse.
+The authenticated frame uses UI's `AppShell` with app-owned navigation,
+workspace controls and account callbacks. Its flex main fills short pages so
+the attribution footer stays at the viewport bottom, and grows with long content
+without a fixed footer or nested page scrollbar.
 
 Team Pulse surveys, guided retrospectives, improvement actions and the team
 overview work end to end.
