@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router-dom";
-import { Button, ConfirmDialog, EmptyState, Spinner, StatusBadge, cn } from "@jordiorriols/ui";
+import {
+  Button,
+  ConfirmDialog,
+  EmptyState,
+  ErrorState,
+  Spinner,
+  StatusBadge,
+  cn,
+} from "@jordiorriols/ui";
 import { Maximize2, MessagesSquare, Plus, Share2 } from "@jordiorriols/ui/icons";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
 import { useData } from "@/data/DataProvider";
@@ -230,11 +238,7 @@ export default function RetrospectivesPage({
 
   let body;
   if (list.error) {
-    body = (
-      <p role="alert" className="text-sm text-destructive">
-        {list.error}
-      </p>
-    );
+    body = <ErrorState message={list.error} />;
   } else if (list.loading) {
     body = (
       <div className="flex justify-center py-12">
@@ -340,15 +344,9 @@ export default function RetrospectivesPage({
               onMove={(stage) => void change(() => retroApi.setStage(selected.id, stage))}
             />
           )}
-          {action.error && (
-            <p role="alert" className="text-sm text-destructive">
-              {action.error}
-            </p>
-          )}
+          {action.error && <ErrorState message={action.error} />}
           {room.error && !board ? (
-            <p role="alert" className="text-sm text-destructive">
-              {room.error}
-            </p>
+            <ErrorState message={room.error} />
           ) : board ? (
             stageContent(selected, board)
           ) : (

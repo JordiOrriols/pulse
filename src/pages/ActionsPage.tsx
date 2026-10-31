@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, EmptyState, Spinner, cn, SelectField } from "@jordiorriols/ui";
+import { Button, EmptyState, ErrorState, Spinner, cn, SelectField } from "@jordiorriols/ui";
 import { ListChecks, Plus } from "@jordiorriols/ui/icons";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
 import { useData } from "@/data/DataProvider";
@@ -234,11 +234,7 @@ export default function ActionsPage() {
 
   let body;
   if (tracked.error) {
-    body = (
-      <p role="alert" className="text-sm text-destructive">
-        {tracked.error}
-      </p>
-    );
+    body = <ErrorState message={tracked.error} />;
   } else if (tracked.loading) {
     body = (
       <div className="flex justify-center py-12">
@@ -264,11 +260,7 @@ export default function ActionsPage() {
           onFilters={setFilters}
           onGrouping={setGrouping}
         />
-        {action.error && (
-          <p role="alert" className="text-sm text-destructive">
-            {action.error}
-          </p>
-        )}
+        {action.error && <ErrorState message={action.error} />}
         {groups.length === 0 ? (
           <p className="py-6 text-center text-sm text-muted-foreground">{t("actions.noMatches")}</p>
         ) : (

@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Button, Spinner, StatusBadge, cn } from "@jordiorriols/ui";
+import { Button, ErrorState, Spinner, StatusBadge, cn } from "@jordiorriols/ui";
 import { ArrowRight } from "@jordiorriols/ui/icons";
 import { useData } from "@/data/DataProvider";
 import { useWorkspace } from "@/data/WorkspaceProvider";
@@ -509,9 +509,7 @@ export default function OverviewPage() {
         <p className="text-muted-foreground">{t("sections.overview.description")}</p>
       </header>
       {error ? (
-        <p role="alert" className="text-sm text-destructive">
-          {error}
-        </p>
+        <ErrorState message={error} />
       ) : loading ? (
         <Spinner label={t("overview.loading")} />
       ) : (

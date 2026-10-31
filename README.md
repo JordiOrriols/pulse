@@ -23,6 +23,8 @@ and lists do not add nested vertical scrollbars; footer actions remain visible.
 Action, survey and retrospective forms use UI's `FormField` and `Textarea`.
 Hints are associated with their controls; the app retains validation, translation
 and save behavior rather than duplicating textarea styling.
+Workspace and page-level query/action failures use UI's shared `ErrorState`.
+Request handling, error copy and existing recovery behavior remain in Pulse.
 
 Team Pulse surveys, guided retrospectives, improvement actions and the team
 overview work end to end.
