@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Input, Label, Modal, SelectField } from "@jordiorriols/ui";
+import { Button, Checkbox, Input, Label, Modal, SelectField } from "@jordiorriols/ui";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
 import type { ActionDraft } from "@/data/actions";
 import { PRIORITIES, type ImprovementAction, type Person, type Priority } from "@/lib/actions";
@@ -162,11 +162,9 @@ export function ActionDialog({
             <div className="flex flex-wrap gap-x-4 gap-y-1.5">
               {others.map((person) => (
                 <label key={person.id} className="flex items-center gap-2 text-sm">
-                  <input
-                    type="checkbox"
-                    className="accent-primary"
+                  <Checkbox
                     checked={draft.collaboratorIds.includes(person.id)}
-                    onChange={() => toggleCollaborator(person.id)}
+                    onCheckedChange={() => toggleCollaborator(person.id)}
                   />
                   {person.email}
                 </label>

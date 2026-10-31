@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Input, Label, Modal } from "@jordiorriols/ui";
+import { Button, Checkbox, Input, Label, Modal } from "@jordiorriols/ui";
 import { Plus, X } from "@jordiorriols/ui/icons";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
 import type { NewSurvey } from "@/data/surveys";
@@ -120,11 +120,10 @@ export function NewSurveyDialog({
                 key={key}
                 className="flex cursor-pointer items-start gap-2.5 rounded-md border border-border px-3 py-2 text-sm hover:bg-muted"
               >
-                <input
-                  type="checkbox"
-                  className="mt-0.5 accent-primary"
+                <Checkbox
+                  className="mt-0.5"
                   checked={keys.has(key)}
-                  onChange={() => toggleKey(key)}
+                  onCheckedChange={() => toggleKey(key)}
                 />
                 <span>{t(`surveys.questions.${key}.prompt`)}</span>
               </label>
@@ -192,11 +191,10 @@ export function NewSurveyDialog({
 
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="flex cursor-pointer items-start gap-2.5 text-sm">
-            <input
-              type="checkbox"
-              className="mt-0.5 accent-primary"
+            <Checkbox
+              className="mt-0.5"
               checked={asksComment}
-              onChange={(event) => setAsksComment(event.target.checked)}
+              onCheckedChange={(checked) => setAsksComment(checked === true)}
             />
             <span>{t("surveys.create.asksComment")}</span>
           </label>
