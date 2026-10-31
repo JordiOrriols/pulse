@@ -7,13 +7,15 @@ The product brief is in [DEFINITION.md](./DEFINITION.md).
 Pulse is a sibling of Planner and Ladders and is built the same way:
 React 18, Vite, Tailwind 4, i18next (en, es, ca, fr, de, it) and the shared
 `@jordiorriols/ui` package for the header, project switcher, tabs and tokens.
-UI `^0.3.22` is installed from GitHub Packages. Header, project-menu and
+UI `^0.3.24` is installed from GitHub Packages. Header, project-menu and
 login/welcome icons reuse the shared purple Pulse branding through `projectId`
 and `ProjectIcon`; no local palette is maintained.
 
 Action forms, status/filter controls and retrospective move/merge dropdowns use
 UI's shared `SelectField` listbox, including inside modals. Workspace sharing uses
 the same component. Account tooltips reuse UI's `getDisplayName` rather than full emails.
+Survey question/comment options, retrospective anonymity and action collaborators
+use UI's shared Radix `Checkbox`, with label activation and keyboard Space support.
 
 ## Status
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Input, Label, Modal, cn } from "@jordiorriols/ui";
+import { Button, Checkbox, Input, Label, Modal, cn } from "@jordiorriols/ui";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
 import type { NewRetro } from "@/data/retros";
 import {
@@ -163,11 +163,10 @@ export function NewRetroDialog({
 
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="flex cursor-pointer items-start gap-2.5 text-sm">
-            <input
-              type="checkbox"
-              className="mt-0.5 accent-primary"
+            <Checkbox
+              className="mt-0.5"
               checked={anonymous}
-              onChange={(event) => setAnonymous(event.target.checked)}
+              onCheckedChange={(checked) => setAnonymous(checked === true)}
             />
             <span className="space-y-0.5">
               <span className="block">{t("retros.create.anonymous")}</span>
