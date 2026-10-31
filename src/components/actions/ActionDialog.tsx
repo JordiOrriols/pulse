@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Checkbox, Input, Label, Modal, SelectField } from "@jordiorriols/ui";
+import { Button, Checkbox, FormField, Input, Modal, SelectField, Textarea } from "@jordiorriols/ui";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
 import type { ActionDraft } from "@/data/actions";
 import { PRIORITIES, type ImprovementAction, type Person, type Priority } from "@/lib/actions";
-import { FIELD_CLASS } from "@/components/retros/styles";
 
 const blank = (): ActionDraft => ({
   title: "",
@@ -95,66 +94,67 @@ export function ActionDialog({
         </Button>
       }
     >
-      <form
-        id="pulse-action-form"
-        onSubmit={submit}
-        className="space-y-4"
-      >
-        <div className="space-y-2">
-          <Label htmlFor="pulse-action-title">{t("actions.form.title")}</Label>
-          <Input
-            id="pulse-action-title"
-            value={draft.title}
-            maxLength={200}
-            placeholder={t("actions.form.titlePlaceholder")}
-            onChange={(event) => set("title", event.target.value)}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="pulse-action-description">{t("actions.form.details")}</Label>
-          <textarea
-            id="pulse-action-description"
-            rows={2}
-            maxLength={2000}
-            value={draft.description}
-            onChange={(event) => set("description", event.target.value)}
-            className={FIELD_CLASS}
-          />
-        </div>
-        <div className="grid gap-4 sm:grid-cols-3">
-          <div className="space-y-2">
-            <Label htmlFor="pulse-action-owner">{t("actions.form.owner")}</Label>
-            <SelectField
-              id="pulse-action-owner"
-              value={draft.ownerId}
-              onValueChange={(value) => set("ownerId", value)}
-              options={[
-                { value: "", label: t("actions.form.chooseOwner"), disabled: true },
-                ...people.map((person) => ({ value: person.id, label: person.email })),
-              ]}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="pulse-action-due">{t("actions.form.due")}</Label>
+      <form id="pulse-action-form" onSubmit={submit} className="space-y-4">
+        <FormField id="pulse-action-title" label={t("actions.form.title")}>
+          {(field) => (
             <Input
-              id="pulse-action-due"
-              type="date"
-              value={draft.dueOn}
-              onChange={(event) => set("dueOn", event.target.value)}
+              {...field}
+              value={draft.title}
+              maxLength={200}
+              placeholder={t("actions.form.titlePlaceholder")}
+              onChange={(event) => set("title", event.target.value)}
             />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="pulse-action-priority">{t("actions.form.priority")}</Label>
-            <SelectField
-              id="pulse-action-priority"
-              value={draft.priority}
-              onValueChange={(value) => set("priority", value as Priority)}
-              options={PRIORITIES.map((priority) => ({
-                value: priority,
-                label: t(`actions.priorities.${priority}`),
-              }))}
+          )}
+        </FormField>
+        <FormField id="pulse-action-description" label={t("actions.form.details")}>
+          {(field) => (
+            <Textarea
+              {...field}
+              rows={2}
+              maxLength={2000}
+              value={draft.description}
+              onChange={(event) => set("description", event.target.value)}
+              className="min-h-16"
             />
-          </div>
+          )}
+        </FormField>
+        <div className="grid gap-4 sm:grid-cols-3">
+          <FormField id="pulse-action-owner" label={t("actions.form.owner")}>
+            {(field) => (
+              <SelectField
+                {...field}
+                value={draft.ownerId}
+                onValueChange={(value) => set("ownerId", value)}
+                options={[
+                  { value: "", label: t("actions.form.chooseOwner"), disabled: true },
+                  ...people.map((person) => ({ value: person.id, label: person.email })),
+                ]}
+              />
+            )}
+          </FormField>
+          <FormField id="pulse-action-due" label={t("actions.form.due")}>
+            {(field) => (
+              <Input
+                {...field}
+                type="date"
+                value={draft.dueOn}
+                onChange={(event) => set("dueOn", event.target.value)}
+              />
+            )}
+          </FormField>
+          <FormField id="pulse-action-priority" label={t("actions.form.priority")}>
+            {(field) => (
+              <SelectField
+                {...field}
+                value={draft.priority}
+                onValueChange={(value) => set("priority", value as Priority)}
+                options={PRIORITIES.map((priority) => ({
+                  value: priority,
+                  label: t(`actions.priorities.${priority}`),
+                }))}
+              />
+            )}
+          </FormField>
         </div>
         {others.length > 0 && (
           <fieldset className="space-y-2">
@@ -172,16 +172,17 @@ export function ActionDialog({
             </div>
           </fieldset>
         )}
-        <div className="space-y-2">
-          <Label htmlFor="pulse-action-criteria">{t("actions.form.criteria")}</Label>
-          <Input
-            id="pulse-action-criteria"
-            value={draft.successCriteria}
-            maxLength={1000}
-            placeholder={t("actions.form.criteriaPlaceholder")}
-            onChange={(event) => set("successCriteria", event.target.value)}
-          />
-        </div>
+        <FormField id="pulse-action-criteria" label={t("actions.form.criteria")}>
+          {(field) => (
+            <Input
+              {...field}
+              value={draft.successCriteria}
+              maxLength={1000}
+              placeholder={t("actions.form.criteriaPlaceholder")}
+              onChange={(event) => set("successCriteria", event.target.value)}
+            />
+          )}
+        </FormField>
         {error && (
           <p role="alert" className="text-sm text-destructive">
             {error}

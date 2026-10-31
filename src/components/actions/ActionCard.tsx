@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Input, Label, cn, SelectField } from "@jordiorriols/ui";
+import { Button, FormField, Input, Textarea, cn, SelectField } from "@jordiorriols/ui";
 import { CalendarDays, History, Pencil, Trash2, UserRound } from "@jordiorriols/ui/icons";
 import { useData } from "@/data/DataProvider";
 import { useActionHistory } from "@/hooks/useActions";
@@ -12,7 +12,6 @@ import {
   type ActionUpdate,
   type ImprovementAction,
 } from "@/lib/actions";
-import { FIELD_CLASS } from "@/components/retros/styles";
 
 /** Runs a mutation and refreshes the actions; resolves to whether it worked. */
 export type ChangeAction = (operation: () => Promise<unknown>) => Promise<boolean>;
@@ -70,17 +69,18 @@ function OutcomeForm({
   return (
     <form onSubmit={submit} className="space-y-3 rounded-md bg-muted/50 p-3">
       <p className="text-sm font-medium">{t("actions.outcome.title")}</p>
-      <div className="space-y-1">
-        <Label htmlFor={`${id}-text`}>{t("actions.outcome.outcome")}</Label>
-        <textarea
-          id={`${id}-text`}
-          rows={2}
-          maxLength={2000}
-          value={outcome}
-          onChange={(event) => setOutcome(event.target.value)}
-          className={FIELD_CLASS}
-        />
-      </div>
+      <FormField id={`${id}-text`} label={t("actions.outcome.outcome")} className="space-y-1">
+        {(field) => (
+          <Textarea
+            {...field}
+            rows={2}
+            maxLength={2000}
+            value={outcome}
+            onChange={(event) => setOutcome(event.target.value)}
+            className="min-h-16"
+          />
+        )}
+      </FormField>
       <fieldset className="space-y-1">
         <legend className="text-sm font-medium">{t("actions.outcome.helped")}</legend>
         <div className="flex flex-wrap gap-x-4 gap-y-1">
@@ -98,15 +98,16 @@ function OutcomeForm({
           ))}
         </div>
       </fieldset>
-      <div className="space-y-1">
-        <Label htmlFor={`${id}-follow`}>{t("actions.outcome.followUp")}</Label>
-        <Input
-          id={`${id}-follow`}
-          value={followUp}
-          maxLength={2000}
-          onChange={(event) => setFollowUp(event.target.value)}
-        />
-      </div>
+      <FormField id={`${id}-follow`} label={t("actions.outcome.followUp")} className="space-y-1">
+        {(field) => (
+          <Input
+            {...field}
+            value={followUp}
+            maxLength={2000}
+            onChange={(event) => setFollowUp(event.target.value)}
+          />
+        )}
+      </FormField>
       <div className="flex justify-end gap-2">
         <Button type="button" variant="ghost" size="sm" onClick={onCancel}>
           {t("actions.outcome.cancel")}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Modal, cn } from "@jordiorriols/ui";
+import { Button, FormField, Modal, Textarea, cn } from "@jordiorriols/ui";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
 import { RATINGS, isComplete, type Survey } from "@/lib/surveys";
 import { RATING_TONES, questionText, scaleLabels } from "./scale";
@@ -104,20 +104,21 @@ export function AnswerSurveyDialog({
           );
         })}
         {survey.asksComment && (
-          <div className="space-y-2">
-            <label htmlFor="pulse-comment" className="text-sm font-medium">
-              {t("surveys.answer.comment")}
-            </label>
-            <textarea
-              id="pulse-comment"
-              value={comment}
-              maxLength={2000}
-              rows={3}
-              onChange={(event) => setComment(event.target.value)}
-              className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
-            />
-            <p className="text-xs text-muted-foreground">{t("surveys.answer.commentHint")}</p>
-          </div>
+          <FormField
+            id="pulse-comment"
+            label={t("surveys.answer.comment")}
+            description={t("surveys.answer.commentHint")}
+          >
+            {(field) => (
+              <Textarea
+                {...field}
+                value={comment}
+                maxLength={2000}
+                rows={3}
+                onChange={(event) => setComment(event.target.value)}
+              />
+            )}
+          </FormField>
         )}
         <p className="rounded-md bg-muted px-3 py-2 text-xs text-muted-foreground">
           {t("surveys.answer.privacy", { minimum: survey.minResponses })}

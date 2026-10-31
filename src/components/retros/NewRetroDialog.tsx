@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Checkbox, Input, Label, Modal, cn } from "@jordiorriols/ui";
+import { Button, Checkbox, FormField, Input, Label, Modal, Textarea, cn } from "@jordiorriols/ui";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
 import type { NewRetro } from "@/data/retros";
 import {
@@ -10,7 +10,6 @@ import {
   TEMPLATE_COLUMNS,
   type RetroTemplate,
 } from "@/lib/retros";
-import { FIELD_CLASS } from "./styles";
 
 const today = () => {
   const now = new Date();
@@ -80,53 +79,53 @@ export function NewRetroDialog({
         </Button>
       }
     >
-      <form
-        id="pulse-new-retro"
-        onSubmit={submit}
-        className="space-y-5"
-      >
+      <form id="pulse-new-retro" onSubmit={submit} className="space-y-5">
         <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_10rem]">
-          <div className="space-y-2">
-            <Label htmlFor="pulse-retro-title">{t("retros.create.name")}</Label>
+          <FormField id="pulse-retro-title" label={t("retros.create.name")}>
+            {(field) => (
+              <Input
+                {...field}
+                value={title}
+                maxLength={120}
+                placeholder={t("retros.create.namePlaceholder")}
+                onChange={(event) => setTitle(event.target.value)}
+              />
+            )}
+          </FormField>
+          <FormField id="pulse-retro-date" label={t("retros.create.date")}>
+            {(field) => (
+              <Input
+                {...field}
+                type="date"
+                value={heldOn}
+                onChange={(event) => setHeldOn(event.target.value)}
+              />
+            )}
+          </FormField>
+        </div>
+        <FormField id="pulse-retro-period" label={t("retros.create.period")}>
+          {(field) => (
             <Input
-              id="pulse-retro-title"
-              value={title}
-              maxLength={120}
-              placeholder={t("retros.create.namePlaceholder")}
-              onChange={(event) => setTitle(event.target.value)}
+              {...field}
+              value={period}
+              maxLength={80}
+              placeholder={t("retros.create.periodPlaceholder")}
+              onChange={(event) => setPeriod(event.target.value)}
             />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="pulse-retro-date">{t("retros.create.date")}</Label>
-            <Input
-              id="pulse-retro-date"
-              type="date"
-              value={heldOn}
-              onChange={(event) => setHeldOn(event.target.value)}
+          )}
+        </FormField>
+        <FormField id="pulse-retro-goal" label={t("retros.create.goal")}>
+          {(field) => (
+            <Textarea
+              {...field}
+              className="min-h-16"
+              value={goal}
+              maxLength={500}
+              placeholder={t("retros.create.goalPlaceholder")}
+              onChange={(event) => setGoal(event.target.value)}
             />
-          </div>
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="pulse-retro-period">{t("retros.create.period")}</Label>
-          <Input
-            id="pulse-retro-period"
-            value={period}
-            maxLength={80}
-            placeholder={t("retros.create.periodPlaceholder")}
-            onChange={(event) => setPeriod(event.target.value)}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="pulse-retro-goal">{t("retros.create.goal")}</Label>
-          <textarea
-            id="pulse-retro-goal"
-            className={cn(FIELD_CLASS, "min-h-16")}
-            value={goal}
-            maxLength={500}
-            placeholder={t("retros.create.goalPlaceholder")}
-            onChange={(event) => setGoal(event.target.value)}
-          />
-        </div>
+          )}
+        </FormField>
 
         <fieldset className="space-y-2">
           <legend className="text-sm font-medium">{t("retros.create.template")}</legend>
