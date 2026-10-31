@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Input, cn } from "@jordiorriols/ui";
+import { Button, Input, Textarea, cn } from "@jordiorriols/ui";
 import { EyeOff, Pencil, ShieldCheck, Trash2, UserRound } from "@jordiorriols/ui/icons";
 import type { TopicDraft } from "@/data/retros";
 import { TEMPLATE_COLUMNS, type Retro, type RetroBoard, type RetroTopic } from "@/lib/retros";
-import { FIELD_CLASS, toneOf } from "./styles";
+import { toneOf } from "./styles";
 
 function TopicForm({
   column,
@@ -46,8 +46,8 @@ function TopicForm({
         onChange={(event) => setTitle(event.target.value)}
       />
       {(title || initial) && (
-        <textarea
-          className={cn(FIELD_CLASS, "min-h-14")}
+        <Textarea
+          className="min-h-14"
           value={description}
           maxLength={1000}
           aria-label={t("retros.collect.topicDescription", { column: columnName })}

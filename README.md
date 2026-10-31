@@ -20,6 +20,9 @@ use UI's shared Radix `Checkbox`, with label activation and keyboard Space suppo
 ## Status
 Dialogs use the shared UI modal's single scrolling content region. Form controls
 and lists do not add nested vertical scrollbars; footer actions remain visible.
+Action, survey and retrospective forms use UI's `FormField` and `Textarea`.
+Hints are associated with their controls; the app retains validation, translation
+and save behavior rather than duplicating textarea styling.
 
 Team Pulse surveys, guided retrospectives, improvement actions and the team
 overview work end to end.

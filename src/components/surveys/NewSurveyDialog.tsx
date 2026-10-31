@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Checkbox, Input, Label, Modal } from "@jordiorriols/ui";
+import { Button, Checkbox, FormField, Input, Modal } from "@jordiorriols/ui";
 import { Plus, X } from "@jordiorriols/ui/icons";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
 import type { NewSurvey } from "@/data/surveys";
@@ -96,21 +96,18 @@ export function NewSurveyDialog({
         </Button>
       }
     >
-      <form
-        id="pulse-new-survey"
-        onSubmit={submit}
-        className="space-y-5"
-      >
-        <div className="space-y-2">
-          <Label htmlFor="pulse-survey-title">{t("surveys.create.name")}</Label>
-          <Input
-            id="pulse-survey-title"
-            value={title}
-            maxLength={120}
-            placeholder={t("surveys.create.namePlaceholder")}
-            onChange={(event) => setTitle(event.target.value)}
-          />
-        </div>
+      <form id="pulse-new-survey" onSubmit={submit} className="space-y-5">
+        <FormField id="pulse-survey-title" label={t("surveys.create.name")}>
+          {(field) => (
+            <Input
+              {...field}
+              value={title}
+              maxLength={120}
+              placeholder={t("surveys.create.namePlaceholder")}
+              onChange={(event) => setTitle(event.target.value)}
+            />
+          )}
+        </FormField>
 
         <fieldset className="space-y-2">
           <legend className="text-sm font-medium">{t("surveys.create.questions")}</legend>
@@ -198,18 +195,23 @@ export function NewSurveyDialog({
             />
             <span>{t("surveys.create.asksComment")}</span>
           </label>
-          <div className="space-y-1.5">
-            <Label htmlFor="pulse-survey-minimum">{t("surveys.create.minimum")}</Label>
-            <Input
-              id="pulse-survey-minimum"
-              type="number"
-              min={1}
-              max={50}
-              value={minimum}
-              onChange={(event) => setMinimum(Number(event.target.value))}
-            />
-            <p className="text-xs text-muted-foreground">{t("surveys.create.minimumHint")}</p>
-          </div>
+          <FormField
+            id="pulse-survey-minimum"
+            label={t("surveys.create.minimum")}
+            description={t("surveys.create.minimumHint")}
+            className="space-y-1.5"
+          >
+            {(field) => (
+              <Input
+                {...field}
+                type="number"
+                min={1}
+                max={50}
+                value={minimum}
+                onChange={(event) => setMinimum(Number(event.target.value))}
+              />
+            )}
+          </FormField>
         </div>
         {error && (
           <p role="alert" className="text-sm text-destructive">

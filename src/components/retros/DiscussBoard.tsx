@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Label, cn } from "@jordiorriols/ui";
+import { Button, FormField, Textarea, cn } from "@jordiorriols/ui";
 import { NotebookPen } from "@jordiorriols/ui/icons";
 import {
   DECISIONS,
@@ -11,7 +11,6 @@ import {
   type RetroBoard,
 } from "@/lib/retros";
 import { useGroupName } from "./GroupBoard";
-import { FIELD_CLASS } from "./styles";
 
 const NOTE_FIELDS = ["summary", "impact", "rootCauses", "context"] as const;
 type NoteField = (typeof NOTE_FIELDS)[number];
@@ -87,20 +86,24 @@ function NotesForm({
         {NOTE_FIELDS.map((field) => {
           const id = `pulse-notes-${group.id}-${field}`;
           return (
-            <div key={field} className="space-y-1">
-              <Label htmlFor={id} className="text-xs">
-                {t(`retros.discuss.fields.${field}`)}
-              </Label>
-              <textarea
-                id={id}
-                className={cn(FIELD_CLASS, "min-h-16")}
-                value={notes[field]}
-                maxLength={2000}
-                onChange={(event) =>
-                  setNotes((current) => ({ ...current, [field]: event.target.value }))
-                }
-              />
-            </div>
+            <FormField
+              key={field}
+              id={id}
+              label={t(`retros.discuss.fields.${field}`)}
+              className="space-y-1"
+            >
+              {(control) => (
+                <Textarea
+                  {...control}
+                  className="min-h-16"
+                  value={notes[field]}
+                  maxLength={2000}
+                  onChange={(event) =>
+                    setNotes((current) => ({ ...current, [field]: event.target.value }))
+                  }
+                />
+              )}
+            </FormField>
           );
         })}
       </div>
