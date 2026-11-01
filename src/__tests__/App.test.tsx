@@ -1,5 +1,5 @@
 import React from "react";
-import { act, render, screen, within } from "@testing-library/react";
+import { act, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -556,7 +556,9 @@ describe("Pulse shell", () => {
 
   it("opens the first workspace from the shared workspace bar", async () => {
     renderAt("/");
-    expect(await screen.findByTestId("workspace-switcher")).toHaveTextContent("Platform");
+    await waitFor(() =>
+      expect(screen.getByTestId("workspace-switcher")).toHaveTextContent("Platform")
+    );
     expect(screen.getByTestId("workspace-share")).toBeInTheDocument();
     expect((client.current as { rpc: ReturnType<typeof vi.fn> }).rpc).toHaveBeenCalledWith(
       "list_workspaces",
