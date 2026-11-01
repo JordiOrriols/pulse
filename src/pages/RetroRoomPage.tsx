@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { AppFooter, AppMain, AppPage, AppSkeleton, Button } from "@jordiorriols/ui";
+import { PublicAppShell, AppSkeleton, Button } from "@jordiorriols/ui";
 import { ArrowLeft, Maximize2, Minimize2 } from "@jordiorriols/ui/icons";
 import { useAsyncAction } from "@jordiorriols/ui/hooks";
 import { useWorkspace } from "@/data/WorkspaceProvider";
@@ -25,62 +25,72 @@ export default function RetroRoomPage() {
     return () => document.removeEventListener("fullscreenchange", update);
   }, []);
   return (
-    <AppPage>
-      <AppMain className="!max-w-none space-y-4">
-        <header className="flex flex-wrap items-center justify-between gap-3">
-          <Button
-            variant="ghost"
-            disabled={action.busy}
-            onClick={() =>
-              void action.run(async () => {
-                if (document.fullscreenElement) await document.exitFullscreen();
-                navigate(`/retrospectives?retro=${encodeURIComponent(retroId)}`);
-              })
-            }
-          >
-            <ArrowLeft className="size-4" />
-            {t("retroRoom.back")}
-          </Button>
-          {allowed && (
+    <PublicAppShell
+      projectId="pulse"
+      mainClassName="max-w-none space-y-4"
+      header={{
+        title: t("app.name"),
+        language: {
+          value: i18n.language,
+          label: t("app.language"),
+          onValueChange: (language) => void i18n.changeLanguage(language),
+        },
+        actions: (
+          <div className="flex flex-wrap items-center gap-3">
             <Button
-              variant="outline"
-              disabled={
-                action.busy || typeof document.documentElement.requestFullscreen !== "function"
-              }
+              variant="ghost"
+              disabled={action.busy}
               onClick={() =>
                 void action.run(async () => {
                   if (document.fullscreenElement) await document.exitFullscreen();
-                  else await document.documentElement.requestFullscreen();
+                  navigate(`/retrospectives?retro=${encodeURIComponent(retroId)}`);
                 })
               }
             >
-              {browserFullscreen ? (
-                <Minimize2 className="size-4" />
-              ) : (
-                <Maximize2 className="size-4" />
-              )}
-              {t(browserFullscreen ? "retroRoom.exitBrowser" : "retroRoom.enterBrowser")}
+              <ArrowLeft className="size-4" />
+              {t("retroRoom.back")}
             </Button>
-          )}
-        </header>
-        {action.error && (
-          <p role="alert" className="text-destructive">
-            {action.error}
-          </p>
-        )}
-        {error ? (
-          <p role="alert" className="text-destructive">
-            {error}
-          </p>
-        ) : loading || (allowed && workspace?.id !== workspaceId) ? (
-          <AppSkeleton label={t("app.loading")} />
-        ) : !allowed ? (
-          <p role="alert">{t("retroRoom.noAccess")}</p>
-        ) : (
-          <RetrospectivesPage key={`${workspaceId}:${retroId}`} retroId={retroId} fullscreen />
-        )}
-      </AppMain>
-      <AppFooter projectId="pulse" language={i18n.language} />
-    </AppPage>
+            {allowed && (
+              <Button
+                variant="outline"
+                disabled={
+                  action.busy || typeof document.documentElement.requestFullscreen !== "function"
+                }
+                onClick={() =>
+                  void action.run(async () => {
+                    if (document.fullscreenElement) await document.exitFullscreen();
+                    else await document.documentElement.requestFullscreen();
+                  })
+                }
+              >
+                {browserFullscreen ? (
+                  <Minimize2 className="size-4" />
+                ) : (
+                  <Maximize2 className="size-4" />
+                )}
+                {t(browserFullscreen ? "retroRoom.exitBrowser" : "retroRoom.enterBrowser")}
+              </Button>
+            )}
+          </div>
+        ),
+      }}
+    >
+      {action.error && (
+        <p role="alert" className="text-destructive">
+          {action.error}
+        </p>
+      )}
+      {error ? (
+        <p role="alert" className="text-destructive">
+          {error}
+        </p>
+      ) : loading || (allowed && workspace?.id !== workspaceId) ? (
+        <AppSkeleton label={t("app.loading")} />
+      ) : !allowed ? (
+        <p role="alert">{t("retroRoom.noAccess")}</p>
+      ) : (
+        <RetrospectivesPage key={`${workspaceId}:${retroId}`} retroId={retroId} fullscreen />
+      )}
+    </PublicAppShell>
   );
 }

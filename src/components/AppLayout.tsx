@@ -3,6 +3,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   AppShell,
+  AppAccountControls,
   AppNavigation,
   AppNavigationItem,
   AppSkeleton,
@@ -13,16 +14,16 @@ import {
   getDisplayName,
 } from "@jordiorriols/ui";
 import { FolderOpen } from "@jordiorriols/ui/icons";
-import { useAsyncAction } from "@jordiorriols/ui/hooks";
+import { useAuthDialogProps } from "./LoginDialog";
 import { useData } from "@/data/DataProvider";
 import { useWorkspace } from "@/data/WorkspaceProvider";
 import { SECTIONS } from "@/sections";
 
 export default function AppLayout() {
   const { t, i18n } = useTranslation();
-  const { signOut, user, workspaceApi } = useData();
+  const { authEnabled, authError, user, workspaceApi } = useData();
   const { workspaces, workspace, select, refresh, error, loading } = useWorkspace();
-  const action = useAsyncAction();
+  const auth = useAuthDialogProps();
 
   return (
     <AppShell
@@ -37,16 +38,20 @@ export default function AppLayout() {
           className: "inline-flex",
           onValueChange: (language) => void i18n.changeLanguage(language),
         },
-        accountAction: {
-          type: "signOut",
-          label: t("auth.signOut"),
-          title: getDisplayName({
-            accountName: user?.user_metadata?.["full_name"] ?? user?.user_metadata?.["name"],
-            email: user?.email ?? "",
-          }),
-          disabled: action.busy,
-          onClick: () => void action.run(signOut),
-        },
+        actions: (
+          <AppAccountControls
+            {...auth}
+            projectId="pulse"
+            enabled={authEnabled}
+            signedIn={!!user}
+            authError={authError}
+            signOutLabel={t("auth.signOut")}
+            accountTitle={getDisplayName({
+              accountName: user?.user_metadata?.["full_name"] ?? user?.user_metadata?.["name"],
+              email: user?.email ?? "",
+            })}
+          />
+        ),
         navigation: (
           <AppNavigation
             label={t("app.pages")}
@@ -80,7 +85,6 @@ export default function AppLayout() {
         ),
       }}
     >
-      {action.error && <ErrorState message={action.error} />}
       {error && <ErrorState message={error} />}
       {loading ? (
         <AppSkeleton label={t("app.loading")} />
