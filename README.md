@@ -65,7 +65,7 @@ set a minimum number of responses. They can close, reopen and delete it.
 Anyone with Pulse access answers once.
 
 Anonymity is enforced by the database (`supabase/migrations/20261017030000_pulse_surveys.sql`
-in Planner):
+in [backend](https://github.com/JordiOrriols/backend)):
 
 - `submit_pulse_response` stores the ratings and the comment without the
   account; `pulse_participations` only records who answered, so an account
@@ -121,7 +121,7 @@ While preparing the next retrospective, the facilitator sees the actions that
 are still open and the ones done since the last retrospective.
 
 The rules live in the database (`supabase/migrations/20261017040000_pulse_retrospectives.sql`
-in Planner). Accounts read only `pulse_retros`; topics, groups and votes come
+in [backend](https://github.com/JordiOrriols/backend)). Accounts read only `pulse_retros`; topics, groups and votes come
 from `pulse_retro_board`, which hides other people's topics during Collect,
 never returns authors of anonymous topics and hides vote totals until Discuss.
 
@@ -144,7 +144,8 @@ accounts with Pulse access to the workspace.
 The Actions page counts open, in progress, overdue and recently done actions,
 filters by status, owner, retrospective and due date, and groups by status,
 owner or retrospective. The rules live in the database
-(`supabase/migrations/20261017050000_pulse_actions.sql` in Planner).
+(`supabase/migrations/20261017050000_pulse_actions.sql` in
+[backend](https://github.com/JordiOrriols/backend)).
 
 ## Overview
 
