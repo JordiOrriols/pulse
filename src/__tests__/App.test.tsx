@@ -523,6 +523,10 @@ describe("Pulse shell", () => {
     expect(await screen.findByTestId("header-title")).toHaveTextContent("Pulse");
     await userEvent.click(screen.getByRole("button", { name: "Switch project" }));
     expect(screen.getByRole("menuitem", { name: "Pulse" })).toHaveAttribute("aria-current", "page");
+    expect(screen.getByRole("menuitem", { name: "Agents" })).toHaveAttribute(
+      "href",
+      "https://agents.jordiorriols.cat/"
+    );
   });
 
   it("navigates between the four sections from the shared tab bar", async () => {
