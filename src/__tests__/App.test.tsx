@@ -573,10 +573,12 @@ describe("Pulse shell", () => {
   it("asks for a workspace when the account has none, and opens the one it creates", async () => {
     auth.workspaces = [];
     renderAt("/");
-    expect(await screen.findByText("No workspace yet")).toBeInTheDocument();
+    const setup = await screen.findByTestId("workspace-setup");
+    expect(
+      within(setup).getByRole("button", { name: "Wait for an invitation" })
+    ).toBeInTheDocument();
     expect(screen.queryByRole("heading", { level: 1, name: "Overview" })).not.toBeInTheDocument();
-    await userEvent.click(screen.getByTestId("workspace-switcher"));
-    await userEvent.click(await screen.findByRole("menuitem", { name: "New workspace" }));
+    await userEvent.click(within(setup).getByRole("button", { name: "Create", exact: true }));
     await userEvent.type(screen.getByLabelText("Name"), "Mobile");
     await userEvent.click(screen.getByRole("button", { name: "Create" }));
     expect(await screen.findByRole("heading", { level: 1, name: "Overview" })).toBeInTheDocument();

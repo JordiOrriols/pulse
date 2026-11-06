@@ -7,10 +7,17 @@ The product brief is in [DEFINITION.md](./DEFINITION.md).
 Pulse is a sibling of Planner and Ladders and is built the same way:
 React 18, Vite, Tailwind 4, i18next (en, es, ca, fr, de, it) and the shared
 `@jordiorriols/ui` package for the header, project switcher, tabs and tokens.
-UI `^0.3.32` includes Agents in the shared project switcher.
-UI `^0.3.31` is installed from GitHub Packages. Header, project-menu and
+UI `^0.3.33` includes Agents in the shared project switcher.
+UI `^0.3.33` is installed from GitHub Packages. Header, project-menu and
 login/welcome icons reuse the shared purple Pulse branding through `projectId`
 and `ProjectIcon`; no local palette is maintained.
+
+Accounts with no accessible workspace use UI's shared `WorkspaceSetup` to
+explicitly create one or wait for an invitation, checked automatically.
+The workspace menu offers owner-only confirmed deletion. Backend
+`delete_workspace` rejects content across all five apps and removes empty
+teams/projects; the UI displays failures and refreshes only on success.
+Deploy the backend lifecycle migration before enabling these controls.
 
 Action forms, status/filter controls and retrospective move/merge dropdowns use
 UI's shared `SelectField` listbox, including inside modals. Workspace sharing uses
